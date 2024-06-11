@@ -1,0 +1,70 @@
+#!/usr/bin/env sh
+# Este script é um hook do Git (commit-msg) usado para garantir que as mensagens de commit
+# sigam um padrão específico que inclui um ID de issue no nome da branch. Ele verifica se a
+# branch atual é 'main' ou 'develop' e valida o padrão do nome da branch e da mensagem de commit.
+# Dependências: git, grep, expr
+
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Definição de cores para mensagens de saída
+NC='\033[0m'  # Sem cor
+BBlue='\033[1;34m'  # Azul brilhante
+BRed='\033[1;31m'  # Vermelho brilhante
+BGreen='\033[1;32m'  # Verde brilhante
+
+# Função para imprimir mensagens com cor
+echo_color() {
+    printf "%b\n" "$1$2${NC}"
+}
+
+# Obtém o nome da branch atual usando git
+BRANCH_NAME=$(git symbolic-ref --short HEAD)
+
+# Proíbe commits diretos nas branches 'main' e 'develop'
+echo_color "$BBlue" "Verificando o nome da branch..."
+if [ "$BRANCH_NAME" = "main" ] || [ "$BRANCH_NAME" = "develop" ]; then
+    echo_color "$BRed" "Não é permitido commitar diretamente na branch '$BRANCH_NAME'."
+    exit 1
+fi
+
+# Regex para validar o padrão do ID da issue no nome da branch
+REGEX_ISSUE_ID="^\d+" # Exemplo: 12345-setup-configuration-09 extrai: 12345
+# Outra opção de regex, descomente a linha desejada
+# REGEX_ISSUE_ID="[a-zA-Z0-9_\-]+-[0-9]+" # Exemplo: feat/setup-configuration/pro-1 extrai: pro-1
+# REGEX_ISSUE_ID="[a-zA-Z0-9,\.\_\-]+-[0-9]+[a-zA-Z0-9,\-]+" # Exemplo: feat/setup-configuration/pro-1-task-1 extrai: pro-1-task-1
+
+# Extrai o ID da issue do nome da branch usando grep
+ISSUE_ID=$(echo "$BRANCH_NAME" | grep -o -E "$REGEX_ISSUE_ID")
+
+# Verifica se o arquivo de mensagem de commit existe e é legível
+if [ ! -f "$1" ] || [ ! -r "$1" ]; then
+    echo_color "$BRed" "Arquivo de mensagem de commit não encontrado ou não é legível."
+    exit 1
+fi
+
+# Lê a mensagem de commit do arquivo fornecido
+COMMIT_MESSAGE=$(cat "$1")
+
+# Verifica se o nome da branch segue o padrão esperado incluindo um ID de issue
+echo_color "$BBlue" "Verificando o padrão do nome da branch... ISSUE_ID: $ISSUE_ID"
+if [ -z "$ISSUE_ID" ]; then
+    echo_color "$BRed" "Branch não está no padrão esperado. Inclua um ID de issue no nome da branch."
+    exit 1
+fi
+
+# Verifica se a mensagem de commit começa com o ID da issue extraído da branch
+# Utiliza 'expr' para compatibilidade com POSIX sh
+if expr "$COMMIT_MESSAGE" : ".*$ISSUE_ID.*" > /dev/null; then
+    # Se a mensagem de commit começa com o ID da issue, o script termina com sucesso
+    echo_color "$BGreen" "A mensagem de commit está no formato correto."
+    exit 0
+fi
+
+# Se a mensagem de commit não começa com o ID da issue, reformata a mensagem de commit
+# para incluir o ID da issue no início e salva no arquivo de mensagem de commit
+echo_color "$BBlue" "Formatando a mensagem de commit para incluir o ID da issue..."
+echo "[$ISSUE_ID]: $COMMIT_MESSAGE" > $1
+echo_color "$BGreen" "A mensagem de commit foi formatada com sucesso."
+
+exit 0
+sh

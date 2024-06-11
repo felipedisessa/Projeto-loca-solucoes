@@ -1,0 +1,106 @@
+{
+    "preset": "psr12",
+    "rules": {
+        "array_indentation": true,
+        "array_syntax": {
+            "syntax": "short"
+        },
+        "assign_null_coalescing_to_coalesce_equal": true,
+        "binary_operator_spaces": {
+            "default": "align_single_space_minimal",
+            "operators": {
+                "=": "align_single_space_minimal",
+                "=>": "align_single_space_minimal"
+            }
+        },
+        "blank_line_after_namespace": true,
+        "blank_line_after_opening_tag": false,
+        "blank_line_before_statement": {
+            "statements": [
+                "break",
+                "continue",
+                "declare",
+                "return",
+                "throw",
+                "try",
+                "continue",
+                "do",
+                "exit",
+                "for",
+                "foreach",
+                "if",
+                "include",
+                "include_once",
+                "require",
+                "require_once"
+            ]
+        },
+        "braces": {
+            "allow_single_line_closure": true,
+            "position_after_functions_and_oop_constructs": "same"
+        },
+        "cast_spaces": {
+            "space": "single"
+        },
+        "class_attributes_separation": {
+            "elements": {
+                "const": "one",
+                "method": "one",
+                "property": "one",
+                "trait_import": "none",
+                "case": "none"
+            }
+        },
+        "combine_consecutive_issets": true,
+        "combine_consecutive_unsets": true,
+        "concat_space": {
+            "spacing": "one"
+        },
+        "constant_case": {
+            "case": "lower"
+        },
+        "declare_equal_normalize": {
+            "space": "single"
+        },
+        "declare_parentheses": true,
+        "function_declaration": {
+            "closure_fn_spacing": "none",
+            "closure_function_spacing": "none"
+        },
+        "elseif": false,
+        "encoding": true,
+        "function_typehint_space": true,
+        "indentation_type": true,
+        "line_ending": true,
+        "multiline_whitespace_before_semicolons": {
+            "strategy": "no_multi_line"
+        },
+        "no_unused_imports": true,
+        "no_useless_else": false,
+        "no_useless_return": true,
+        "ordered_imports": true,
+        "ternary_operator_spaces": true,
+        "no_extra_blank_lines": {
+            "tokens": [
+                "extra"
+            ]
+        },
+        "no_multiline_whitespace_around_double_arrow": true,
+        "no_singleline_whitespace_before_semicolons": true,
+        "no_spaces_around_offset": {
+            "positions": [
+                "inside",
+                "outside"
+            ]
+        },
+        "single_import_per_statement": {
+            "group_to_single_imports": true
+        },
+        "ternary_to_null_coalescing": true,
+        "trim_array_spaces": true,
+        "unary_operator_spaces": true,
+        "whitespace_after_comma_in_array": {
+            "ensure_single_space": true
+        }
+    }
+}
