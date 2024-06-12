@@ -9,28 +9,11 @@
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
-                <th scope="col" class="px-6 py-3">
-                    Nome
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    E-mail
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Telefone
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Mobile
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Permissao
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Documento
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Notas
-                </th>
-
+                <th scope="col" class="px-6 py-3">Nome</th>
+                <th scope="col" class="px-6 py-3">E-mail</th>
+                <th scope="col" class="px-6 py-3">Telefone</th>
+                <th scope="col" class="px-6 py-3">Permissao</th>
+                <th scope="col" class="px-6 py-3">Ações</th>
             </tr>
             </thead>
             <tbody>
@@ -39,32 +22,21 @@
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         {{ $user->name }}
                     </th>
+                    <td class="px-6 py-4">{{ $user->email }}</td>
+                    <td class="px-6 py-4">{{ $user->phone }}</td>
+                    <td class="px-6 py-4">{{ $user->role }}</td>
                     <td class="px-6 py-4">
-                        {{ $user->email }}
-                    </td>
-                    <td class="px-6 py-4">
-                        {{ $user->phone }}
-                    </td>
-                    <td class="px-6 py-4">
-                        {{ $user->mobile }}
-                    </td>
-                    <td class="px-6 py-4">
-                        {{ $user->role }}
-                    </td>
-                    <td class="px-6 py-4">
-                        {{ $user->cpf_cnpj}}
-                    </td>
-                    <td class="px-6 py-4">
-                        {{ $user->user_notes }}
-                    </td>
+                        <a href="{{ route('users.show', $user->id) }}" class="cursor-pointer">
+                            <x-icons.eye />
+                        </a>
 
+                    </td>
                 </tr>
             @endforeach
             </tbody>
         </table>
         <div class="my-4">
-            {{$users->links()}}
+            {{ $users->links() }}
         </div>
     </div>
-
 </x-app-layout>

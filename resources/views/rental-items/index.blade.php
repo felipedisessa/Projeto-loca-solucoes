@@ -1,8 +1,14 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Items de Locação') }}
-        </h2>
+        <div class="flex items-center justify-between">
+            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                {{ __('Items de Locação') }}
+            </h2>
+            <x-nav-link :href="route('rental-items.create')" :active="request()->routeIs('rental-items.create')"
+                        class="flex items-center justify-center py-2.5 px-5 text-sm font-medium text-center text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                {{ __('Cadastrar item') }}
+            </x-nav-link>
+        </div>
     </x-slot>
 
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-8">
@@ -12,11 +18,8 @@
                 <th scope="col" class="px-6 py-3">Nome</th>
                 <th scope="col" class="px-6 py-3">Descrição</th>
                 <th scope="col" class="px-6 py-3">Proprietário</th>
-                <th scope="col" class="px-6 py-3">Preço por hora</th>
                 <th scope="col" class="px-6 py-3">Preço por dia</th>
-                <th scope="col" class="px-6 py-3">Preço por mês</th>
                 <th scope="col" class="px-6 py-3">Status</th>
-                <th scope="col" class="px-6 py-3">Observações</th>
                 <th scope="col" class="px-6 py-3">Ações</th>
             </tr>
             </thead>
@@ -28,11 +31,8 @@
                     </th>
                     <td class="px-6 py-4">{{ $rentalItem->description }}</td>
                     <td class="px-6 py-4">{{ $rentalItem->user?->name ?? 'N/A' }}</td>
-                    <td class="px-6 py-4">{{ $rentalItem->price_per_hour }}</td>
                     <td class="px-6 py-4">{{ $rentalItem->price_per_day }}</td>
-                    <td class="px-6 py-4">{{ $rentalItem->price_per_month }}</td>
                     <td class="px-6 py-4">{{ $rentalItem->status }}</td>
-                    <td class="px-6 py-4">{{ $rentalItem->rental_item_notes }}</td>
                     <td class="flex items-center px-6 py-4 space-x-2">
                         <a href="{{route('rental-items.show', $rentalItem->id ) }}" class="cursor-pointer">
                             <x-icons.eye/>
