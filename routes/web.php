@@ -24,7 +24,7 @@ Route::middleware('auth')->group(function() {
 
     //region Rental Items
     Route::resource('rental-items', RentalItemController::class);
-    Route::resource('users', UserController::class);
+    Route::resource('users', ProfileController::class);
     //endregion
 });
 
