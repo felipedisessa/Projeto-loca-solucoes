@@ -54,6 +54,7 @@ class RentalItemController extends Controller
     {
         $landLordUsers = User::query()->where('role', 'landlord')->get();
 
+
         return view('rental-items.edit', compact('rentalItem', 'landLordUsers'));
     }
 

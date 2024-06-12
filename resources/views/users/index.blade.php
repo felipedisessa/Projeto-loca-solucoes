@@ -38,7 +38,7 @@
                             <x-icons.trash />
                         </button>
 
-                        <a href="{{ route('users.edit', $user->id) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                        <a href="{{ route('profile.edit', $user->id) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
                             <x-icons.edit/>
                         </a>
                     </td>
