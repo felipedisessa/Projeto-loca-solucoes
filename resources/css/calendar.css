@@ -1,0 +1,25 @@
+#calendar {
+    background-color: #ffffff; /* Fundo branco */
+}
+
+.fc-toolbar {
+    background-color: #ffffff; /* Fundo branco na barra de ferramentas */
+}
+
+.fc-daygrid-day {
+    background-color: #ffffff; /* Fundo branco nos dias */
+}
+
+.fc-daygrid-day-number {
+    color: #000000; /* Texto preto nos números dos dias */
+}
+
+.fc-event {
+    background-color: #3788d8; /* Cor de fundo do evento */
+    color: #ffffff; /* Cor do texto do evento */
+    border: 1px solid #ffffff; /* Borda do evento */
+}
+
+.fc-day-today {
+    background-color: #eaf6ff !important; /* Cor de fundo do dia atual */
+}
