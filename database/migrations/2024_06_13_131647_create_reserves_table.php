@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('reserves', function(Blueprint $table) {
             $table->id();
-            $table->foreignId(('user_id'))->constrained();
+            $table->foreignId('user_id')->constrained();
             $table->string('title');
             $table->string('description')->nullable();
-            $table->decimal('start')->nullable();
-            $table->decimal('end')->nullable();
-            $table->foreignId(('rental_item_id'))->constrained();
+            $table->string('start');
+            $table->string('end');
+            $table->foreignId('rental_item_id')->constrained();
             $table->string('status')->nullable();
-            $table->softDeletes();
+            $table->softDeletes()->nullable();
             $table->timestamps();
         });
     }

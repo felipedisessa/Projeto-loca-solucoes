@@ -1,17 +1,15 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Editar Usuário') }}
+            {{ __('Usuarios') }}
         </h2>
     </x-slot>
-
     <div class="max-w-md mx-auto sm:px-6 lg:p-8 mt-8 bg-slate-800">
-        <form action="{{ route('users.update', $user->id) }}" method="post" class="max-w-md mx-auto">
+        <form action="{{ route('users.store') }}" method="post" class="max-w-md mx-auto">
             @csrf
-            @method('patch')
 
             <div class="relative z-0 w-full mb-5 group">
-                <input type="text" name="name" id="name" value="{{$user->name}}"
+                <input type="text" name="name" id="name"
                        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                        placeholder=" "/>
                 <label for="name"
@@ -21,7 +19,7 @@
             </div>
 
             <div class="relative z-0 w-full mb-5 group">
-                <input type="email" name="email" id="email" value="{{$user->email}}"
+                <input type="email" name="email" id="email"
                        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                        placeholder=" "/>
                 <label for="email"
@@ -31,7 +29,7 @@
             </div>
 
             <div class="relative z-0 w-full mb-5 group">
-                <input type="text" name="phone" id="phone" value="{{$user->phone}}"
+                <input type="text" name="phone" id="phone"
                        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                        placeholder=" "/>
                 <label for="phone"
@@ -41,7 +39,7 @@
             </div>
 
             <div class="relative z-0 w-full mb-5 group">
-                <input type="text" name="mobile" id="mobile" value="{{$user->mobile}}"
+                <input type="text" name="mobile" id="mobile"
                        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                        placeholder=" "/>
                 <label for="mobile"
@@ -54,7 +52,6 @@
                 <label for="role" class="sr-only">Underline select</label>
                 <select id="role" name="role"
                         class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
-                    <option value="{{$user->role}}" selected>{{$user->role}}</option>
                     <option value="visitor">visitor</option>
                     <option value="landlord">landlord</option>
                     <option value="admin">admin</option>
@@ -63,7 +60,7 @@
             </div>
 
             <div class="relative z-0 w-full mb-5 group">
-                <input type="text" name="cpf_cnpj" id="cpf_cnpj" value="{{$user->cpf_cnpj}}"
+                <input type="text" name="cpf_cnpj" id="cpf_cnpj"
                        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                        placeholder=" "/>
                 <label for="cpf_cnpj"
@@ -75,10 +72,20 @@
             <div class="relative z-0 w-full mb-5 group">
                 <textarea name="user_notes" id="user_notes"
                           class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                          placeholder=" ">{{$user->user_notes}}</textarea>
+                          placeholder=" "></textarea>
                 <label for="user_notes"
                        class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
                     Notas
+                </label>
+            </div>
+
+            <div class="relative z-0 w-full mb-5 group">
+                <textarea name="password" id="password"
+                          class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                          placeholder=" "></textarea>
+                <label for="password"
+                       class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                    Senha
                 </label>
             </div>
 

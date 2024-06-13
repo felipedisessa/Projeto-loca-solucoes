@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\RentalItem;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -14,27 +14,32 @@ class ProfileController extends Controller
     /**
      * Display the user's profile form.
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        $user = User::findOrFail($id);
-
         return view('users.edit', compact('user'));
+    }
+
+    public function create()
+    {
+        return view('users.create');
     }
 
     /**
      * Update the user's profile information.
      */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function update(Request $request, User $user)
     {
-        $request->user()->fill($request->validated());
+        $updateduser      = $request->all();
+        $user->name       = $updateduser['name'];
+        $user->email      = $updateduser['email'];
+        $user->phone      = $updateduser['phone'];
+        $user->mobile     = $updateduser['mobile'];
+        $user->role       = $updateduser['role'];
+        $user->cpf_cnpj   = $updateduser['cpf_cnpj'];
+        $user->user_notes = $updateduser['user_notes'];
+        $user->save();
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
-        }
-
-        $request->user()->save();
-
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        return redirect()->route('users.index');
     }
 
     /**
@@ -76,4 +81,27 @@ class ProfileController extends Controller
 
         return redirect()->route('users.index');
     }
+
+    public function store(Request $request)
+    {
+        User::query()->create([
+            'name'       => $request->name,
+            'email'      => $request->email,
+            'phone'      => $request->phone,
+            'mobile'     => $request->mobile,
+            'role'       => $request->role,
+            'cpf_cnpj'   => $request->cpf_cnpj,
+            'user_notes' => $request->user_notes,
+            'password'   => $request->password,
+
+
+
+        ]);
+
+        return back();
+    }
+
+
+
+
 }

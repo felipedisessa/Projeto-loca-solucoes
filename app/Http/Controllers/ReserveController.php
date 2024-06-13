@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\RentalItem;
 use App\Models\Reserve;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -33,6 +34,13 @@ class ReserveController extends Controller
     public function create()
     {
         $bookUsers = User::query()->where('role', 'visitor')->get();
-        return view('reserves.create', compact('bookUsers'));
+        $bookItems = RentalItem::query()->get();
+
+        return view('reserves.create', compact('bookUsers', 'bookItems'));
+    }
+
+    public function show(Reserve $reserve)
+    {
+        return view('reserves.show', compact('reserve'));
     }
 }

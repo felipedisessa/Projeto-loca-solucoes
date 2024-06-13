@@ -28,6 +28,9 @@
                     <td class="px-6 py-4">{{ $reserve->description }}</td>
                     <td class="px-6 py-4">{{ $reserve->status }}</td>
                     <td class="flex items-center px-6 py-4 space-x-2">
+                        <a href="{{ route('reserves.show', $reserve->id) }}" class="cursor-pointer">
+                            <x-icons.eye />
+                        </a>
 
                 </tr>
             @endforeach

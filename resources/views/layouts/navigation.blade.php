@@ -27,6 +27,8 @@
                     <x-nav-link :href="route('reserves.index')" :active="request()->routeIs('reserves.index')">
                         {{ __('Reservas') }}
                     </x-nav-link>
+
+
                 </div>
             </div>
 
