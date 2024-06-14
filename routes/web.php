@@ -18,8 +18,7 @@ Route::middleware('auth')->group(function() {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
-
+    Route::get('/reserves/json', [ReserveController::class, 'getReservesJson']);
     //endregion
 
     //region Rental Items
@@ -27,6 +26,8 @@ Route::middleware('auth')->group(function() {
     Route::resource('users', ProfileController::class);
     Route::resource('reserves', ReserveController::class);
     //endregion
+
+    // routes/web.php
 });
 
 require __DIR__ . '/auth.php';

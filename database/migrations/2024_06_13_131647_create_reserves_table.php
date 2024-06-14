@@ -16,8 +16,8 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained();
             $table->string('title');
             $table->string('description')->nullable();
-            $table->string('start');
-            $table->string('end');
+            $table->DateTime('start');
+            $table->DateTime('end');
             $table->foreignId('rental_item_id')->constrained();
             $table->string('status')->nullable();
             $table->softDeletes()->nullable();

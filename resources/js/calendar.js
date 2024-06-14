@@ -6,11 +6,15 @@ document.addEventListener('DOMContentLoaded', function () {
     var calendarEl = document.getElementById('calendar');
 
     var calendar = new Calendar(calendarEl, {
+        locale: 'pt-br',
         plugins: [dayGridPlugin, interactionPlugin],
         initialView: 'dayGridMonth',
-        events: [
+        events: '/reserves/json',
 
-        ]
+        eventClick: function(info) {
+            alert('Evento: ' + info.event.title);
+
+        }
     });
 
     calendar.render();

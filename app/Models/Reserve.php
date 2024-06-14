@@ -32,4 +32,5 @@ class Reserve extends Model
     {
         return $this->hasMany(RentalItem::class);
     }
+
 }

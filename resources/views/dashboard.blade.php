@@ -17,5 +17,7 @@
     </div>
 </x-app-layout>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.10.1/locale/pt-br.min.js"></script>
 <script src="{{ mix('js/app.js') }}"></script>
+
 <link href="{{ mix('css/app.css') }}" rel="stylesheet">
