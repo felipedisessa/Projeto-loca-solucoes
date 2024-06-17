@@ -12,6 +12,12 @@ document.addEventListener('DOMContentLoaded', function () {
         initialView: 'dayGridMonth',
         events: '/reserves/json',
 
+        headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,dayGridWeek,dayGridDay'
+        },
+
         eventClick: function(info) {
             alert('Descrição: ' + info.event.extendedProps.description + '\nHora: ' + info.event.start + ' - ' + info.event.end);
         }

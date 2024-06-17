@@ -7,18 +7,21 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Reserve extends Model
+class Address extends Model
 {
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'user_id',
-        'title',
-        'description',
-        'start',
-        'end',
         'rental_item_id',
-        'status',
+        'street',
+        'number',
+        'complement',
+        'neighborhood',
+        'city',
+        'state',
+        'zipcode',
+        'country',
     ];
 
     public function user(): BelongsTo

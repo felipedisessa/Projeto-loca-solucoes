@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AddressController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RentalItemController;
 use App\Http\Controllers\ReserveController;
@@ -19,12 +20,15 @@ Route::middleware('auth')->group(function() {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/reserves/json', [ReserveController::class, 'getReservesJson']);
-    //endregion
-
-    //region Rental Items
     Route::resource('rental-items', RentalItemController::class);
     Route::resource('users', ProfileController::class);
     Route::resource('reserves', ReserveController::class);
+    Route::resource('addresses', AddressController::class);
+
+    //endregion
+
+    //region Rental Items
+
     //endregion
 
     // routes/web.php

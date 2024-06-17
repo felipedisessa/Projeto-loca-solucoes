@@ -29,8 +29,9 @@
             </div>
             <div class="flex flex-col pt-3">
                 <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Sala</dt>
-                <dd class="text-lg font-semibold">{{ $reserve->rental_item_id}}</dd>
+                <dd class="text-lg font-semibold">{{ $reserve->rentalItem->name }}</dd>
             </div>
+
             <div class="flex flex-col pt-3">
                 <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Status</dt>
                 <dd class="text-lg font-semibold">{{ $reserve->status }}</dd>

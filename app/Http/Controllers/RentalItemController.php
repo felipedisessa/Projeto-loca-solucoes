@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Address;
 use App\Models\RentalItem;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -24,7 +25,7 @@ class RentalItemController extends Controller
 
     public function store(Request $request)
     {
-        RentalItem::query()->create([
+        $RentalItem = RentalItem::query()->create([
             'user_id'           => $request->user_id,
             'name'              => $request->name,
             'description'       => $request->description,
@@ -33,6 +34,17 @@ class RentalItemController extends Controller
             'price_per_month'   => $request->price_per_month,
             'status'            => $request->status,
             'rental_item_notes' => $request->rental_item_notes,
+        ]);
+        Address::query()->create([
+            'rental_item_id' => $RentalItem->id,
+            'street'         => $request->street,
+            'number'         => $request->number,
+            'complement'     => $request->complement,
+            'neighborhood'   => $request->neighborhood,
+            'city'           => $request->city,
+            'state'          => $request->state,
+            'zipcode'        => $request->zipcode,
+            'country'        => $request->country,
         ]);
 
         return back();

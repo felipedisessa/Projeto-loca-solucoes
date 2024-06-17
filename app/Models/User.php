@@ -26,8 +26,6 @@ class User extends Authenticatable
         'cpf_cnpj',
         'user_notes',
 
-
-
     ];
 
     /**
@@ -57,4 +55,5 @@ class User extends Authenticatable
     {
         return $this->hasMany(RentalItem::class);
     }
+
 }
