@@ -35,6 +35,47 @@
                 <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Observações</dt>
                 <dd class="text-lg font-semibold">{{ $user->user_notes }}</dd>
             </div>
+
+            <div class="flex flex-col pt-3">
+                <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Rua</dt>
+                <dd class="text-lg font-semibold">{{ $user->address->street ?? 'Não informado' }}</dd>
+            </div>
+
+            <div class="flex flex-col pt-3">
+                <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Numero</dt>
+                <dd class="text-lg font-semibold">{{ $user->address->number ?? 'Não informado' }}</dd>
+            </div>
+
+            <div class="flex flex-col pt-3">
+                <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Complemento</dt>
+                <dd class="text-lg font-semibold">{{ $user->address->complement ?? 'Não informado' }}</dd>
+            </div>
+
+            <div class="flex flex-col pt-3">
+                <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Bairro</dt>
+                <dd class="text-lg font-semibold">{{ $user->address->neighborhood ?? 'Não informado' }}</dd>
+            </div>
+
+            <div class="flex flex-col pt-3">
+                <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Cidade</dt>
+                <dd class="text-lg font-semibold">{{ $user->address->city ?? 'Não informado' }}</dd>
+            </div>
+
+            <div class="flex flex-col pt-3">
+                <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Estado</dt>
+                <dd class="text-lg font-semibold">{{ $user->address->state ?? 'Não informado' }}</dd>
+            </div>
+
+            <div class="flex flex-col pt-3">
+                <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">CEP</dt>
+                <dd class="text-lg font-semibold">{{ $user->address->zipcode ?? 'Não informado' }}</dd>
+            </div>
+
+            <div class="flex flex-col pt-3">
+                <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Pais</dt>
+                <dd class="text-lg font-semibold">{{ $user->address->country ?? 'Não informado' }}</dd>
+            </div>
+
         </dl>
     </div>
 </x-app-layout>

@@ -35,6 +35,35 @@
                 <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Observações</dt>
                 <dd class="text-lg font-semibold">{{ $rentalItem->rental_item_notes }}</dd>
             </div>
+
+            <div class="flex flex-col pt-3">
+                <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Rua</dt>
+                <dd class="text-lg font-semibold">{{ $rentalItem->address->street ?? 'Não informado'  }}</dd>
+            </div>
+            <div class="flex flex-col pt-3">
+                <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Número</dt>
+                <dd class="text-lg font-semibold">{{ $rentalItem->address->number ?? 'Não informado' }}</dd>
+            </div>
+            <div class="flex flex-col pt-3">
+                <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Complemento</dt>
+                <dd class="text-lg font-semibold">{{ $rentalItem->address->complement ?? 'Não informado' }}</dd>
+            </div>
+            <div class="flex flex-col pt-3">
+                <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Bairro</dt>
+                <dd class="text-lg font-semibold">{{ $rentalItem->address->neighborhood ?? 'Não informado' }}</dd>
+            </div>
+            <div class="flex flex-col pt-3">
+                <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Cidade</dt>
+                <dd class="text-lg font-semibold">{{ $rentalItem->address->city ?? 'Não informado'  }}</dd>
+            </div>
+            <div class="flex flex-col pt-3">
+                <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Estado</dt>
+                <dd class="text-lg font-semibold">{{ $rentalItem->address->state ?? 'Não informado' }}</dd>
+            </div>
+            <div class="flex flex-col pt-3">
+                <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">País</dt>
+                <dd class="text-lg font-semibold">{{ $rentalItem->address->country ?? 'Não informado' }}</dd>
+            </div>
         </dl>
     </div>
 </x-app-layout>

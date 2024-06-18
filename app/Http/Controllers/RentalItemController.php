@@ -66,6 +66,7 @@ class RentalItemController extends Controller
     {
         $landLordUsers = User::query()->where('role', 'landlord')->get();
 
+        $rentalItem->load('address');
 
         return view('rental-items.edit', compact('rentalItem', 'landLordUsers'));
     }
@@ -74,6 +75,17 @@ class RentalItemController extends Controller
     {
         $rentalItemUpdated = $request->all();
         $rentalItem->update($rentalItemUpdated);
+
+        $rentalItem->address()->update([
+            'street'       => $request->street,
+            'number'       => $request->number,
+            'complement'   => $request->complement,
+            'neighborhood' => $request->neighborhood,
+            'city'         => $request->city,
+            'state'        => $request->state,
+            'zipcode'      => $request->zipcode,
+            'country'      => $request->country,
+        ]);
 
         return redirect()->route('rental-items.index');
     }

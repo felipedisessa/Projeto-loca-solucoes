@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\RentalItem;
+use App\Models\Address;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -16,6 +16,8 @@ class ProfileController extends Controller
      */
     public function edit(User $user)
     {
+        $user->load('address');
+
         return view('users.edit', compact('user'));
     }
 
@@ -29,15 +31,19 @@ class ProfileController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $updateduser      = $request->all();
-        $user->name       = $updateduser['name'];
-        $user->email      = $updateduser['email'];
-        $user->phone      = $updateduser['phone'];
-        $user->mobile     = $updateduser['mobile'];
-        $user->role       = $updateduser['role'];
-        $user->cpf_cnpj   = $updateduser['cpf_cnpj'];
-        $user->user_notes = $updateduser['user_notes'];
-        $user->save();
+        $updateduser = $request->all();
+        $user->update($updateduser);
+
+        $user->address()->update([
+            'street'       => $request->street,
+            'number'       => $request->number,
+            'complement'   => $request->complement,
+            'neighborhood' => $request->neighborhood,
+            'city'         => $request->city,
+            'state'        => $request->state,
+            'zipcode'      => $request->zipcode,
+            'country'      => $request->country,
+        ]);
 
         return redirect()->route('users.index');
     }
@@ -84,7 +90,7 @@ class ProfileController extends Controller
 
     public function store(Request $request)
     {
-        User::query()->create([
+        $User = User::query()->create([
             'name'       => $request->name,
             'email'      => $request->email,
             'phone'      => $request->phone,
@@ -93,15 +99,19 @@ class ProfileController extends Controller
             'cpf_cnpj'   => $request->cpf_cnpj,
             'user_notes' => $request->user_notes,
             'password'   => $request->password,
-
-
-
+        ]);
+        Address::query()->create([
+            'user_id'      => $User->id,
+            'street'       => $request->street,
+            'number'       => $request->number,
+            'complement'   => $request->complement,
+            'neighborhood' => $request->neighborhood,
+            'city'         => $request->city,
+            'state'        => $request->state,
+            'zipcode'      => $request->zipcode,
+            'country'      => $request->country,
         ]);
 
         return back();
     }
-
-
-
-
 }
