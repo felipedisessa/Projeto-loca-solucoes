@@ -63,9 +63,9 @@ class ReserveController extends Controller
         return view('reserves.edit', compact('reserve', 'bookUsers', 'bookItems'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $reserf)
     {
-        $reserve = Reserve::findOrFail($id);
+        $reserve = Reserve::findOrFail($reserf);
         $reserve->update([
             'user_id'        => $request->user_id,
             'title'          => $request->title,
@@ -85,10 +85,16 @@ class ReserveController extends Controller
 
         $events = $reserves->map(function($reserve) {
             return [
-                'title'       => $reserve->title,
-                'start'       => $reserve->start,
-                'end'         => $reserve->end,
-                'description' => $reserve->description,
+                'id'            => $reserve->id,
+                'title'         => $reserve->title,
+                'start'         => $reserve->start,
+                'end'           => $reserve->end,
+                'extendedProps' => [
+                    'user_id'        => $reserve->user_id,
+                    'rental_item_id' => $reserve->rental_item_id,
+                    'description'    => $reserve->description,
+                    'status'         => $reserve->status,
+                ],
             ];
         });
 

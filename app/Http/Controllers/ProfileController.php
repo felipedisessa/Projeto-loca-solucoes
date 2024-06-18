@@ -98,7 +98,7 @@ class ProfileController extends Controller
             'role'       => $request->role,
             'cpf_cnpj'   => $request->cpf_cnpj,
             'user_notes' => $request->user_notes,
-            'password'   => $request->password,
+            'password'   => bcrypt($request->password),
         ]);
         Address::query()->create([
             'user_id'      => $User->id,
