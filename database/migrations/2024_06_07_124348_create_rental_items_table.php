@@ -14,7 +14,7 @@ return new class () extends Migration {
             $table->id();
             $table->foreignId(('user_id'))->constrained();
             $table->string('name');
-            $table->string('description')->nullable();
+            $table->string('description');
             $table->decimal('price_per_hour', 8, 2)->nullable();
             $table->decimal('price_per_day', 8, 2)->nullable();
             $table->decimal('price_per_month', 8, 2)->nullable();

@@ -53,9 +53,19 @@ class ProfileController extends Controller
         return view('profile.edit', [
             'user' => $request->user(),
         ]);
-
     }
 
+    public function updateProfile(Request $request)
+    {
+        $request->validate([
+            'name'  => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . Auth::id()],
+        ]);
+        $user = $request->user();
+        $user->update($request->all());
+
+        return redirect()->route('profile.edit', $user)->with('status', 'Profile updated!');
+    }
 
     /**
      * Delete the user's account.
@@ -99,6 +109,23 @@ class ProfileController extends Controller
 
     public function store(Request $request)
     {
+        $validatedData = $request->validate([
+            'name'     => 'required',
+            'email'    => 'required',
+            'phone'    => 'required',
+            'mobile'   => 'required',
+            'role'     => 'required',
+            'password' => 'required',
+            'cpf_cnpj' => 'required',
+            'street'   => 'required',
+            'number'   => 'required',
+            'city'     => 'required',
+            'state'    => 'required',
+            'zipcode'  => 'required',
+            'country'  => 'required',
+
+        ]);
+
         $User = User::query()->create([
             'name'       => $request->name,
             'email'      => $request->email,

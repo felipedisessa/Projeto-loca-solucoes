@@ -37,6 +37,11 @@
             </div>
 
             <div class="flex flex-col pt-3">
+                <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Empresa</dt>
+                <dd class="text-lg font-semibold">{{ $user->company }}</dd>
+            </div>
+
+            <div class="flex flex-col pt-3">
                 <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Rua</dt>
                 <dd class="text-lg font-semibold">{{ $user->address->street ?? 'Não informado' }}</dd>
             </div>

@@ -29,9 +29,11 @@ document.addEventListener('DOMContentLoaded', function () {
                  title: info.event.title,
                  rental_item_id: info.event.extendedProps.rental_item_id,
                  start: info.event.startStr,
+                 end: info.event.endStr,
+                 price: info.event.extendedProps.price,
                  description: info.event.extendedProps.description,
                  status: info.event.extendedProps.status,
-                 end: info.event.endStr,
+
                  _token: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
             });
 

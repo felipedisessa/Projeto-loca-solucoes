@@ -26,6 +26,7 @@ class ReserveController extends Controller
             'end'            => $request->end,
             'rental_item_id' => $request->rental_item_id,
             'status'         => $request->status,
+            'price'          => $request->price,
         ]);
 
         return back();
@@ -74,6 +75,7 @@ class ReserveController extends Controller
             'end'            => $request->end,
             'rental_item_id' => $request->rental_item_id,
             'status'         => $request->status,
+            'price'          => $request->price,
         ]);
 
         return redirect()->route('reserves.index');
@@ -85,15 +87,20 @@ class ReserveController extends Controller
 
         $events = $reserves->map(function($reserve) {
             return [
+                'user_id'       => $reserve->user_id,
                 'id'            => $reserve->id,
                 'title'         => $reserve->title,
                 'start'         => $reserve->start,
                 'end'           => $reserve->end,
+                'price'         => $reserve->price,
                 'extendedProps' => [
                     'user_id'        => $reserve->user_id,
                     'rental_item_id' => $reserve->rental_item_id,
                     'description'    => $reserve->description,
                     'status'         => $reserve->status,
+                    'start'          => $reserve->start,
+                    'end'            => $reserve->end,
+                    'price'          => $reserve->price,
                 ],
             ];
         });

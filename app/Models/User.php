@@ -29,6 +29,7 @@ class User extends Authenticatable
         'role',
         'cpf_cnpj',
         'user_notes',
+        'company',
     ];
 
     /**

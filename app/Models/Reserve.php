@@ -20,6 +20,7 @@ class Reserve extends Model
         'end',
         'rental_item_id',
         'status',
+        'price',
     ];
 
     public function user(): BelongsTo

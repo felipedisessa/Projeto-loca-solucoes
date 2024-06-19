@@ -25,6 +25,20 @@ class RentalItemController extends Controller
 
     public function store(Request $request)
     {
+        $validatedData = $request->validate([
+            'user_id'      => 'required',
+            'name'         => 'required',
+            'description'  => 'required',
+            'status'       => 'required',
+            'street'       => 'required',
+            'number'       => 'required',
+            'neighborhood' => 'required',
+            'city'         => 'required',
+            'state'        => 'required',
+            'zipcode'      => 'required',
+            'country'      => 'required',
+        ]);
+
         $RentalItem = RentalItem::query()->create([
             'user_id'           => $request->user_id,
             'name'              => $request->name,
@@ -47,7 +61,8 @@ class RentalItemController extends Controller
             'country'        => $request->country,
         ]);
 
-        return back();
+        return redirect()->route('rental-items.index')->withErrors('Preencha os dados corretamente');
+
     }
 
     public function show(RentalItem $rentalItem)
