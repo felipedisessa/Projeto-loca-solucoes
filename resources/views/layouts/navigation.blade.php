@@ -28,6 +28,10 @@
                         {{ __('Reservas') }}
                     </x-nav-link>
 
+                    <x-nav-link :href="route('reports.index')" :active="request()->routeIs('reports.index')">
+                        {{ __('Relatorios') }}
+                    </x-nav-link>
+
 
                 </div>
             </div>

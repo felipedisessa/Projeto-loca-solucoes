@@ -1,6 +1,8 @@
 import './bootstrap';
 import 'flowbite';
 import './calendar';
+import 'flowbite/dist/datepicker.js';
+
 
 
 

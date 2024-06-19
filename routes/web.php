@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RentalItemController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ReserveController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,11 +16,11 @@ Route::get('/dashboard', function() {
 
 Route::middleware('auth')->group(function() {
     //region Profile
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/profile', [ProfileController::class, 'editProfile'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/reserves/json', [ReserveController::class, 'getReservesJson']);
-
+    Route::resource('reports', ReportController::class)->only(['index']);
     Route::resource('rental-items', RentalItemController::class);
     Route::resource('users', ProfileController::class);
     Route::resource('reserves', ReserveController::class);

@@ -48,6 +48,15 @@ class ProfileController extends Controller
         return redirect()->route('users.index');
     }
 
+    public function editProfile(Request $request)
+    {
+        return view('profile.edit', [
+            'user' => $request->user(),
+        ]);
+
+    }
+
+
     /**
      * Delete the user's account.
      */
