@@ -18,6 +18,17 @@ class ReserveController extends Controller
 
     public function store(Request $request)
     {
+        $validatedData = $request->validate([
+            'user_id'        => 'required',
+            'title'          => 'required',
+            'description'    => 'required',
+            'start'          => 'required',
+            'end'            => 'required',
+            'rental_item_id' => 'required',
+            'status'         => 'required',
+            'price'          => 'required',
+        ]);
+
         Reserve::query()->create([
             'user_id'        => $request->user_id,
             'title'          => $request->title,
