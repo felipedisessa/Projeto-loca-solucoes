@@ -27,6 +27,7 @@ class ReserveController extends Controller
             'rental_item_id' => 'required',
             'status'         => 'required',
             'price'          => 'required',
+            'payment_type'   => 'required',
         ]);
 
         Reserve::query()->create([
@@ -38,6 +39,7 @@ class ReserveController extends Controller
             'rental_item_id' => $request->rental_item_id,
             'status'         => $request->status,
             'price'          => $request->price,
+            'payment_type'   => $request->payment_type,
         ]);
 
         return back();
@@ -87,6 +89,7 @@ class ReserveController extends Controller
             'rental_item_id' => $request->rental_item_id,
             'status'         => $request->status,
             'price'          => $request->price,
+            'payment_type'   => $request->payment_type,
         ]);
 
         return redirect()->route('reserves.index');
@@ -104,6 +107,9 @@ class ReserveController extends Controller
                 'start'         => $reserve->start,
                 'end'           => $reserve->end,
                 'price'         => $reserve->price,
+                'description'   => $reserve->description,
+                'status'        => $reserve->status,
+                'payment_type'  => $reserve->payment_type,
                 'extendedProps' => [
                     'user_id'        => $reserve->user_id,
                     'rental_item_id' => $reserve->rental_item_id,
@@ -112,6 +118,7 @@ class ReserveController extends Controller
                     'start'          => $reserve->start,
                     'end'            => $reserve->end,
                     'price'          => $reserve->price,
+                    'payment_type'   => $reserve->payment_type,
                 ],
             ];
         });

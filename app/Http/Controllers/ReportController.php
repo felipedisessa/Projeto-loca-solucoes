@@ -18,10 +18,15 @@ class ReportController extends Controller
         if ($request->has(['start', 'end'])) {
             $start        = $request->input('start');
             $end          = $request->input('end');
+            $status       = $request->input('status');
             $userId       = $request->input('user_id');
             $rentalItemId = $request->input('rental_item_id');
 
             $query = Reserve::whereBetween('start', [$start, $end])->withTrashed();
+
+            if ($status) {
+                $query->where('status', $status);
+            }
 
             if ($userId) {
                 $query->where('user_id', $userId);

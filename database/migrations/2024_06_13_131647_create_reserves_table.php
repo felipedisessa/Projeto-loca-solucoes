@@ -20,6 +20,7 @@ return new class () extends Migration {
             $table->foreignId('rental_item_id')->constrained();
             $table->string('status')->nullable();
             $table->string('price')->nullable();
+            $table->string('payment_type')->nullable();
             $table->softDeletes()->nullable();
             $table->timestamps();
         });

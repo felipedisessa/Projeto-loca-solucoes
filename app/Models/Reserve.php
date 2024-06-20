@@ -21,6 +21,7 @@ class Reserve extends Model
         'rental_item_id',
         'status',
         'price',
+        'payment_type',
     ];
 
     public function user(): BelongsTo

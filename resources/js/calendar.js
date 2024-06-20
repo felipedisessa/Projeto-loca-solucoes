@@ -33,6 +33,7 @@ document.addEventListener('DOMContentLoaded', function () {
                  price: info.event.extendedProps.price,
                  description: info.event.extendedProps.description,
                  status: info.event.extendedProps.status,
+                 payment_type: info.event.extendedProps.payment_type,
 
                  _token: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
             });
