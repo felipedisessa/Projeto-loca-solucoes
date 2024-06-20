@@ -20,10 +20,17 @@ Route::middleware('auth')->group(function() {
     Route::patch('/profile', [ProfileController::class, 'updateProfile'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/reserves/json', [ReserveController::class, 'getReservesJson']);
-    Route::resource('reports', ReportController::class);
-    Route::resource('rental-items', RentalItemController::class);
-    Route::resource('users', ProfileController::class);
+    Route::resource('relatorios', ReportController::class)->names('reports')->parameter(
+        'relatorios', 'report'
+    );
+    Route::resource('salas', RentalItemController::class)->names('rental-items')->parameter(
+        'salas', 'rentalItem'
+    );
+    Route::resource('usuarios', ProfileController::class)->names('users')->parameter(
+        'usuarios', 'user'
+    );
     Route::resource('reserves', ReserveController::class);
+
 
     //endregion
 
