@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\RentalItem;
 use App\Models\Reserve;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -11,12 +12,14 @@ class ReportController extends Controller
     public function index(Request $request)
     {
         $users        = User::query()->get();
+        $rental_items = RentalItem::query()->get();
         $reservations = collect();
 
         if ($request->has(['start', 'end'])) {
-            $start  = $request->input('start');
-            $end    = $request->input('end');
-            $userId = $request->input('user_id');
+            $start        = $request->input('start');
+            $end          = $request->input('end');
+            $userId       = $request->input('user_id');
+            $rentalItemId = $request->input('rental_item_id');
 
             $query = Reserve::whereBetween('start', [$start, $end])->withTrashed();
 
@@ -24,9 +27,13 @@ class ReportController extends Controller
                 $query->where('user_id', $userId);
             }
 
+            if ($rentalItemId) {
+                $query->where('rental_item_id', $rentalItemId);
+            }
+
             $reservations = $query->get();
         }
 
-        return view('reports.index', compact('reservations', 'users'));
+        return view('reports.index', compact('reservations', 'users', 'rental_items'));
     }
 }

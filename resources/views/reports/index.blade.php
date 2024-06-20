@@ -25,11 +25,28 @@
                 <div class="flex flex-wrap -mx-3 mb-6">
                     <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                         <div class="relative z-0 w-full mb-5 group">
+                            <label for="rental_item_id" class="sr-only">Underline select</label>
+                            <select id="rental_item_id" name="rental_item_id" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
+                                <option value="" selected disabled>Sala</option>
+                                @foreach($rental_items as $rental_item)
+                                    <option value="{{ $rental_item->id }}">{{ $rental_item->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('rental_item_id')
+                            <div class="text-amber-50">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap -mx-3 mb-6">
+                    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                        <div class="relative z-0 w-full mb-5 group">
                             <label for="user_id" class="sr-only">Underline select</label>
                             <select id="user_id" name="user_id" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
                                 <option value="" selected disabled>Usuário</option>
                                 @foreach($users as $user)
-                                    <option value="{{$user->id}}">{{ $user->name }}</option>
+                                    <option value="{{ $user->id }}">{{ $user->name }}</option>
                                 @endforeach
                             </select>
                             @error('user_id')
@@ -66,7 +83,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="4" class="px-6 py-4 text-center text-gray-500 dark:text-gray-400">Nenhuma reserva encontrada para o período selecionado.</td>
+                            <td colspan="5" class="px-6 py-4 text-center text-gray-500 dark:text-gray-400">Nenhuma reserva encontrada para o período selecionado.</td>
                         </tr>
                     @endforelse
                     </tbody>

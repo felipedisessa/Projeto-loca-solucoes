@@ -30,7 +30,7 @@
                     </th>
                     <td class="px-6 py-4">{{ $rentalItem->description }}</td>
                     <td class="px-6 py-4">{{ $rentalItem->user?->name ?? 'N/A' }}</td>
-                    <td class="px-6 py-4">{{ $rentalItem->price_per_hour }}</td>
+                    <td class="px-6 py-4">{{ 'R$'. $rentalItem->price_per_hour }}</td>
                     <td class="px-6 py-4">{{ $rentalItem->status }}</td>
                     <td class="flex items-center px-6 py-4 space-x-2">
                         <a href="{{route('rental-items.show', $rentalItem->id ) }}" class="cursor-pointer">
