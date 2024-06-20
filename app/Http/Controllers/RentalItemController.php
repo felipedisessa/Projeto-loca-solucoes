@@ -13,6 +13,12 @@ class RentalItemController extends Controller
     {
         $rentalItems = RentalItem::query()->orderBy('created_at', 'desc')->paginate(20);
 
+        $search = request('search');
+
+        if ($search) {
+            $rentalItems = RentalItem::query()->where('name', 'like', '%' . $search . '%')->paginate(20);
+        }
+
         return view('rental-items.index', compact('rentalItems'));
     }
 
@@ -62,7 +68,6 @@ class RentalItemController extends Controller
         ]);
 
         return redirect()->route('rental-items.index')->withErrors('Preencha os dados corretamente');
-
     }
 
     public function show(RentalItem $rentalItem)

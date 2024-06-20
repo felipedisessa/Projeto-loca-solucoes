@@ -92,6 +92,12 @@ class ProfileController extends Controller
     {
         $users = User::query()->orderBy('created_at', 'desc')->paginate(20);
 
+        $search = request('search');
+
+        if ($search) {
+            $users = User::query()->where('name', 'like', '%' . $search . '%')->paginate(20);
+        }
+
         return view('users.index', compact('users'));
     }
 

@@ -13,6 +13,12 @@ class ReserveController extends Controller
     {
         $reserves = Reserve::query()->orderBy('created_at', 'desc')->paginate(20);
 
+        $search = request('search');
+
+        if ($search) {
+            $reserves = Reserve::query()->where('title', 'like', '%' . $search . '%')->paginate(20);
+        }
+
         return view('reserves.index', compact('reserves'));
     }
 
