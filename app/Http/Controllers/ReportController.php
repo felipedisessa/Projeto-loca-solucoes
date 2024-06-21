@@ -22,7 +22,11 @@ class ReportController extends Controller
             $userId       = $request->input('user_id');
             $rentalItemId = $request->input('rental_item_id');
 
-            $query = Reserve::whereBetween('start', [$start, $end])->withTrashed();
+            $query = Reserve::whereBetween('start', [$start, $end]);
+
+            if ($request->has('showDeleted')) {
+                $query->withTrashed();
+            }
 
             if ($status) {
                 $query->where('status', $status);

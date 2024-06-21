@@ -7,7 +7,8 @@ document.addEventListener('DOMContentLoaded', function () {
     let calendarEl = document.getElementById('calendar');
 
     let calendar = new Calendar(calendarEl, {
-        locale: ptBrLocale,
+        locale:  ptBrLocale,
+        timeZone: 'local',
         plugins: [dayGridPlugin, interactionPlugin],
         initialView: 'dayGridMonth',
         events: '/reserves/json',
@@ -23,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
         selectMirror: true,
         dayMaxEvents: true,
 
-        eventDrop: async function( info) {
+        eventDrop: async function( info ) {
              const response = await axios.put('/reserves/' + info.event.id, {
                  user_id: info.event.extendedProps.user_id,
                  title: info.event.title,
@@ -37,8 +38,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
                  _token: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
             });
-
-
         },
 
         eventClick: function(info) {
