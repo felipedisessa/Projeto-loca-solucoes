@@ -21,16 +21,18 @@ Route::middleware('auth')->group(function() {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/reserves/json', [ReserveController::class, 'getReservesJson']);
     Route::resource('relatorios', ReportController::class)->names('reports')->parameter(
-        'relatorios', 'report'
+        'relatorios',
+        'report'
     );
     Route::resource('salas', RentalItemController::class)->names('rental-items')->parameter(
-        'salas', 'rentalItem'
+        'salas',
+        'rentalItem'
     );
     Route::resource('usuarios', ProfileController::class)->names('users')->parameter(
-        'usuarios', 'user'
+        'usuarios',
+        'user'
     );
     Route::resource('reserves', ReserveController::class);
-
 
     //endregion
 

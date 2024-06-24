@@ -20,7 +20,7 @@
                             @endforeach
                         </select>
                         @error('user_id')
-                        <div class= "text-amber-50">{{ $message }}</div>
+                        <div class= "text-amber-50">{{ "O proprietário é obrigatório" }}</div>
                         @enderror
                     </div>
                 </div>
@@ -32,7 +32,7 @@
                             Nome
                         </label>
                         @error('name')
-                        <div class= "text-amber-50">{{ $message }}</div>
+                        <div class= "text-amber-50">{{ "O nome é obrigatório" }}</div>
                         @enderror
                     </div>
                 </div>
@@ -46,7 +46,7 @@
                             Descrição
                         </label>
                         @error('description')
-                        <div class= "text-amber-50">{{ $message }}</div>
+                        <div class= "text-amber-50">{{ "A descrição é obrigatória" }}</div>
                         @enderror
                     </div>
                 </div>
@@ -69,14 +69,14 @@
                     <div class="relative z-0 w-full mb-5 group">
                         <label for="status" class="sr-only">Underline select</label>
                         <select id="status" name="status" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
-                            <option selected>Status</option>
+                            <option value="" selected disabled>Status</option>
                             <option value="1">Disponível</option>
                             <option value="2">Reservado</option>
                             <option value="3">Manutenção</option>
                         </select>
                     </div>
                     @error('status')
-                    <div class= "text-amber-50">{{ $message }}</div>
+                    <div class= "text-amber-50">{{ "O status é obrigatório" }}</div>
                     @enderror
                 </div>
             </div>
@@ -90,7 +90,7 @@
                             Valor por hora
                         </label>
                         @error('price_per_hour')
-                        <div class= "text-amber-50">{{ $message }}</div>
+                        <div class= "text-amber-50">{{ "O valor por hora é obrigatório" }}</div>
                         @enderror
                     </div>
                 </div>
@@ -129,7 +129,7 @@
                             Rua
                         </label>
                         @error('street')
-                        <div class= "text-amber-50">{{ $message }}</div>
+                        <div class= "text-amber-50">{{ "A rua é obrigatória" }}</div>
                         @enderror
                     </div>
                 </div>
@@ -141,7 +141,7 @@
                             Número
                         </label>
                         @error('number')
-                        <div class= "text-amber-50">{{ $message }}</div>
+                        <div class= "text-amber-50">{{ "O número é obrigatório" }}</div>
                         @enderror
                     </div>
                 </div>
@@ -155,7 +155,7 @@
                             Bairro
                         </label>
                         @error('neighborhood')
-                        <div class= "text-amber-50">{{ $message }}</div>
+                        <div class= "text-amber-50">{{ "O bairro é obrigatório" }}</div>
                         @enderror
                     </div>
                 </div>
@@ -167,7 +167,7 @@
                             Cidade
                         </label>
                         @error('city')
-                        <div class= "text-amber-50">{{ $message }}</div>
+                        <div class= "text-amber-50">{{ "A cidade é obrigatória" }}</div>
                         @enderror
                     </div>
                 </div>
@@ -180,7 +180,7 @@
                         </label>
                     </div>
                     @error('state')
-                    <div class= "text-amber-50">{{ $message }}</div>
+                    <div class= "text-amber-50">{{ "O estado é obrigatório" }}</div>
                     @enderror
                 </div>
             </div>
@@ -193,7 +193,7 @@
                             CEP
                         </label>
                         @error('zipcode')
-                        <div class= "text-amber-50">{{ $message }}</div>
+                        <div class= "text-amber-50">{{ "O CEP é obrigatório" }}</div>
                         @enderror
                     </div>
                 </div>
@@ -205,7 +205,7 @@
                             País
                         </label>
                         @error('country')
-                        <div class= "text-amber-50">{{ $message }}</div>
+                        <div class= "text-amber-50">{{ "O país é obrigatório" }}</div>
                         @enderror
                     </div>
                 </div>

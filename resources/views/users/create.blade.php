@@ -19,7 +19,7 @@
                             Nome
                         </label>
                         @error('name')
-                        <div class= "text-amber-50">{{ $message }}</div>
+                        <div class= "text-amber-50">{{ "O nome é obrigatório" }}</div>
                         @enderror
                     </div>
                 </div>
@@ -34,7 +34,7 @@
                             E-mail
                         </label>
                         @error('email')
-                        <div class= "text-amber-50">{{ $message }}</div>
+                        <div class= "text-amber-50">{{ "O email é obrigatório" }}</div>
                         @enderror
                     </div>
                 </div>
@@ -51,7 +51,7 @@
                             Senha
                         </label>
                         @error('password')
-                        <div class= "text-amber-50">{{ $message }}</div>
+                        <div class= "text-amber-50">{{ "A senha é obrigatória" }}</div>
                         @enderror
                     </div>
                 </div>
@@ -68,7 +68,7 @@
                             Telefone
                         </label>
                         @error('phone')
-                        <div class= "text-amber-50">{{ $message }}</div>
+                        <div class= "text-amber-50">{{ "O telefone é obrigatório" }}</div>
                         @enderror
                     </div>
                 </div>
@@ -83,7 +83,7 @@
                             Celular
                         </label>
                         @error('mobile')
-                        <div class= "text-amber-50">{{ $message }}</div>
+                        <div class= "text-amber-50">{{ "O telefone é obrigatório" }}</div>
                         @enderror
                     </div>
                 </div>
@@ -101,7 +101,7 @@
                             <option value="tenant">tenant</option>
                         </select>
                         @error('role')
-                        <div class= "text-amber-50">{{ $message }}</div>
+                        <div class= "text-amber-50">{{ "O cargo é obrigatório" }}</div>
                         @enderror
                     </div>
                 </div>
@@ -116,7 +116,7 @@
                             Documento
                         </label>
                         @error('cpf_cnpj')
-                        <div class= "text-amber-50">{{ $message }}</div>
+                        <div class= "text-amber-50">{{ "O documento é obrigatório" }}</div>
                         @enderror
                     </div>
                 </div>
@@ -130,7 +130,7 @@
                             Rua
                         </label>
                         @error('street')
-                        <div class= "text-amber-50">{{ $message }}</div>
+                        <div class= "text-amber-50">{{ "A rua é obrigatório" }}</div>
                         @enderror
                     </div>
                 </div>
@@ -141,8 +141,7 @@
                         <label for="number" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
                             Numero
                         </label>
-                        @error('number')
-                        <div class= "text-amber-50">{{ $message }}</div>
+                        @error('number')<div class= "text-amber-50">{{ "O numero é obrigatório" }}</div>
                         @enderror
                     </div>
                 </div>
@@ -156,7 +155,7 @@
                             Bairro
                         </label>
                         @error('neighborhood')
-                        <div class= "text-amber-50">{{ $message }}</div>
+                        <div class= "text-amber-50">{{ "O bairro é obrigatório" }}</div>
                         @enderror
                     </div>
                 </div>
@@ -168,7 +167,7 @@
                             Cidade
                         </label>
                         @error('city')
-                        <div class= "text-amber-50">{{ $message }}</div>
+                        <div class= "text-amber-50">{{ "A cidade é obrigatório" }}</div>
                         @enderror
                     </div>
                 </div>
@@ -182,7 +181,7 @@
                             Estado
                         </label>
                         @error('state')
-                        <div class= "text-amber-50">{{ $message }}</div>
+                        <div class= "text-amber-50">{{ "O estado é obrigatório"  }}</div>
                         @enderror
                     </div>
                 </div>
@@ -194,7 +193,7 @@
                             CEP
                         </label>
                         @error('zipcode')
-                        <div class= "text-amber-50">{{ $message }}</div>
+                        <div class= "text-amber-50">{{ "O CEP é obrigatório" }}</div>
                         @enderror
                     </div>
                 </div>
@@ -208,7 +207,7 @@
                             Pais
                         </label>
                         @error('country')
-                        <div class= "text-amber-50">{{ $message }}</div>
+                        <div class= "text-amber-50">{{ "O pais é obrigatório" }}</div>
                         @enderror
                     </div>
                 </div>
