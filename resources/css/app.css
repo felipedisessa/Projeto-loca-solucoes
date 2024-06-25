@@ -3,3 +3,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@media print {
+    /* All your print styles go here */
+    #header,
+    #footer,
+    #nav {
+        display: none !important;
+    }
+
+}

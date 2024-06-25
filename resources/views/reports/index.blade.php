@@ -8,6 +8,7 @@
         </h2>
     </x-slot>
 
+
     <div class="max-w-6xl mx-auto sm:px-6 lg:px-8 mt-8">
         <form method="GET" action="{{ route('reports.index') }}" class="print:hidden">
             <div class="relative z-0 w-full mb-5 group bg-slate-800 p-8 shadow-md sm:rounded-lg">

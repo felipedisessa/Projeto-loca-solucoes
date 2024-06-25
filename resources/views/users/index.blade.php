@@ -6,11 +6,10 @@
                 <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                     <path stroke="currentColor" stroke-width="2" d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
                 </svg>
-
             </h2>
-            <a href="{{route('users.create')}}" class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-                Cadastrar Usuário
-            </a>
+            <button data-modal-target="create-crud-modal" data-modal-toggle="create-crud-modal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+                Cadastrar Usuário
+            </button>
         </div>
     </x-slot>
 
@@ -55,18 +54,13 @@
                         <a href="{{ route('users.show', $user->id) }}" class="cursor-pointer">
                             <x-icons.eye />
                         </a>
-
-                        <button type="button" class="cursor-pointer text-red-500"
-                                data-modal-target="popup-modal"
-                                data-modal-toggle="popup-modal"
-                                data-id="{{ $user->id }}"
-                                data-name="{{ $user->name }}">
+                        <button type="button" class="cursor-pointer text-red-500" data-modal-target="popup-modal" data-modal-toggle="popup-modal" data-id="{{ $user->id }}" data-name="{{ $user->name }}">
                             <x-icons.trash />
                         </button>
-
-                        <a href="{{ route('users.edit', $user->id) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                        <a id="edit-button" data-modal-target="edit-crud-modal" data-modal-toggle="edit-crud-modal" data-id="{{ $user->id }}" class="cursor-pointer font-medium text-blue-600 dark:text-blue-500 hover:underline">
                             <x-icons.edit/>
                         </a>
+
                     </td>
                 </tr>
             @endforeach
@@ -98,7 +92,8 @@
                             Sim, apagar
                         </button>
                         <button data-modal-hide="popup-modal" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-                            Não, cancelar</button>
+                            Não, cancelar
+                        </button>
                     </form>
                 </div>
             </div>
@@ -113,8 +108,8 @@
             document.querySelectorAll('button[data-modal-toggle="popup-modal"]').forEach(button => {
                 button.addEventListener('click', () => {
                     const userId = button.getAttribute('data-id');
-                    const userName = button.getAttribute('data-name');
                     form.action = `{{ route('users.destroy', ':id') }}`.replace(':id', userId);
+                    modal.classList.remove('hidden');
                 });
             });
 
@@ -124,9 +119,12 @@
 
             form.addEventListener('submit', (event) => {
                 event.preventDefault();
-                modal.classList.add('hidden');
                 form.submit();
             });
         });
     </script>
+
+    @include('users.modal.create')
+    @include('users.modal.edit')
+    @vite('resources/js/users.js')
 </x-app-layout>

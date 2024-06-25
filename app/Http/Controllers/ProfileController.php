@@ -2,110 +2,73 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Address;
 use App\Models\User;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
 
 class ProfileController extends Controller
 {
     /**
-     * Display the user's profile form.
+     * Retorna os dados do usuário em formato JSON para popular o modal de edição.
      */
-    public function edit(User $user)
+    public function edit($id)
     {
-        $user->load('address');
+        $user = User::with('address')->findOrFail($id);
 
-        return view('users.edit', compact('user'));
-    }
-
-    public function create()
-    {
-        return view('users.create');
+        return response()->json($user);
     }
 
     /**
-     * Update the user's profile information.
+     * Exibe o formulário de criação de usuário.
+     */
+    public function create()
+    {
+        return view('users.modal.create');
+    }
+
+    /**
+     * Atualiza as informações do usuário.
      */
     public function update(Request $request, User $user)
     {
-        $updateduser = $request->all();
-        $user->update($updateduser);
+        $updatedUser = $request->except('password');
 
-        $user->address()->update([
-            'street'       => $request->street,
-            'number'       => $request->number,
-            'complement'   => $request->complement,
-            'neighborhood' => $request->neighborhood,
-            'city'         => $request->city,
-            'state'        => $request->state,
-            'zipcode'      => $request->zipcode,
-            'country'      => $request->country,
-        ]);
+        if ($request->filled('password')) {
+            $updatedUser['password'] = bcrypt($request->password);
+        }
+
+        $user->update($updatedUser);
+
+        $addressData = $request->all();
+
+        $user->address()->updateOrCreate(['user_id' => $user->id], $addressData);
 
         return redirect()->route('users.index');
     }
 
-    public function editProfile(Request $request)
-    {
-        return view('profile.edit', [
-            'user' => $request->user(),
-        ]);
-    }
-
-    public function updateProfile(Request $request)
-    {
-        $request->validate([
-            'name'  => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . Auth::id()],
-        ]);
-        $user = $request->user();
-        $user->update($request->all());
-
-        return redirect()->route('profile.edit', $user)->with('status', 'Profile updated!');
-    }
-
     /**
-     * Delete the user's account.
+     * Exibe a lista de usuários.
      */
-    /*public function destroy(Request $request): RedirectResponse
-    {
-        $request->validateWithBag('userDeletion', [
-            'password' => ['required', 'current_password'],
-        ]);
-
-        $user = $request->user();
-
-        Auth::logout();
-
-        $user->delete();
-
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return Redirect::to('/');
-    }*/
-
     public function index()
     {
-        $users = User::query()->orderBy('created_at', 'desc')->paginate(20);
-
         $search = request('search');
-
-        if ($search) {
-            $users = User::query()->where('name', 'like', '%' . $search . '%')->paginate(20);
-        }
+        $users  = User::query()->with('address')->when($search, function($query) use ($search) {
+            $query->where('name', 'like', '%' . $search . '%');
+        })->paginate(20);
 
         return view('users.index', compact('users'));
     }
 
+    /**
+     * Exibe os detalhes de um usuário específico.
+     */
     public function show(User $user)
     {
         return view('users.show', compact('user'));
     }
 
+    /**
+     * Exclui um usuário.
+     */
     public function destroy(User $user)
     {
         $user->delete();
@@ -113,26 +76,12 @@ class ProfileController extends Controller
         return redirect()->route('users.index');
     }
 
+    /**
+     * Armazena um novo usuário e seu endereço.
+     */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'name'     => 'required',
-            'email'    => 'required',
-            'phone'    => 'required',
-            'mobile'   => 'required',
-            'role'     => 'required',
-            'password' => 'required',
-            'cpf_cnpj' => 'required',
-            'street'   => 'required',
-            'number'   => 'required',
-            'city'     => 'required',
-            'state'    => 'required',
-            'zipcode'  => 'required',
-            'country'  => 'required',
-
-        ]);
-
-        $User = User::query()->create([
+        $user = User::create([
             'name'       => $request->name,
             'email'      => $request->email,
             'phone'      => $request->phone,
@@ -141,18 +90,13 @@ class ProfileController extends Controller
             'cpf_cnpj'   => $request->cpf_cnpj,
             'user_notes' => $request->user_notes,
             'password'   => bcrypt($request->password),
+            'company'    => $request->company,
         ]);
-        Address::query()->create([
-            'user_id'      => $User->id,
-            'street'       => $request->street,
-            'number'       => $request->number,
-            'complement'   => $request->complement,
-            'neighborhood' => $request->neighborhood,
-            'city'         => $request->city,
-            'state'        => $request->state,
-            'zipcode'      => $request->zipcode,
-            'country'      => $request->country,
+
+        $addressData = $request->only([
+            'street', 'number', 'complement', 'neighborhood', 'city', 'state', 'zipcode', 'country',
         ]);
+        $user->address()->create($addressData);
 
         return back();
     }
