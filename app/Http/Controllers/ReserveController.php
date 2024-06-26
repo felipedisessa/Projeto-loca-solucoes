@@ -12,14 +12,16 @@ class ReserveController extends Controller
     public function index()
     {
         $reserves = Reserve::query()->orderBy('created_at', 'desc')->paginate(20);
-
-        $search = request('search');
+        $search   = request('search');
 
         if ($search) {
             $reserves = Reserve::query()->where('title', 'like', '%' . $search . '%')->paginate(20);
         }
 
-        return view('reserves.index', compact('reserves'));
+        $bookUsers = User::query()->where('role', 'visitor')->get();
+        $bookItems = RentalItem::query()->get();
+
+        return view('reserves.index', compact('reserves', 'search', 'bookUsers', 'bookItems'));
     }
 
     public function store(Request $request)
@@ -56,7 +58,7 @@ class ReserveController extends Controller
         $bookUsers = User::query()->where('role', 'visitor')->get();
         $bookItems = RentalItem::query()->get();
 
-        return view('reserves.create', compact('bookUsers', 'bookItems'));
+        return view('reserves.modal.create', compact('bookUsers', 'bookItems'));
     }
 
     public function show($id)
@@ -80,7 +82,10 @@ class ReserveController extends Controller
         $bookItems = RentalItem::query()->get();
         $reserve   = Reserve::findOrFail($id);
 
+        return response()->json($reserve);
+
         return view('reserves.edit', compact('reserve', 'bookUsers', 'bookItems'));
+
     }
 
     public function update(Request $request, $reserf)

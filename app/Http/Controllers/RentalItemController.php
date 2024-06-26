@@ -12,21 +12,22 @@ class RentalItemController extends Controller
     public function index()
     {
         $rentalItems = RentalItem::query()->orderBy('created_at', 'desc')->paginate(20);
-
-        $search = request('search');
+        $search      = request('search');
 
         if ($search) {
             $rentalItems = RentalItem::query()->where('name', 'like', '%' . $search . '%')->paginate(20);
         }
 
-        return view('rental-items.index', compact('rentalItems'));
+        $landLordUsers = User::query()->where('role', 'landlord')->get();
+
+        return view('rental-items.index', compact('rentalItems', 'landLordUsers'));
     }
 
     public function create()
     {
         $landLordUsers = User::query()->where('role', 'landlord')->get();
 
-        return view('rental-items.create', compact('landLordUsers'));
+        return view('rental-items.modal.create', compact('landLordUsers'));
     }
 
     public function store(Request $request)
@@ -45,29 +46,34 @@ class RentalItemController extends Controller
             'country'      => 'required',
         ]);
 
-        $RentalItem = RentalItem::query()->create([
-            'user_id'           => $request->user_id,
-            'name'              => $request->name,
-            'description'       => $request->description,
-            'price_per_hour'    => $request->price_per_hour,
-            'price_per_day'     => $request->price_per_day,
-            'price_per_month'   => $request->price_per_month,
-            'status'            => $request->status,
-            'rental_item_notes' => $request->rental_item_notes,
-        ]);
-        Address::query()->create([
-            'rental_item_id' => $RentalItem->id,
-            'street'         => $request->street,
-            'number'         => $request->number,
-            'complement'     => $request->complement,
-            'neighborhood'   => $request->neighborhood,
-            'city'           => $request->city,
-            'state'          => $request->state,
-            'zipcode'        => $request->zipcode,
-            'country'        => $request->country,
-        ]);
+        try {
+            $rentalItem = RentalItem::create([
+                'user_id'           => $request->user_id,
+                'name'              => $request->name,
+                'description'       => $request->description,
+                'price_per_hour'    => $request->price_per_hour,
+                'price_per_day'     => $request->price_per_day,
+                'price_per_month'   => $request->price_per_month,
+                'status'            => $request->status,
+                'rental_item_notes' => $request->rental_item_notes,
+            ]);
 
-        return redirect()->route('rental-items.index')->withErrors('Preencha os dados corretamente');
+            Address::create([
+                'rental_item_id' => $rentalItem->id,
+                'street'         => $request->street,
+                'number'         => $request->number,
+                'complement'     => $request->complement,
+                'neighborhood'   => $request->neighborhood,
+                'city'           => $request->city,
+                'state'          => $request->state,
+                'zipcode'        => $request->zipcode,
+                'country'        => $request->country,
+            ]);
+
+            return redirect()->route('rental-items.index')->with('success', 'Item de locação criado com sucesso!');
+        } catch (\Exception $e) {
+            return redirect()->route('rental-items.index')->with('error', $e->getMessage());
+        }
     }
 
     public function show(RentalItem $rentalItem)
@@ -84,11 +90,10 @@ class RentalItemController extends Controller
 
     public function edit(RentalItem $rentalItem)
     {
-        $landLordUsers = User::query()->where('role', 'landlord')->get();
+        $rentalItem = RentalItem::with('address')->findOrFail($rentalItem->id);
 
-        $rentalItem->load('address');
 
-        return view('rental-items.edit', compact('rentalItem', 'landLordUsers'));
+        return response()->json($rentalItem);
     }
 
     public function update(Request $request, RentalItem $rentalItem)
@@ -96,16 +101,8 @@ class RentalItemController extends Controller
         $rentalItemUpdated = $request->all();
         $rentalItem->update($rentalItemUpdated);
 
-        $rentalItem->address()->update([
-            'street'       => $request->street,
-            'number'       => $request->number,
-            'complement'   => $request->complement,
-            'neighborhood' => $request->neighborhood,
-            'city'         => $request->city,
-            'state'        => $request->state,
-            'zipcode'      => $request->zipcode,
-            'country'      => $request->country,
-        ]);
+        $addressData = $request->all();
+        $rentalItem->address()->updateOrCreate(['rental_item_id' => $rentalItem->id], $addressData);
 
         return redirect()->route('rental-items.index');
     }
