@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Populate the form fields with the rental item data
             editForm.action = `/salas/${rentalItemId}`;
+            document.getElementById('update-user_id').value = rentalItemData.user_id;
             document.getElementById('update-name').value = rentalItemData.name;
             document.getElementById('update-description').value = rentalItemData.description;
             document.getElementById('update-price_per_day').value = rentalItemData.price_per_day;

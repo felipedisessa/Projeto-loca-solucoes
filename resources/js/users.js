@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('update-name').value = userData.name;
             document.getElementById('update-email').value = userData.email;
             document.getElementById('update-company').value = userData.company;
+            document.getElementById('update-password').value = userData.password;
             document.getElementById('update-phone').value = userData.phone;
             document.getElementById('update-mobile').value = userData.mobile;
             document.getElementById('update-role').value = userData.role;

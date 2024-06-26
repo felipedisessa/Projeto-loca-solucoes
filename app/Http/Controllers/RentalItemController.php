@@ -92,7 +92,6 @@ class RentalItemController extends Controller
     {
         $rentalItem = RentalItem::with('address')->findOrFail($rentalItem->id);
 
-
         return response()->json($rentalItem);
     }
 

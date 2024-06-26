@@ -40,9 +40,31 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         },
 
+        dateClick: function(info) {
+
+            const modal = document.getElementById('create-crud-modal');
+            const closeButton = document.getElementById('close-modal-button');
+
+            modal.classList.remove('hidden');
+
+            closeButton.addEventListener('click', function() {
+                modal.classList.add('hidden');
+            });
+
+            const startInput = document.getElementById('start');
+            const endInput = document.getElementById('end');
+
+            endInput.value = info.dateStr + 'T00:00:00';
+            startInput.value = info.dateStr + 'T00:00:00';
+
+            //data-modal-target="create-crud-modal" data-modal-toggle="create-crud-modal"
+        },
+
+
         eventClick: function(info) {
             alert('Descrição: ' + info.event.extendedProps.description + '\nHora: ' + info.event.start + ' - ' +
                 info.event.end + '\nID: ' + info.event.id);
+
         }
 
     });
