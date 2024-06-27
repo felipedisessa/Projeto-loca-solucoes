@@ -14,7 +14,7 @@
                 </button>
             </div>
             <!-- Modal body -->
-            <form action="{{ route('reserves.store') }}" method="post" class="p-4 space-y-4">
+            <form id="create-reserve-form"  action="{{ route('reserves.store') }}" method="post" class="p-4 space-y-4">
                 @csrf
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -31,6 +31,7 @@
                     <div>
                         <label for="title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Título</label>
                         <input type="text" name="title" id="title" value="{{ old('title') }}" class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
+                    <div id="title-error" class="text-red-500 text-sm"></div>
                     </div>
 
                     <div class="md:col-span-2">
@@ -41,11 +42,13 @@
                     <div>
                         <label for="start" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Data de início</label>
                         <input type="datetime-local" name="start" id="start" class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
+                   <div id="start-error" class="text-red-500 text-sm"></div>
                     </div>
 
                     <div>
                         <label for="end" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Data de fim</label>
                         <input type="datetime-local" name="end" id="end" class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
+                   <div id="end-error" class="text-red-500 text-sm"></div>
                     </div>
 
                     <div>

@@ -84,12 +84,24 @@ class ReserveController extends Controller
 
         return response()->json($reserve);
 
-        return view('reserves.edit', compact('reserve', 'bookUsers', 'bookItems'));
     }
 
     public function update(Request $request, $reserf)
     {
         $reserve = Reserve::findOrFail($reserf);
+
+        $validatedData = $request->validate([
+            'user_id'        => 'required',
+            'title'          => 'required',
+            'description'    => 'required',
+            'start'          => 'required',
+            'end'            => 'required',
+            'rental_item_id' => 'required',
+            'status'         => 'required',
+            'price'          => 'required|numeric',
+            'payment_type'   => 'required',
+        ]);
+
         $reserve->update([
             'user_id'        => $request->user_id,
             'title'          => $request->title,
@@ -102,7 +114,7 @@ class ReserveController extends Controller
             'payment_type'   => $request->payment_type,
         ]);
 
-        return redirect()->route('reserves.index');
+        return back();
     }
 
     public function getReservesJson()

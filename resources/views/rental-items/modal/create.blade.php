@@ -14,7 +14,7 @@
                 </button>
             </div>
             <!-- Modal body -->
-            <form action="{{ route('rental-items.store') }}" method="post" class="p-4 space-y-4">
+            <form id="create-rental-item-form" action="{{ route('rental-items.store') }}" method="post" class="p-4 space-y-4">
                 @csrf
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -31,6 +31,7 @@
                     <div>
                         <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nome</label>
                         <input type="text" name="name" id="name" value="{{ old('name') }}" class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
+                   <div id="name-error" class="text-red-600"></div>
                     </div>
 
                     <div class="md:col-span-2">
@@ -58,16 +59,19 @@
                     <div>
                         <label for="price_per_hour" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Valor por hora</label>
                         <input type="text" name="price_per_hour" id="price_per_hour" value="{{ old('price_per_hour') }}" class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
+                   <div id="price_per_hour-error" class="text-red-600"></div>
                     </div>
 
                     <div>
                         <label for="price_per_day" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Valor por dia</label>
                         <input type="text" name="price_per_day" id="price_per_day" value="{{ old('price_per_day') }}" class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
+                    <div id="price_per_day-error" class="text-red-600"></div>
                     </div>
 
                     <div>
                         <label for="price_per_month" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Valor por mês</label>
                         <input type="text" name="price_per_month" id="price_per_month" value="{{ old('price_per_month') }}" class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
+                    <div id="price_per_month-error" class="text-red-600"></div>
                     </div>
                 </div>
 
@@ -80,6 +84,7 @@
                     <div>
                         <label for="number" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Número</label>
                         <input type="text" name="number" id="number" value="{{ old('number') }}" class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
+                    <div id="number-error" class="text-red-600"></div>
                     </div>
                 </div>
 
@@ -104,6 +109,7 @@
                     <div>
                         <label for="zipcode" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">CEP</label>
                         <input type="text" name="zipcode" id="zipcode" value="{{ old('zipcode') }}" class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
+                    <div id="zipcode-error" class="text-red-600"></div>
                     </div>
 
                     <div>

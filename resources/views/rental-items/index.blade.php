@@ -115,6 +115,7 @@
     @include('rental-items.modal.create')
     @include('rental-items.modal.edit')
     @vite('resources/js/rental-items.js')
+    @vite('resources/js/rental-item-form-validate.js')
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {

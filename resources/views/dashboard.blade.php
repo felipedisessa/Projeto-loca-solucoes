@@ -23,6 +23,7 @@
 </x-app-layout>
 
 @include('reserves.modal.create')
+@include('reserves.modal.editfullcalendar')
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.10.1/main.min.js"></script>

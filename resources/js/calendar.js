@@ -25,11 +25,9 @@ document.addEventListener('DOMContentLoaded', function () {
         dayMaxEvents: true,
 
         eventDrop: async function (info) {
-            // Preserve original times
             const originalStartTime = info.oldEvent.start.toTimeString().split(' ')[0];
             const originalEndTime = info.oldEvent.end ? info.oldEvent.end.toTimeString().split(' ')[0] : null;
 
-            // Combine new date with original time
             const newStart = info.event.start.toISOString().split('T')[0] + 'T' + originalStartTime;
             const newEnd = originalEndTime ? info.event.end.toISOString().split('T')[0] + 'T' + originalEndTime : null;
 
@@ -62,15 +60,33 @@ document.addEventListener('DOMContentLoaded', function () {
 
             endInput.value = info.dateStr + 'T00:00:00';
             startInput.value = info.dateStr + 'T00:00:00';
-
-            //data-modal-target="create-crud-modal" data-modal-toggle="create-crud-modal"
         },
 
-        eventClick: function (info) {
-            alert('Descrição: ' + info.event.extendedProps.description + '\nHora: ' + info.event.start + ' - ' +
-                info.event.end + '\nID: ' + info.event.id);
-        }
+        eventClick: async function (info) {
+            const response = await axios.get('/reserves/' + info.event.id + '/edit');
+            const reserve = response.data;
 
+            document.getElementById('reserve_id').value = reserve.id;
+            document.getElementById('editfullcalendar-reserve-form').action = `/reserves/${reserve.id}`;
+            document.getElementById('update-user_id').value = reserve.user_id;
+            document.getElementById('update-title').value = reserve.title;
+            document.getElementById('update-description').value = reserve.description;
+            document.getElementById('update-start').value = reserve.start;
+            document.getElementById('update-end').value = reserve.end;
+            document.getElementById('update-rental_item_id').value = reserve.rental_item_id;
+            document.getElementById('update-price').value = reserve.price;
+            document.getElementById('update-payment_type').value = reserve.payment_type;
+            document.getElementById('update-status').value = reserve.status;
+
+            const closeButton = document.getElementById('close-edit-crud-modal');
+
+            closeButton.addEventListener('click', function () {
+                modal.classList.add('hidden');
+            });
+
+            const modal = document.getElementById('edit-crud-modal');
+            modal.classList.remove('hidden');
+        }
     });
 
     calendar.setOption('locale', 'pt-br');

@@ -110,6 +110,7 @@
 @include('reserves.modal.create')
 @include('reserves.modal.edit')
 @vite('resources/js/reserves.js')
+@vite('resources/js/reserve-form-validate.js')
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {

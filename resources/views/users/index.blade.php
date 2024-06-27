@@ -137,4 +137,5 @@
     @include('users.modal.create')
     @include('users.modal.edit')
     @vite('resources/js/users.js')
+    @vite('resources/js/user-form-validate.js')
 </x-app-layout>
