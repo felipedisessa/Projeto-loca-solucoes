@@ -12,6 +12,7 @@ class DashboardController extends Controller
         $bookUsers = User::query()->where('role', 'visitor')->get();
         $bookItems = RentalItem::query()->get();
 
+
         return view('dashboard', compact('bookUsers', 'bookItems'));
     }
 }

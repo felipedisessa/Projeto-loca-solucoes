@@ -81,6 +81,18 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
+        $validatedData = $request->validate([
+            'name'       => 'required',
+            'email'      => 'required',
+            'phone'      => 'required|numeric',
+            'mobile'     => 'required|numeric',
+            'role'       => 'required',
+            'cpf_cnpj'   => 'required|numeric',
+            'user_notes' => 'required',
+            'password'   => 'required',
+            'company'    => 'required',
+        ]);
+
         $user = User::create([
             'name'       => $request->name,
             'email'      => $request->email,

@@ -21,7 +21,7 @@
                     <div>
                         <label for="user_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Responsável</label>
                         <select id="user_id" name="user_id" class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                            <option value="" selected disabled>Responsável</option>
+                            <option value="" selected disabled></option>
                             @foreach($bookUsers as $User)
                                 <option value="{{ $User->id }}">{{ $User->name }}</option>
                             @endforeach

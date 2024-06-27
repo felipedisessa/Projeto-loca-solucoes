@@ -11,7 +11,8 @@ class ReportController extends Controller
 {
     public function index(Request $request)
     {
-        $users        = User::query()->get();
+        $users = User::query()->get();
+        //        $deletedUsers  = User::query()->withTrashed()->get();
         $rental_items = RentalItem::query()->get();
         $reservations = collect();
 

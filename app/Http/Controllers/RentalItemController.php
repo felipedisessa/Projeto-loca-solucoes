@@ -38,11 +38,11 @@ class RentalItemController extends Controller
             'description'  => 'required',
             'status'       => 'required',
             'street'       => 'required',
-            'number'       => 'required',
+            'number'       => 'required|numeric',
             'neighborhood' => 'required',
             'city'         => 'required',
             'state'        => 'required',
-            'zipcode'      => 'required',
+            'zipcode'      => 'required|numeric',
             'country'      => 'required',
         ]);
 
