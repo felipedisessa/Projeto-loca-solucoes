@@ -36,6 +36,7 @@ document.addEventListener('DOMContentLoaded', function () {
             phoneError.textContent = '';
         }
 
+
         // Validando o campo cpf_cnpj
         const cpfCnpjInput = document.getElementById('cpf_cnpj');
         const cpfCnpjError = document.getElementById('cpf_cnpj-error');
@@ -81,6 +82,46 @@ document.addEventListener('DOMContentLoaded', function () {
             isValid = false;
         } else {
             mobileError.textContent = '';
+        }
+
+        //validando dados de enderecos obrigatorios
+        const streetInput = document.getElementById('street');
+        const streetError = document.getElementById('street-error');
+        if (streetInput.value.trim().length < 3) {
+            streetError.textContent = 'O nome da rua deve ter pelo menos 3 letras.';
+            isValid = false;
+        } else {
+            streetError.textContent = '';
+        }
+
+
+        const cityInput = document.getElementById('city');
+        const cityError = document.getElementById('city-error');
+        if (cityInput.value.trim().length < 3) {
+            cityError.textContent = 'O nome da cidade deve ter pelo menos 3 letras.';
+            isValid = false;
+        } else {
+            cityError.textContent = '';
+        }
+
+
+        const stateInput = document.getElementById('state');
+        const stateError = document.getElementById('state-error');
+        if (stateInput.value.trim().length < 3) {
+            stateError.textContent = 'O nome do estado deve ter pelo menos 3 letras.';
+            isValid = false;
+        } else {
+            stateError.textContent = '';
+        }
+
+
+        const countryInput = document.getElementById('country');
+        const countryError = document.getElementById('country-error');
+        if (countryInput.value.trim().length < 3) {
+            countryError.textContent = 'O nome do pais deve ter pelo menos 3 letras.';
+            isValid = false;
+        } else {
+            countryError.textContent = '';
         }
 
 

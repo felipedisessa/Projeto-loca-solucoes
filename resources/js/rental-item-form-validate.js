@@ -1,5 +1,5 @@
-document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('create-rental-item-form').addEventListener('submit', function(event) {
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('create-rental-item-form').addEventListener('submit', function (event) {
         let isValid = true;
 
         // Validando o campo nome
@@ -11,6 +11,64 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             nameError.textContent = '';
         }
+
+        //validnado descricao
+        const descriptionInput = document.getElementById('description');
+        const descriptionError = document.getElementById('description-error');
+        if (!descriptionInput.value) {
+            descriptionError.textContent = 'O campo de descrição deve ser preenchido.';
+            isValid = false;
+        } else {
+            descriptionError.textContent = '';
+        }
+
+        //validando o campo de status
+        const statusInput = document.getElementById('status');
+        const statusError = document.getElementById('status-error');
+        if (!statusInput.value) {
+            statusError.textContent = 'O campo de status deve ser preenchido.';
+            isValid = false;
+        } else {
+            statusError.textContent = '';
+        }
+
+        //validando os campos de enderecos
+        const streetInput = document.getElementById('street');
+        const streetError = document.getElementById('street-error');
+        if (!streetInput.value) {
+            streetError.textContent = 'O campo de rua deve ter pelo menos 3 letras.';
+            isValid = false;
+        } else {
+            streetError.textContent = '';
+        }
+
+        const cityInput = document.getElementById('city');
+        const cityError = document.getElementById('city-error');
+        if (!cityInput.value) {
+            cityError.textContent = 'O campo de cidade deve ter pelo menos 3 letras.';
+            isValid = false;
+        } else {
+            cityError.textContent = '';
+        }
+
+        const stateInput = document.getElementById('state');
+        const stateError = document.getElementById('state-error');
+        if (!stateInput.value) {
+            stateError.textContent = 'O campo de estado deve ter pelo menos 3 letras.';
+            isValid = false;
+        } else {
+            stateError.textContent = '';
+        }
+
+        const countryInput = document.getElementById('country');
+        const countryError = document.getElementById('country-error');
+        if (!countryInput.value) {
+            countryError.textContent = 'O campo de pais deve ter pelo menos 3 letras.';
+            isValid = false;
+        } else {
+            countryError.textContent = '';
+        }
+
 
         // Validando campos de preço
         const pricePerHourInput = document.getElementById('price_per_hour');

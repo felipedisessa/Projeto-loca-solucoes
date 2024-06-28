@@ -59,6 +59,7 @@
                         <input type="text" name="phone" id="phone" value="{{ old('phone') }}"
                                class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
                         <div id="phone-error" class="text-red-500 text-sm mt-1"></div>
+                        <div id="phone-error" class="text-red-500 text-sm mt-1"></div>
                     </div>
 
                     <div>
@@ -95,6 +96,7 @@
                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Rua</label>
                         <input type="text" name="street" id="street" value="{{ old('street') }}"
                                class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
+                        <div id="street-error" class="text-red-500 text-sm mt-1"></div>
                     </div>
 
                     <div>
@@ -116,6 +118,7 @@
                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cidade</label>
                         <input type="text" name="city" id="city" value="{{ old('city') }}"
                                class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
+                        <div id="city-error" class="text-red-500 text-sm mt-1"></div>
                     </div>
 
                     <div>
@@ -123,6 +126,7 @@
                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Estado</label>
                         <input type="text" name="state" id="state" value="{{ old('state') }}"
                                class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
+                        <div id="state-error" class="text-red-500 text-sm mt-1"></div>
                     </div>
 
                     <div>
@@ -138,6 +142,7 @@
                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">País</label>
                         <input type="text" name="country" id="country" value="{{ old('country') }}"
                                class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
+                        <div id="country-error" class="text-red-500 text-sm mt-1"></div>
                     </div>
 
                     <div>

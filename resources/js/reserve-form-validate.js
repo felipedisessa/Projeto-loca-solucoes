@@ -12,6 +12,16 @@ document.addEventListener('DOMContentLoaded', function () {
             bookUserError.textContent = '';
         }
 
+        //validando descricao
+        const descriptionInput = document.getElementById('description');
+        const descriptionError = document.getElementById('description-error');
+        if (!descriptionInput.value) {
+            descriptionError.textContent = 'O campo de descrição deve ser preenchido.';
+            isValid = false;
+        } else {
+            descriptionError.textContent = '';
+        }
+
         // Validando o campo nome
         const nameInput = document.getElementById('title');
         const nameError = document.getElementById('title-error');

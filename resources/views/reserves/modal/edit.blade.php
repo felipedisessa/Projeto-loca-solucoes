@@ -57,14 +57,15 @@
                     <div>
                         <label for="update-start" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Data
                             de início</label>
-                        <input type="datetime-local" name="start" id="update-start" value="{{$reserve->start}}"
+                        <input type="datetime-local" name="start" id="update-start"
+                               value=""
                                class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
                     </div>
 
                     <div>
                         <label for="update-end" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Data
                             de fim</label>
-                        <input type="datetime-local" name="end" id="update-end" value="{{$reserve->end}}"
+                        <input type="datetime-local" name="end" id="update-end" value=""
                                class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
                     </div>
 

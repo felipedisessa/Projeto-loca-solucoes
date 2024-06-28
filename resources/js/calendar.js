@@ -64,8 +64,8 @@ document.addEventListener('DOMContentLoaded', function () {
             const startInput = document.getElementById('start');
             const endInput = document.getElementById('end');
 
-            endInput.value = info.dateStr + 'T00:00:00';
-            startInput.value = info.dateStr + 'T00:00:00';
+            endInput.value = info.dateStr + 'T00:00';
+            startInput.value = info.dateStr + 'T00:00';
         },
 
         eventClick: async function (info) {

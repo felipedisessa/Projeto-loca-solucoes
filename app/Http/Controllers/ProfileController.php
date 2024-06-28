@@ -51,9 +51,12 @@ class ProfileController extends Controller
     public function index()
     {
         $search = request('search');
-        $users  = User::query()->with('address')->when($search, function($query) use ($search) {
-            $query->where('name', 'like', '%' . $search . '%');
-        })->paginate(20);
+        $users  = User::query()->orderBy('created_at', 'desc')->with('address')->when(
+            $search,
+            function($query) use ($search) {
+                $query->where('name', 'like', '%' . $search . '%');
+            }
+        )->paginate(20);
 
         if ($users->isEmpty()) {
             // Redireciona de volta ao index se nao existir nenhum usuario

@@ -47,6 +47,7 @@
                         <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Descrição</label>
                         <textarea name="description" id="description"
                                   class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">{{ old('description') }}</textarea>
+                        <div id="description-error" class="text-red-500 text-sm"></div>
                     </div>
 
                     <div>
@@ -98,10 +99,10 @@
                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status</label>
                         <select name="status" id="status"
                                 class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                            <option>Pago</option>
-                            <option>Confirmado</option>
-                            <option>Cancelado</option>
-                            <option>Pendente</option>
+                            <option value="pendente" selected>Pendente</option>
+                            <option value="pago">Pago</option>
+                            <option value="confirmado">Confirmado</option>
+                            <option value="cancelado">Cancelado</option>
                         </select>
                     </div>
                 </div>
