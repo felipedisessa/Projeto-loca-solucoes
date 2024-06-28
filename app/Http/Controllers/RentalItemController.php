@@ -18,6 +18,11 @@ class RentalItemController extends Controller
             $rentalItems = RentalItem::query()->where('name', 'like', '%' . $search . '%')->paginate(20);
         }
 
+        if ($rentalItems->isEmpty()) {
+            // Redireciona de volta ao index se nao existir nenhum item
+            return redirect()->route('rental-items.index');
+        }
+
         $landLordUsers = User::query()->where('role', 'landlord')->get();
 
         return view('rental-items.index', compact('rentalItems', 'landLordUsers'));

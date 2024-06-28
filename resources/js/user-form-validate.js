@@ -1,6 +1,7 @@
-document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('user-form').addEventListener('submit', function(event) {
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('user-form').addEventListener('submit', function (event) {
         let isValid = true;
+
 
         // Validando o campo nome
         const nameInput = document.getElementById('name');
@@ -10,6 +11,18 @@ document.addEventListener('DOMContentLoaded', function() {
             isValid = false;
         } else {
             nameError.textContent = '';
+        }
+
+
+        // Validando o campo email
+        const emailInput = document.getElementById('email');
+        const emailError = document.getElementById('email-error');
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(emailInput.value)) {
+            emailError.textContent = 'O email deve ser um email valido.';
+            isValid = false;
+        } else {
+            emailError.textContent = '';
         }
 
         // Validando o campo telefone
@@ -69,7 +82,6 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             mobileError.textContent = '';
         }
-
 
 
         if (!isValid) {

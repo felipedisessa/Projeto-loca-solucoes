@@ -5,11 +5,17 @@
         </h2>
     </x-slot>
 
-    <div class="m-4 max-w-lg mx-auto p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <div
+        class="m-4 max-w-lg mx-auto p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <dl class="grid grid-cols-2 gap-4 text-gray-900 dark:text-white">
             <div class="flex flex-col">
                 <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Nome</dt>
                 <dd class="text-lg font-semibold">{{ $rentalItem->name }}</dd>
+            </div>
+
+            <div class="flex flex-col">
+                <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Proprietário</dt>
+                <dd class="text-lg font-semibold">{{ $rentalItem->user->name }}</dd>
             </div>
             <div class="flex flex-col">
                 <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Descrição</dt>

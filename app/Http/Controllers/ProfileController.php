@@ -55,6 +55,11 @@ class ProfileController extends Controller
             $query->where('name', 'like', '%' . $search . '%');
         })->paginate(20);
 
+        if ($users->isEmpty()) {
+            // Redireciona de volta ao index se nao existir nenhum usuario
+            return redirect()->route('users.index');
+        }
+
         return view('users.index', compact('users'));
     }
 

@@ -18,6 +18,11 @@ class ReserveController extends Controller
             $reserves = Reserve::query()->where('title', 'like', '%' . $search . '%')->paginate(20);
         }
 
+        if ($reserves->isEmpty()) {
+            // Redireciona de volta ao index se nao existir nenhum usuario
+            return redirect()->route('users.index');
+        }
+
         $bookUsers = User::query()->where('role', 'visitor')->get();
         $bookItems = RentalItem::query()->get();
 
@@ -83,7 +88,6 @@ class ReserveController extends Controller
         $reserve   = Reserve::findOrFail($id);
 
         return response()->json($reserve);
-
     }
 
     public function update(Request $request, $reserf)

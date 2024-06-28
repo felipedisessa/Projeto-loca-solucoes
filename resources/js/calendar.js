@@ -1,13 +1,12 @@
-import { Calendar } from '@fullcalendar/core';
+import {Calendar} from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
-import ptBrLocale from '@fullcalendar/core/locales/pt-br';
 
 document.addEventListener('DOMContentLoaded', function () {
     let calendarEl = document.getElementById('calendar');
 
     let calendar = new Calendar(calendarEl, {
-        locale: ptBrLocale,
+        locale: 'pt-br',
         timeZone: 'local',
         plugins: [dayGridPlugin, interactionPlugin],
         initialView: 'dayGridMonth',
@@ -17,6 +16,13 @@ document.addEventListener('DOMContentLoaded', function () {
             left: 'prev,next today',
             center: 'title',
             right: 'dayGridMonth,dayGridWeek,dayGridDay'
+        },
+
+        buttonText: {
+            today: 'Hoje',
+            month: 'Mês',
+            week: 'Semana',
+            day: 'Dia'
         },
 
         editable: true,
