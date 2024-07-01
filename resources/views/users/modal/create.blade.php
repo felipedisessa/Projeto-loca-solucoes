@@ -74,7 +74,8 @@
                         <label for="role"
                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cargo</label>
                         <select id="role" name="role"
-                                class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                                class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700
+                        dark:border-gray-600 dark:text-white">
                             <option value="visitor">visitor</option>
                             <option value="landlord">landlord</option>
                             <option value="admin">admin</option>

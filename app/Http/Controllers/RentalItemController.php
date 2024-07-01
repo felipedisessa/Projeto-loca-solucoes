@@ -5,12 +5,17 @@ namespace App\Http\Controllers;
 use App\Models\Address;
 use App\Models\RentalItem;
 use App\Models\User;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 
 class RentalItemController extends Controller
 {
+    use AuthorizesRequests;
+
     public function index()
     {
+        $this->authorize('admin-or-landlord');
+
         $rentalItems = RentalItem::query()->orderBy('created_at', 'desc')->paginate(20);
         $search      = request('search');
 

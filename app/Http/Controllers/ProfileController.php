@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
+    use AuthorizesRequests;
+
     /**
      * Retorna os dados do usuário em formato JSON para popular o modal de edição.
      */
@@ -50,6 +53,8 @@ class ProfileController extends Controller
      */
     public function index()
     {
+        $this->authorize('admin-or-landlord');
+
         $search = request('search');
         $users  = User::query()->orderBy('created_at', 'desc')->with('address')->when(
             $search,
@@ -59,7 +64,7 @@ class ProfileController extends Controller
         )->paginate(20);
 
         if ($users->isEmpty()) {
-            // Redireciona de volta ao index se nao existir nenhum usuario
+            // Redireciona de volta ao index se não existir nenhum usuário
             return redirect()->route('users.index');
         }
 
@@ -91,7 +96,7 @@ class ProfileController extends Controller
     {
         $validatedData = $request->validate([
             'name'       => 'required',
-            'email'      => 'required',
+            'email'      => 'required|email',
             'phone'      => 'required|numeric',
             'mobile'     => 'required|numeric',
             'role'       => 'required',

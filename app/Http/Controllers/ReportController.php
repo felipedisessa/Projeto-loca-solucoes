@@ -5,12 +5,17 @@ namespace App\Http\Controllers;
 use App\Models\RentalItem;
 use App\Models\Reserve;
 use App\Models\User;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 
 class ReportController extends Controller
 {
+    use AuthorizesRequests;
+
     public function index(Request $request)
     {
+        $this->authorize('admin-or-landlord');
+
         $users = User::query()->get();
         //        $deletedUsers  = User::query()->withTrashed()->get();
         $rental_items = RentalItem::query()->get();

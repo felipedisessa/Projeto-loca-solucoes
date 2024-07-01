@@ -5,12 +5,18 @@ namespace App\Http\Controllers;
 use App\Models\RentalItem;
 use App\Models\Reserve;
 use App\Models\User;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class ReserveController extends Controller
 {
+    use AuthorizesRequests;
+
     public function index()
     {
+        $this->authorize('admin-or-landlord');
+
         $reserves = Reserve::query()->orderBy('created_at', 'desc')->paginate(20);
         $search   = request('search');
 
@@ -124,22 +130,25 @@ class ReserveController extends Controller
     public function getReservesJson()
     {
         $reserves = Reserve::all();
+        $user     = auth()->user();
 
         $events = $reserves->map(function($reserve) {
+            $isAdmin = Gate::allows('admin', Reserve::class);
+
             return [
                 'user_id'       => $reserve->user_id,
                 'id'            => $reserve->id,
-                'title'         => $reserve->title,
+                'title'         => $isAdmin ? $reserve->title : 'Ocupado',
                 'start'         => $reserve->start,
                 'end'           => $reserve->end,
                 'price'         => $reserve->price,
-                'description'   => $reserve->description,
+                'description'   => $isAdmin ? $reserve->description : '',
                 'status'        => $reserve->status,
                 'payment_type'  => $reserve->payment_type,
                 'extendedProps' => [
                     'user_id'        => $reserve->user_id,
                     'rental_item_id' => $reserve->rental_item_id,
-                    'description'    => $reserve->description,
+                    'description'    => $isAdmin ? $reserve->description : '',
                     'status'         => $reserve->status,
                     'start'          => $reserve->start,
                     'end'            => $reserve->end,

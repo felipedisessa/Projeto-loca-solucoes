@@ -16,21 +16,24 @@
                         {{ __('Calendário') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('rental-items.index')" :active="request()->routeIs('rental-items.index')">
-                        {{ __('Itens de Locação') }}
-                    </x-nav-link>
+                    @can('admin-or-landlord')
+                        <x-nav-link :href="route('rental-items.index')"
+                                    :active="request()->routeIs('rental-items.index')">
+                            {{ __('Itens de Locação') }}
+                        </x-nav-link>
 
-                    <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
-                        {{ __('Usuários') }}
-                    </x-nav-link>
+                        <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
+                            {{ __('Usuários') }}
+                        </x-nav-link>
 
-                    <x-nav-link :href="route('reserves.index')" :active="request()->routeIs('reserves.index')">
-                        {{ __('Reservas') }}
-                    </x-nav-link>
+                        <x-nav-link :href="route('reserves.index')" :active="request()->routeIs('reserves.index')">
+                            {{ __('Reservas') }}
+                        </x-nav-link>
 
-                    <x-nav-link :href="route('reports.index')" :active="request()->routeIs('reports.index')">
-                        {{ __('Relatorios') }}
-                    </x-nav-link>
+                        <x-nav-link :href="route('reports.index')" :active="request()->routeIs('reports.index')">
+                            {{ __('Relatorios') }}
+                        </x-nav-link>
+                    @endcan
 
 
                 </div>
