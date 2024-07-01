@@ -10,4 +10,9 @@ class RolePolicy
     {
         return in_array($user->role, ['admin', 'landlord']);
     }
+
+    public function exceptVisitor(User $user)
+    {
+        return in_array($user->role, ['admin', 'landlord', 'tenant']);
+    }
 }

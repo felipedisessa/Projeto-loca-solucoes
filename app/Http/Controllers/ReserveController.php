@@ -7,7 +7,6 @@ use App\Models\Reserve;
 use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 
 class ReserveController extends Controller
 {
@@ -127,35 +126,51 @@ class ReserveController extends Controller
         return back();
     }
 
-    public function getReservesJson()
+    public function getReservesJson(Request $request)
     {
-        $reserves = Reserve::all();
+        $query = Reserve::query();
+
+        if ($request->has('rental_item_id') && !empty($request->rental_item_id)) {
+            $query->where('rental_item_id', $request->rental_item_id);
+        }
+
+        $reserves = $query->get();
         $user     = auth()->user();
 
-        $events = $reserves->map(function($reserve) {
-            $isAdmin = Gate::allows('admin', Reserve::class);
-
-            return [
-                'user_id'       => $reserve->user_id,
-                'id'            => $reserve->id,
-                'title'         => $isAdmin ? $reserve->title : 'Ocupado',
-                'start'         => $reserve->start,
-                'end'           => $reserve->end,
-                'price'         => $reserve->price,
-                'description'   => $isAdmin ? $reserve->description : '',
-                'status'        => $reserve->status,
-                'payment_type'  => $reserve->payment_type,
-                'extendedProps' => [
-                    'user_id'        => $reserve->user_id,
-                    'rental_item_id' => $reserve->rental_item_id,
-                    'description'    => $isAdmin ? $reserve->description : '',
-                    'status'         => $reserve->status,
+        $events = $reserves->map(function($reserve) use ($user) {
+            if ($user->can('except-visitor')) {
+                // Usuário autorizado vê todos os detalhes
+                return [
+                    'user_id'       => $reserve->user_id,
+                    'id'            => $reserve->id,
+                    'title'         => $reserve->title,
+                    'start'         => $reserve->start,
+                    'end'           => $reserve->end,
+                    'price'         => $reserve->price,
+                    'description'   => $reserve->description,
+                    'status'        => $reserve->status,
+                    'payment_type'  => $reserve->payment_type,
+                    'extendedProps' => [
+                        'user_id'        => $reserve->user_id,
+                        'rental_item_id' => $reserve->rental_item_id,
+                        'description'    => $reserve->description,
+                        'status'         => $reserve->status,
+                        'start'          => $reserve->start,
+                        'end'            => $reserve->end,
+                        'price'          => $reserve->price,
+                        'payment_type'   => $reserve->payment_type,
+                    ],
+                ];
+            } else {
+                // Usuário não autorizado vê apenas a hora e título como "Ocupado"
+                return [
+                    'id'             => $reserve->id,
+                    'title'          => 'Ocupado',
                     'start'          => $reserve->start,
                     'end'            => $reserve->end,
-                    'price'          => $reserve->price,
-                    'payment_type'   => $reserve->payment_type,
-                ],
-            ];
+                    'rental_item_id' => $reserve->rental_item_id,
+                ];
+            }
         });
 
         return response()->json($events);

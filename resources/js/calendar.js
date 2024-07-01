@@ -4,13 +4,14 @@ import interactionPlugin from '@fullcalendar/interaction';
 
 document.addEventListener('DOMContentLoaded', function () {
     let calendarEl = document.getElementById('calendar');
+    let filteredRoom = null; // Variável para armazenar o filtro atual
 
     let calendar = new Calendar(calendarEl, {
         locale: 'pt-br',
         timeZone: 'local',
         plugins: [dayGridPlugin, interactionPlugin],
         initialView: 'dayGridMonth',
-        events: '/reserves/json',
+        events: fetchEvents, // Função para buscar eventos
 
         headerToolbar: {
             left: 'prev,next today',
@@ -29,6 +30,17 @@ document.addEventListener('DOMContentLoaded', function () {
         selectable: true,
         selectMirror: true,
         dayMaxEvents: true,
+
+        eventTimeFormat: {
+            hour: '2-digit',
+            minute: '2-digit',
+            meridiem: false,
+            hour12: false,
+            separator: ' - '
+        },
+
+        eventStartEditable: window.userRole !== 'visitor' && window.userRole !== 'tenant',
+        eventDurationEditable: window.userRole !== 'visitor' && window.userRole !== 'tenant',
 
         eventDrop: async function (info) {
             const originalStartTime = info.oldEvent.start.toTimeString().split(' ')[0];
@@ -69,6 +81,11 @@ document.addEventListener('DOMContentLoaded', function () {
         },
 
         eventClick: async function (info) {
+            if (window.userRole === 'visitor' || window.userRole === 'tenant') {
+                alert('Horario indisponível: ' + info.event.start + ' - ' + info.event.end);
+                return;
+            }
+
             const response = await axios.get('/reserves/' + info.event.id + '/edit');
             const reserve = response.data;
 
@@ -85,16 +102,32 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('update-status').value = reserve.status;
 
             const closeButton = document.getElementById('close-edit-crud-modal');
-
             closeButton.addEventListener('click', function () {
                 modal.classList.add('hidden');
             });
 
             const modal = document.getElementById('edit-crud-modal');
             modal.classList.remove('hidden');
-        }
+        },
+
+        datesSet: fetchEvents // Adiciona a função de buscar eventos quando a visualização muda
     });
 
-    calendar.setOption('locale', 'pt-br');
     calendar.render();
+
+    async function fetchEvents(fetchInfo, successCallback, failureCallback) {
+        try {
+            const params = filteredRoom ? {rental_item_id: filteredRoom} : {};
+            const response = await axios.get('/reserves/json', {params});
+            successCallback(response.data);
+        } catch (error) {
+            console.error("Sem eventos");
+            failureCallback(error);
+        }
+    }
+
+    document.getElementById('room-filter').addEventListener('change', function () {
+        filteredRoom = this.value;
+        calendar.refetchEvents(); // Recarrega os eventos ao mudar o filtro
+    });
 });

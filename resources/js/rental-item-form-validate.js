@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const stateInput = document.getElementById('state');
         const stateError = document.getElementById('state-error');
         if (!stateInput.value) {
-            stateError.textContent = 'O campo de estado deve ter pelo menos 3 letras.';
+            stateError.textContent = 'O campo de estado deve ter pelo menos 2 letras.';
             isValid = false;
         } else {
             stateError.textContent = '';
