@@ -32,6 +32,7 @@
 
 @include('reserves.modal.create')
 @include('reserves.modal.editfullcalendar')
+@include('reserves.modal.guestcreate')
 @vite('resources/js/reserve-form-validate.js')
 
 <script>

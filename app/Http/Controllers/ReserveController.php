@@ -43,8 +43,8 @@ class ReserveController extends Controller
             'start'          => 'required',
             'end'            => 'required',
             'rental_item_id' => 'required',
-            'status'         => 'required',
-            'price'          => 'required|numeric',
+            'status'         => 'nullable',
+            'price'          => 'nullable|numeric',
             'payment_type'   => 'required',
         ]);
 
@@ -65,7 +65,7 @@ class ReserveController extends Controller
 
     public function create()
     {
-        $bookUsers = User::query()->where('role', 'visitor')->get();
+        $bookUsers = User::query()->where('role', 'visitor', 'tenant')->get();
         $bookItems = RentalItem::query()->get();
 
         return view('reserves.modal.create', compact('bookUsers', 'bookItems'));

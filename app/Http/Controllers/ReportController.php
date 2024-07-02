@@ -16,9 +16,8 @@ class ReportController extends Controller
     {
         $this->authorize('admin-or-landlord');
 
-        $users = User::query()->get();
-        //        $deletedUsers  = User::query()->withTrashed()->get();
-        $rental_items = RentalItem::query()->get();
+        $users        = User::withTrashed()->get();
+        $rental_items = RentalItem::withTrashed()->get();
         $reservations = collect();
 
         if ($request->has(['start', 'end'])) {
@@ -28,7 +27,14 @@ class ReportController extends Controller
             $userId       = $request->input('user_id');
             $rentalItemId = $request->input('rental_item_id');
 
-            $query = Reserve::whereBetween('start', [$start, $end]);
+            $query = Reserve::whereBetween('start', [$start, $end])
+                ->with([
+                    'user' => function($query) {
+                        $query->withTrashed();
+                    }, 'rentalItem' => function($query) {
+                        $query->withTrashed();
+                    }
+                ]);
 
             if ($request->has('showDeleted')) {
                 $query->withTrashed();

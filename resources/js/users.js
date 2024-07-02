@@ -35,8 +35,34 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
+    // resources/js/users.js
+
     // Hide the modal when the close button is clicked
     editModal.querySelector('button[data-modal-toggle="edit-crud-modal"]').addEventListener('click', () => {
         editModal.classList.add('hidden');
+    });
+
+    // formatação de telefone
+    function formatPhone(value) {
+        if (!value) return value;
+        const phoneNumber = value.replace(/[^\d]/g, '');
+        const phoneNumberLength = phoneNumber.length;
+        if (phoneNumberLength <= 10) {
+            return phoneNumber.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3');
+        }
+        return phoneNumber.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+    }
+
+// formatação de telefone
+    document.getElementById('phone').addEventListener('input', function (e) {
+        this.value = formatPhone(this.value);
+    });
+
+    document.getElementById('mobile').addEventListener('input', function (e) {
+        this.value = formatPhone(this.value);
+    });
+
+    document.getElementById('cpf_cnpj').addEventListener('input', function (e) {
+        this.value = formatCpfCnpj(this.value);
     });
 });

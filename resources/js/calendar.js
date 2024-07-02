@@ -64,6 +64,25 @@ document.addEventListener('DOMContentLoaded', function () {
         },
 
         dateClick: function (info) {
+            if (window.userRole === 'visitor' || window.userRole === 'tenant') {
+                const modal = document.getElementById('guest-create-crud-modal');
+                const closeButton = document.getElementById('guest-close-modal-button');
+
+                modal.classList.remove('hidden');
+
+                closeButton.addEventListener('click', function () {
+                    modal.classList.add('hidden');
+                });
+
+                const startInput = modal.querySelector('#guest-start');
+                const endInput = modal.querySelector('#guest-end');
+
+                endInput.value = info.dateStr + 'T00:00';
+                startInput.value = info.dateStr + 'T00:00';
+
+                return;
+            }
+
             const modal = document.getElementById('create-crud-modal');
             const closeButton = document.getElementById('close-modal-button');
 

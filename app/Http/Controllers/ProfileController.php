@@ -95,15 +95,15 @@ class ProfileController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'name'       => 'required',
-            'email'      => 'required|email',
-            'phone'      => 'required|numeric',
-            'mobile'     => 'required|numeric',
-            'role'       => 'required',
-            'cpf_cnpj'   => 'required|numeric',
-            'user_notes' => 'required',
-            'password'   => 'required',
-            'company'    => 'required',
+            'name'       => 'required|string|max:255',
+            'email'      => 'required|email|max:255',
+            'phone'      => 'required|digits_between:10,15', // entre 10 e 15 dígitos
+            'mobile'     => 'required|digits_between:10,15', // entre 10 e 15 dígitos
+            'role'       => 'required|string|max:255',
+            'cpf_cnpj'   => 'required|numeric|digits_between:11,14', //entre 11 e 14 dígitos
+            'user_notes' => 'required|string',
+            'password'   => 'required|string|min:8', // Mínimo de 8 caracteres para a senha
+            'company'    => 'required|string|max:255',
         ]);
 
         $user = User::create([

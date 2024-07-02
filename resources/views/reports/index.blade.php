@@ -88,7 +88,7 @@
                     <input id="showDeleted" name="showDeleted" type="checkbox" value=""
                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                     <label for="showDeleted" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Exibir
-                        deletados</label>
+                        reservas deletadas</label>
                 </div>
 
                 <div class="flex items-center mb-4">
@@ -131,22 +131,21 @@
                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                             <td class="px-6 py-4">{{ $reservation->title }}</td>
                             <td class="px-6 py-4">{{ $reservation->description }}</td>
-                            <td class="px-6 py-4">{{ $reservation->rentalItem->name ?? '-' }}</td>
+                            <td class="px-6 py-4">{{ $reservation->rentalItem->name }}</td>
                             <td class="px-6 py-4">{{ $reservation->status }}</td>
-                            <td class="px-6 py-4">{{ $reservation->user->name ?? '-' }}</td>
+                            <td class="px-6 py-4">{{ $reservation->user->name }}</td>
                             <td class="px-6 py-4">{{ \Carbon\Carbon::parse($reservation->start)->format('d/m/Y') }}
                                 até {{ \Carbon\Carbon::parse($reservation->end)->format('d/m/Y') }}</td>
                             <td class="px-6 py-4">{{ $reservation->deleted_at ?? '-' }}</td>
                         </tr>
                     @empty
-                        <tr>
-                            <td colspan="6" class="px-6 py-4 text-center text-gray-500 dark:text-gray-400">Nenhuma
-                                reserva encontrada para o período selecionado.
-                            </td>
-                        </tr>
                     @endforelse
                     </tbody>
                 </table>
+            </div>
+        @else
+            <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-8 bg-white dark:bg-gray-800">
+                <p class="text-gray-500 dark:text-gray-400">Selecione um periodo válido para gerar o relatório</p>
             </div>
         @endif
     </div>

@@ -2,7 +2,6 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('user-form').addEventListener('submit', function (event) {
         let isValid = true;
 
-
         // Validando o campo nome
         const nameInput = document.getElementById('name');
         const nameError = document.getElementById('name-error');
@@ -12,7 +11,6 @@ document.addEventListener('DOMContentLoaded', function () {
         } else {
             nameError.textContent = '';
         }
-
 
         // Validando o campo email
         const emailInput = document.getElementById('email');
@@ -47,6 +45,30 @@ document.addEventListener('DOMContentLoaded', function () {
         } else {
             cpfCnpjError.textContent = '';
         }
+
+        // formatação de telefone
+        function formatPhone(value) {
+            if (!value) return value;
+            const phoneNumber = value.replace(/[^\d]/g, '');
+            const phoneNumberLength = phoneNumber.length;
+            if (phoneNumberLength <= 10) {
+                return phoneNumber.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3');
+            }
+            return phoneNumber.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+        }
+
+// formatação de telefone
+        document.getElementById('phone').addEventListener('input', function (e) {
+            this.value = formatPhone(this.value);
+        });
+
+        document.getElementById('mobile').addEventListener('input', function (e) {
+            this.value = formatPhone(this.value);
+        });
+
+        document.getElementById('cpf_cnpj').addEventListener('input', function (e) {
+            this.value = formatCpfCnpj(this.value);
+        });
 
 
         // Validando o campo cep

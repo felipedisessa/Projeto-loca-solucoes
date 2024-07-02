@@ -71,7 +71,7 @@
                         {{ $user->name }}
                     </th>
                     <td class="px-6 py-4">{{ $user->email }}</td>
-                    <td class="px-6 py-4">{{ $user->phone }}</td>
+                    <td class="px-6 py-4 phone-display">{{ $user->phone }}</td>
                     <td class="px-6 py-4">{{ $user->role }}</td>
                     <td class="flex items-center px-6 py-4 space-x-2">
                         <a href="{{ route('users.show', $user->id) }}" class="cursor-pointer">
@@ -164,4 +164,5 @@
     @include('users.modal.edit')
     @vite('resources/js/users.js')
     @vite('resources/js/user-form-validate.js')
+    @vite('resources/js/formatPhone.js')
 </x-app-layout>

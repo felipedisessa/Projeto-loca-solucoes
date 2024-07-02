@@ -9,9 +9,10 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $bookUsers = User::query()->where('role', 'visitor')->get();
+        $bookUsers = User::query()->where('role', 'visitor', 'tenant')->get();
         $bookItems = RentalItem::query()->get();
+        $user      = auth()->user();
 
-        return view('dashboard', compact('bookUsers', 'bookItems'));
+        return view('dashboard', compact('bookUsers', 'bookItems', 'user'));
     }
 }
