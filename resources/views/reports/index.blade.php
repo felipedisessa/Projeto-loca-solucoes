@@ -10,10 +10,10 @@
         </h2>
     </x-slot>
 
-
     <div class="max-w-6xl mx-auto sm:px-6 lg:px-8 mt-8">
         <form method="GET" action="{{ route('reports.index') }}" class="print:hidden">
             <div class="relative z-0 w-full mb-5 group bg-slate-800 p-8 shadow-md sm:rounded-lg">
+
                 <div class="flex items-center space-x-4">
                     <div class="relative z-0 w-full mb-5 group">
                         <input value="{{ old('start') }}" name="start" id="start" type="date"
@@ -136,7 +136,7 @@
                             <td class="px-6 py-4">{{ $reservation->user->name }}</td>
                             <td class="px-6 py-4">{{ \Carbon\Carbon::parse($reservation->start)->format('d/m/Y') }}
                                 até {{ \Carbon\Carbon::parse($reservation->end)->format('d/m/Y') }}</td>
-                            <td class="px-6 py-4">{{ $reservation->deleted_at ?? '-' }}</td>
+                            <td class="px-6 py-4">{{  \Carbon\Carbon::parse($reservation->deleted_at)->format('d/m/Y') ?? '-' }}</td>
                         </tr>
                     @empty
                     @endforelse
@@ -149,4 +149,5 @@
             </div>
         @endif
     </div>
+
 </x-app-layout>

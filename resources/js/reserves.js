@@ -32,4 +32,5 @@ document.addEventListener('DOMContentLoaded', function () {
     editModal.querySelector('button[data-modal-toggle="edit-crud-modal"]').addEventListener('click', () => {
         editModal.classList.add('hidden');
     });
+
 });
