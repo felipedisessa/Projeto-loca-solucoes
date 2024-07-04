@@ -165,4 +165,5 @@
     @vite('resources/js/users.js')
     @vite('resources/js/user-form-validate.js')
     @vite('resources/js/formatPhone.js')
+    @vite('resources/js/cep-validator.js')
 </x-app-layout>

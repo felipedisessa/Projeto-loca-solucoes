@@ -26,12 +26,17 @@ document.addEventListener('DOMContentLoaded', function () {
         // Validando o campo telefone
         const phoneInput = document.getElementById('phone');
         const phoneError = document.getElementById('phone-error');
-        const phonePattern = /^[0-9]+$/;
-        if (!phonePattern.test(phoneInput.value)) {
-            phoneError.textContent = 'O telefone deve conter apenas números.';
-            isValid = false;
+        let phoneValid = true;
+
+        if (phoneInput.value.trim() === '') {
+            phoneError.textContent = 'O campo de telefone deve ser preenchido.';
+            phoneValid = false;
         } else {
             phoneError.textContent = '';
+        }
+
+        if (!phoneValid) {
+            event.preventDefault();
         }
 
 
@@ -95,17 +100,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
 
-        // Validando o campo celular
-        const mobileInput = document.getElementById('mobile');
-        const mobileError = document.getElementById('mobile-error');
-        const mobilePattern = /^[0-9]+$/;
-        if (!mobilePattern.test(mobileInput.value)) {
-            mobileError.textContent = 'O celular deve conter apenas números.';
-            isValid = false;
-        } else {
-            mobileError.textContent = '';
-        }
-
         //validando dados de enderecos obrigatorios
         const streetInput = document.getElementById('street');
         const streetError = document.getElementById('street-error');
@@ -127,15 +121,17 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
 
+        let stateValid = true;
         const stateInput = document.getElementById('state');
         const stateError = document.getElementById('state-error');
-        if (stateInput.value.trim().length < 3) {
+        if (stateInput.value.trim().length < 2) {
             stateError.textContent = 'O nome do estado deve ter pelo menos 2 letras.';
-            isValid = false;
-        } else {
-            stateError.textContent = '';
+            stateValid = false;
         }
 
+        if (!stateValid) {
+            event.preventDefault(); // Impede a submissão do formulário
+        }
 
         const countryInput = document.getElementById('country');
         const countryError = document.getElementById('country-error');

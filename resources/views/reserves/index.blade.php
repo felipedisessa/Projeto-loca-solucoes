@@ -136,6 +136,7 @@
 @vite('resources/js/reserves.js')
 @vite('resources/js/reserve-form-validate.js')
 @vite('resources/js/datepicker-config.js')
+@vite('resources/js/formatMoney.js')
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {

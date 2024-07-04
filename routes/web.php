@@ -20,7 +20,11 @@ Route::middleware('auth')->group(function() {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // Additional Routes
-    Route::get('/reserves/json', [ReserveController::class, 'getReservesJson'])->name('reserves.json');
+    Route::match(
+        ['get', 'put'],
+        '/reserves/json',
+        [ReserveController::class, 'getReservesJson']
+    )->name('reserves.json');
     Route::resource('relatorios', ReportController::class)->names('reports')->parameter('relatorios', 'report');
     Route::resource('salas', RentalItemController::class)->names('rental-items')->parameter('salas', 'rentalItem');
     Route::resource('usuarios', ProfileController::class)->names('users')->parameter('usuarios', 'user');

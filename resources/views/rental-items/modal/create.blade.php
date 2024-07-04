@@ -78,7 +78,7 @@
                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Valor por
                             hora</label>
                         <input type="text" name="price_per_hour" id="price_per_hour" value="{{ old('price_per_hour') }}"
-                               class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
+                               class="mask-money block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
                         <div id="price_per_hour-error" class="text-red-600"></div>
                     </div>
 
@@ -86,7 +86,7 @@
                         <label for="price_per_day" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Valor
                             por dia</label>
                         <input type="text" name="price_per_day" id="price_per_day" value="{{ old('price_per_day') }}"
-                               class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
+                               class="mask-money block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
                         <div id="price_per_day-error" class="text-red-600"></div>
                     </div>
 
@@ -96,7 +96,7 @@
                             mês</label>
                         <input type="text" name="price_per_month" id="price_per_month"
                                value="{{ old('price_per_month') }}"
-                               class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
+                               class="mask-money block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
                         <div id="price_per_month-error" class="text-red-600"></div>
                     </div>
                 </div>

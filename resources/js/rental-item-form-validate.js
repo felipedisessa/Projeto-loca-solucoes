@@ -71,6 +71,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
         // Validando campos de preço
+        // Validando campos de preço
         const pricePerHourInput = document.getElementById('price_per_hour');
         const pricePerHourError = document.getElementById('price_per_hour-error');
         const pricePerDayInput = document.getElementById('price_per_day');
@@ -78,44 +79,33 @@ document.addEventListener('DOMContentLoaded', function () {
         const pricePerMonthInput = document.getElementById('price_per_month');
         const pricePerMonthError = document.getElementById('price_per_month-error');
 
-        const pricePattern = /^[0-9]+(\.[0-9]{1,2})?$/;
-
         let isAnyPriceFieldFilled = false;
 
-        if (!pricePattern.test(pricePerHourInput.value) && pricePerHourInput.value.trim() !== '') {
-            pricePerHourError.textContent = 'O valor deve conter apenas números.';
-            isValid = false;
-        } else {
+        if (pricePerHourInput.value.trim() !== '') {
             pricePerHourError.textContent = '';
-            if (pricePerHourInput.value.trim() !== '') {
-                isAnyPriceFieldFilled = true;
-            }
+            isAnyPriceFieldFilled = true;
+        } else {
+            pricePerHourError.textContent = 'Preencha pelo menos um dos campos de preço.';
         }
 
-        if (!pricePattern.test(pricePerDayInput.value) && pricePerDayInput.value.trim() !== '') {
-            pricePerDayError.textContent = 'O valor deve conter apenas números.';
-            isValid = false;
-        } else {
+        if (pricePerDayInput.value.trim() !== '') {
             pricePerDayError.textContent = '';
-            if (pricePerDayInput.value.trim() !== '') {
-                isAnyPriceFieldFilled = true;
-            }
+            isAnyPriceFieldFilled = true;
+        } else {
+            pricePerDayError.textContent = 'Preencha pelo menos um dos campos de preço.';
         }
 
-        if (!pricePattern.test(pricePerMonthInput.value) && pricePerMonthInput.value.trim() !== '') {
-            pricePerMonthError.textContent = 'O valor deve conter apenas números.';
-            isValid = false;
-        } else {
+        if (pricePerMonthInput.value.trim() !== '') {
             pricePerMonthError.textContent = '';
-            if (pricePerMonthInput.value.trim() !== '') {
-                isAnyPriceFieldFilled = true;
-            }
+            isAnyPriceFieldFilled = true;
+        } else {
+            pricePerMonthError.textContent = 'Preencha pelo menos um dos campos de preço.';
         }
 
         if (!isAnyPriceFieldFilled) {
-            pricePerHourError.textContent = 'Preencha pelo menos um dos campos de preço (Somente números).';
-            pricePerDayError.textContent = 'Preencha pelo menos um dos campos de preço (Somente números).';
-            pricePerMonthError.textContent = 'Preencha pelo menos um dos campos de preço (Somente números).';
+            pricePerHourError.textContent = 'Preencha pelo menos um dos campos de preço.';
+            pricePerDayError.textContent = 'Preencha pelo menos um dos campos de preço.';
+            pricePerMonthError.textContent = 'Preencha pelo menos um dos campos de preço.';
             isValid = false;
         }
 

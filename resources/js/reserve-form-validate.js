@@ -65,15 +65,16 @@ document.addEventListener('DOMContentLoaded', function () {
         //validando o campo de preço
         const priceInput = document.getElementById('price');
         const priceError = document.getElementById('price-error');
-        const pricePattern = /^[0-9]+$/;
-        if (!pricePattern.test(priceInput.value)) {
-            priceError.textContent = 'O campo de preco deve conter apenas números.';
-            isValid = false;
+        let priceValid = true;
+
+        if (priceInput.value.trim() === '') {
+            priceError.textContent = 'O campo de preço deve ser preenchido.';
+            priceValid = false;
         } else {
             priceError.textContent = '';
         }
 
-        if (!isValid) {
+        if (!priceValid) {
             event.preventDefault();
         }
     });

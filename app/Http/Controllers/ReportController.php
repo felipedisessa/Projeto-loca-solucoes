@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\RentalItem;
 use App\Models\Reserve;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 
@@ -27,11 +28,16 @@ class ReportController extends Controller
             $userId       = $request->input('user_id');
             $rentalItemId = $request->input('rental_item_id');
 
-            $query = Reserve::whereBetween('start', [$start, $end])
+            // Converta as datas de string para objetos Carbon
+            $startDate = Carbon::createFromFormat('d/m/Y', $start)->startOfDay();
+            $endDate   = Carbon::createFromFormat('d/m/Y', $end)->endOfDay();
+
+            $query = Reserve::whereBetween('start', [$startDate, $endDate])
                 ->with([
                     'user' => function($query) {
                         $query->withTrashed();
-                    }, 'rentalItem' => function($query) {
+                    },
+                    'rentalItem' => function($query) {
                         $query->withTrashed();
                     }
                 ]);

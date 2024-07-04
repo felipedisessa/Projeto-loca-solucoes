@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\RentalItem;
 use App\Models\Reserve;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 
@@ -42,25 +43,41 @@ class ReserveController extends Controller
             'description'    => 'required',
             'start'          => 'required',
             'end'            => 'required',
+            'price'          => 'nullable',
+            'start_time'     => 'nullable',
+            'end_time'       => 'nullable',
             'rental_item_id' => 'required',
             'status'         => 'nullable',
-            'price'          => 'nullable|numeric',
             'payment_type'   => 'required',
         ]);
 
-        Reserve::query()->create([
-            'user_id'        => $request->user_id,
-            'title'          => $request->title,
-            'description'    => $request->description,
-            'start'          => $request->start,
-            'end'            => $request->end,
-            'rental_item_id' => $request->rental_item_id,
-            'status'         => $request->status,
-            'price'          => $request->price,
-            'payment_type'   => $request->payment_type,
-        ]);
+        //        $startDate = Carbon::createFromFormat('d/m/Y', $request->start);
+        //        $endDate   = Carbon::createFromFormat('d/m/Y', $request->end);
 
-        return back();
+        $startDate = Carbon::createFromFormat('d/m/Y H:i', $request->start . ' ' . $request->start_time);
+        $endDate   = Carbon::createFromFormat('d/m/Y H:i', $request->end . ' ' . $request->end_time);
+
+        // Montagem dos dados da reserva
+        $reserveData = [
+            'user_id'        => $validatedData['user_id'],
+            'title'          => $validatedData['title'],
+            'description'    => $validatedData['description'],
+            'start'          => $startDate,
+            'end'            => $endDate,
+            'rental_item_id' => $validatedData['rental_item_id'],
+            'status'         => $validatedData['status'],
+            'payment_type'   => $validatedData['payment_type'],
+        ];
+
+        // verifica se o campo price foi preenchido
+        if ($request->filled('price')) {
+            $price                = str_replace(['R$', ','], '', $request->price);
+            $reserveData['price'] = $price;
+        }
+
+        Reserve::query()->create($reserveData);
+
+        return back()->with('success', 'Reserva criada com sucesso!');
     }
 
     public function create()
@@ -95,9 +112,9 @@ class ReserveController extends Controller
         return response()->json($reserve);
     }
 
-    public function update(Request $request, $reserf)
+    public function update(Request $request, $id)
     {
-        $reserve = Reserve::findOrFail($reserf);
+        $reserve = Reserve::findOrFail($id);
 
         $validatedData = $request->validate([
             'user_id'        => 'required',
@@ -107,19 +124,23 @@ class ReserveController extends Controller
             'end'            => 'required',
             'rental_item_id' => 'required',
             'status'         => 'required',
-            'price'          => 'required|numeric',
+            'price'          => 'required',
             'payment_type'   => 'required',
         ]);
+
+        $startDate = Carbon::createFromFormat('d/m/Y', $request->start);
+        $endDate   = Carbon::createFromFormat('d/m/Y', $request->end);
+        $price     = str_replace(['R$', ','], '', $request->price) / 100;
 
         $reserve->update([
             'user_id'        => $request->user_id,
             'title'          => $request->title,
             'description'    => $request->description,
-            'start'          => $request->start,
-            'end'            => $request->end,
+            'start'          => $startDate,
+            'end'            => $endDate,
             'rental_item_id' => $request->rental_item_id,
             'status'         => $request->status,
-            'price'          => $request->price,
+            'price'          => $price,
             'payment_type'   => $request->payment_type,
         ]);
 

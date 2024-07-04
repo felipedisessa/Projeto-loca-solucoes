@@ -57,13 +57,18 @@ class RentalItemController extends Controller
         ]);
 
         try {
+            // Formatar os preços removendo vírgulas e o símbolo "R$"
+            $pricePerHour  = str_replace(['R$', ','], '', $request->price_per_hour);
+            $pricePerDay   = str_replace(['R$', ','], '', $request->price_per_day);
+            $pricePerMonth = str_replace(['R$', ','], '', $request->price_per_month);
+
             $rentalItem = RentalItem::create([
                 'user_id'           => $request->user_id,
                 'name'              => $request->name,
                 'description'       => $request->description,
-                'price_per_hour'    => $request->price_per_hour,
-                'price_per_day'     => $request->price_per_day,
-                'price_per_month'   => $request->price_per_month,
+                'price_per_hour'    => $pricePerHour,
+                'price_per_day'     => $pricePerDay,
+                'price_per_month'   => $pricePerMonth,
                 'status'            => $request->status,
                 'rental_item_notes' => $request->rental_item_notes,
             ]);

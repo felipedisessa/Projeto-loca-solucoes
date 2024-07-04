@@ -34,13 +34,14 @@
 @include('reserves.modal.editfullcalendar')
 @include('reserves.modal.guestcreate')
 @vite('resources/js/reserve-form-validate.js')
+@vite('resources/js/datepicker-config.js')
+@vite('resources/js/formatMoney.js')
 
 <script>
     window.userRole = "{{ auth()->user()->role }}";
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.10.1/main.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.10.1/locale/pt-br.min.js"></script>
-<script src="{{ mix('js/app.js') }}"></script>
-
-<link href="{{ mix('css/app.css') }}" rel="stylesheet">
+{{--<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.10.1/main.min.js"></script>--}}
+{{--<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.10.1/locale/pt-br.min.js"></script>--}}
+{{--<script src="{{ mix('js/app.js') }}"></script>--}}
+{{--<link href="{{ mix('css/app.css') }}" rel="stylesheet">--}}
