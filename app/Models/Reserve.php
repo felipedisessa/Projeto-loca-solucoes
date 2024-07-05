@@ -24,6 +24,10 @@ class Reserve extends Model
         'payment_type',
     ];
 
+    public static function select(string $string)
+    {
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

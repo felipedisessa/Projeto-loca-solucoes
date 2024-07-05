@@ -44,25 +44,21 @@ document.addEventListener('DOMContentLoaded', function () {
             eventDurationEditable: window.userRole !== 'visitor' && window.userRole !== 'tenant',
 
             eventDrop: async function (info) {
-                const newStart = formatDate(info.event.start);
-                const newEnd = info.event.end ? formatDate(info.event.end) : newStart;
 
                 const response = await axios.put('/reserves/' + info.event.id, {
-                    user_id: info.event.extendedProps.user_id,
-                    title: info.event.title,
-                    rental_item_id: info.event.extendedProps.rental_item_id,
-                    start: newStart,
-                    end: newEnd,
-                    price: info.event.extendedProps.price ? info.event.extendedProps.price : 0.00,
-                    description: info.event.extendedProps.description,
-                    status: info.event.extendedProps.status,
-                    payment_type: info.event.extendedProps.payment_type,
-                    _token: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                });
+                        title: info.event.title,
+                        start: info.event.startStr,
+                        end: info.event.endStr,
+                        status: info.event.extendedProps.status,
+                        description: info.event.extendedProps.description,
+                        rental_item_id: info.event.extendedProps.rental_item_id,
+                        price: info.event.extendedProps.price,
+                        payment_type: info.event.extendedProps.payment_type,
 
-
+                        _token: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    }
+                );
             },
-
             dateClick: function (info) {
                 if (window.userRole === 'visitor' || window.userRole === 'tenant') {
                     const modal = document.getElementById('guest-create-crud-modal');
@@ -109,6 +105,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 const response = await axios.get('/reserves/' + info.event.id + '/edit');
                 const reserve = response.data;
 
+                console.log(reserve);
+
                 document.getElementById('reserve_id').value = reserve.id;
                 document.getElementById('editfullcalendar-reserve-form').action = `/reserves/${reserve.id}`;
                 document.getElementById('update-user_id').value = reserve.user_id;
@@ -116,6 +114,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 document.getElementById('update-description').value = reserve.description;
                 document.getElementById('update-start').value = new Date(reserve.start).toLocaleDateString('pt-BR');
                 document.getElementById('update-end').value = new Date(reserve.end).toLocaleDateString('pt-BR');
+                document.getElementById('update-start_time').value = new Date(reserve.start).toLocaleTimeString([], {
+                    hour: '2-digit',
+                    minute: '2-digit'
+                })
+                document.getElementById('update-end_time').value = new Date(reserve.end).toLocaleTimeString([], {
+                    hour: '2-digit',
+                    minute: '2-digit'
+                })
                 document.getElementById('update-rental_item_id').value = reserve.rental_item_id;
                 document.getElementById('update-price').value = reserve.price;
                 document.getElementById('update-payment_type').value = reserve.payment_type;
@@ -153,4 +159,5 @@ document.addEventListener('DOMContentLoaded', function () {
         const year = date.getFullYear();
         return `${day}/${month}/${year}`;
     }
+
 });

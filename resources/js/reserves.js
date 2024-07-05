@@ -17,8 +17,14 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('update-description').value = reserveData.description;
             document.getElementById('update-start').value = new Date(reserveData.start).toLocaleDateString('pt-BR');
             document.getElementById('update-end').value = new Date(reserveData.end).toLocaleDateString('pt-BR');
-            document.getElementById('update-start_time').value = reserveData.start;
-            document.getElementById('update-end_time').value = reserveData.end;
+            document.getElementById('update-start_time').value = new Date(reserveData.start).toLocaleTimeString([], {
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            document.getElementById('update-end_time').value = new Date(reserveData.end).toLocaleTimeString([], {
+                hour: '2-digit',
+                minute: '2-digit'
+            });
             document.getElementById('update-price').value = reserveData.price ? reserveData.price : '0,00';
             document.getElementById('update-status').value = reserveData.status;
             document.getElementById('update-payment_type').value = reserveData.payment_type;

@@ -28,7 +28,6 @@ class ReportController extends Controller
             $userId       = $request->input('user_id');
             $rentalItemId = $request->input('rental_item_id');
 
-            // Converta as datas de string para objetos Carbon
             $startDate = Carbon::createFromFormat('d/m/Y', $start)->startOfDay();
             $endDate   = Carbon::createFromFormat('d/m/Y', $end)->endOfDay();
 
@@ -39,7 +38,7 @@ class ReportController extends Controller
                     },
                     'rentalItem' => function($query) {
                         $query->withTrashed();
-                    }
+                    },
                 ]);
 
             if ($request->has('showDeleted')) {

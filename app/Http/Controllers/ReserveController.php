@@ -122,15 +122,18 @@ class ReserveController extends Controller
             'description'    => 'required',
             'start'          => 'required',
             'end'            => 'required',
+            'start_time'     => 'nullable',
+            'end_time'       => 'nullable',
             'rental_item_id' => 'required',
             'status'         => 'required',
             'price'          => 'required',
             'payment_type'   => 'required',
         ]);
 
-        $startDate = Carbon::createFromFormat('d/m/Y', $request->start);
-        $endDate   = Carbon::createFromFormat('d/m/Y', $request->end);
-        $price     = str_replace(['R$', ','], '', $request->price) / 100;
+        $startDate = Carbon::createFromFormat('d/m/Y H:i', $request->start . ' ' . $request->start_time);
+        $endDate   = Carbon::createFromFormat('d/m/Y H:i', $request->end . ' ' . $request->end_time);
+
+        $price = str_replace(['R$', ','], '', $request->price) / 100;
 
         $reserve->update([
             'user_id'        => $request->user_id,
