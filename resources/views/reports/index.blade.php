@@ -151,7 +151,7 @@
                             <td class="px-6 py-4">{{ $reservation->user->name }}</td>
                             <td class="px-6 py-4">{{ \Carbon\Carbon::parse($reservation->start)->format('d/m/Y') }}
                                 até {{ \Carbon\Carbon::parse($reservation->end)->format('d/m/Y') }}</td>
-                            <td class="px-6 py-4">{{  \Carbon\Carbon::parse($reservation->deleted_at)->format('d/m/Y') ?? '-' }}</td>
+                            <td class="px-6 py-4">{{  $reservation->deleted_at ? $reservation->deleted_at->format('d/m/Y') : '' }}</td>
                         </tr>
                     @empty
                     @endforelse

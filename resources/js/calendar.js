@@ -43,22 +43,22 @@ document.addEventListener('DOMContentLoaded', function () {
             eventStartEditable: window.userRole !== 'visitor' && window.userRole !== 'tenant',
             eventDurationEditable: window.userRole !== 'visitor' && window.userRole !== 'tenant',
 
-            eventDrop: async function (info) {
-
-                const response = await axios.put('/reserves/' + info.event.id, {
-                        title: info.event.title,
-                        start: info.event.startStr,
-                        end: info.event.endStr,
-                        status: info.event.extendedProps.status,
-                        description: info.event.extendedProps.description,
-                        rental_item_id: info.event.extendedProps.rental_item_id,
-                        price: info.event.extendedProps.price,
-                        payment_type: info.event.extendedProps.payment_type,
-
-                        _token: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                    }
-                );
-            },
+            // eventDrop: async function (info) {
+            //
+            //     const response = await axios.put('/reserves/' + info.event.id, {
+            //             title: info.event.title,
+            //             start: info.event.startStr,
+            //             end: info.event.endStr,
+            //             status: info.event.extendedProps.status,
+            //             description: info.event.extendedProps.description,
+            //             rental_item_id: info.event.extendedProps.rental_item_id,
+            //             price: info.event.extendedProps.price,
+            //             payment_type: info.event.extendedProps.payment_type,
+            //
+            //             _token: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            //         }
+            //     );
+            // },
             dateClick: function (info) {
                 if (window.userRole === 'visitor' || window.userRole === 'tenant') {
                     const modal = document.getElementById('guest-create-crud-modal');

@@ -28,36 +28,43 @@ class ReportController extends Controller
             $userId       = $request->input('user_id');
             $rentalItemId = $request->input('rental_item_id');
 
-            $startDate = Carbon::createFromFormat('d/m/Y', $start)->startOfDay();
-            $endDate   = Carbon::createFromFormat('d/m/Y', $end)->endOfDay();
+            $startDate = null;
+            $endDate   = null;
 
-            $query = Reserve::whereBetween('start', [$startDate, $endDate])
-                ->with([
-                    'user' => function($query) {
-                        $query->withTrashed();
-                    },
-                    'rentalItem' => function($query) {
-                        $query->withTrashed();
-                    },
-                ]);
-
-            if ($request->has('showDeleted')) {
-                $query->withTrashed();
+            if (!is_null($start) && !is_null($end)) {
+                $startDate = Carbon::createFromFormat('d/m/Y', $start);
+                $endDate   = Carbon::createFromFormat('d/m/Y', $end);
             }
 
-            if ($status) {
-                $query->where('status', $status);
-            }
+            if ($startDate && $endDate) {
+                $query = Reserve::whereBetween('start', [$startDate, $endDate])
+                    ->with([
+                        'user' => function($query) {
+                            $query->withTrashed();
+                        },
+                        'rentalItem' => function($query) {
+                            $query->withTrashed();
+                        },
+                    ]);
 
-            if ($userId) {
-                $query->where('user_id', $userId);
-            }
+                if ($request->has('showDeleted')) {
+                    $query->withTrashed();
+                }
 
-            if ($rentalItemId) {
-                $query->where('rental_item_id', $rentalItemId);
-            }
+                if ($status) {
+                    $query->where('status', $status);
+                }
 
-            $reservations = $query->get();
+                if ($userId) {
+                    $query->where('user_id', $userId);
+                }
+
+                if ($rentalItemId) {
+                    $query->where('rental_item_id', $rentalItemId);
+                }
+
+                $reservations = $query->get();
+            }
         }
 
         return view('reports.index', compact('reservations', 'users', 'rental_items'));
