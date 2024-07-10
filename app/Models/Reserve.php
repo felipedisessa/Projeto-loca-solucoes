@@ -22,6 +22,7 @@ class Reserve extends Model
         'status',
         'price',
         'payment_type',
+        'paid_at',
     ];
 
     public static function select(string $string)

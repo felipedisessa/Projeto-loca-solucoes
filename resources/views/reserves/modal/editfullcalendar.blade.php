@@ -146,6 +146,21 @@
                         <input type="text" name="price" id="update-price" value=""
                                class="mask-money block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
                     </div>
+                    <div>
+                        <label for="update-paid_at"
+                               class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pagamento</label>
+                        <input type="text" name="paid_at" id="update-paid_at"
+                               value="{{ $reserve->paid_at ?? 'Não foi efetuado' }}" readonly
+                               class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
+                    </div>
+
+                    <div class="flex items-center pl-4 border border-gray-200 rounded dark:border-gray-700 mt-2">
+                        <input id="update-paid-checkbox" type="checkbox" value="" name="paid_checkbox"
+                               class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                        <label for="update-paid-checkbox"
+                               class="w-full py-4 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Marcar como
+                            Pago</label>
+                    </div>
 
                     <div>
                         <label for="update-payment_type"
@@ -162,7 +177,6 @@
                             <option value="" disabled>Status</option>
                             <option value="confirmado">Confirmado</option>
                             <option value="pendente">Pendente</option>
-                            <option value="pago">Pago</option>
                             <option value="cancelado">Cancelado</option>
                         </select>
                     </div>

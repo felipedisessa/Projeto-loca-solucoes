@@ -29,7 +29,7 @@ class ReserveController extends Controller
             return redirect()->route('users.index');
         }
 
-        $bookUsers = User::query()->where('role', 'visitor')->get();
+        $bookUsers = User::query()->whereIn('role', ['visitor', 'tenant'])->get();
         $bookItems = RentalItem::query()->get();
 
         return view('reserves.index', compact('reserves', 'search', 'bookUsers', 'bookItems'));
@@ -48,16 +48,18 @@ class ReserveController extends Controller
             'end_time'       => 'nullable',
             'rental_item_id' => 'required',
             'status'         => 'nullable',
+            'paid_at'        => 'nullable',
             'payment_type'   => 'required',
         ]);
 
-        //        $startDate = Carbon::createFromFormat('d/m/Y', $request->start);
-        //        $endDate   = Carbon::createFromFormat('d/m/Y', $request->end);
-
+        if ($request->paid_at && $request->paid_at !== 'Não foi efetuado') {
+            $paidDate = Carbon::createFromFormat('d/m/Y', $request->paid_at);
+        } else {
+            $paidDate = null;
+        }
         $startDate = Carbon::createFromFormat('d/m/Y H:i', $request->start . ' ' . $request->start_time);
         $endDate   = Carbon::createFromFormat('d/m/Y H:i', $request->end . ' ' . $request->end_time);
 
-        // Montagem dos dados da reserva
         $reserveData = [
             'user_id'        => $validatedData['user_id'],
             'title'          => $validatedData['title'],
@@ -67,9 +69,9 @@ class ReserveController extends Controller
             'rental_item_id' => $validatedData['rental_item_id'],
             'status'         => $validatedData['status'],
             'payment_type'   => $validatedData['payment_type'],
+            'paid_at'        => $paidDate,
         ];
 
-        // verifica se o campo price foi preenchido
         if ($request->filled('price')) {
             $price                = str_replace(['R$', ','], '', $request->price);
             $reserveData['price'] = $price;
@@ -90,6 +92,7 @@ class ReserveController extends Controller
 
     public function show($id)
     {
+        $this->authorize('admin-or-landlord');
         $reserve = Reserve::findOrFail($id);
 
         return view('reserves.show', compact('reserve'));
@@ -97,6 +100,7 @@ class ReserveController extends Controller
 
     public function destroy($id)
     {
+        $this->authorize('admin-or-landlord');
         $reserve = Reserve::findOrFail($id);
         $reserve->delete();
 
@@ -105,7 +109,8 @@ class ReserveController extends Controller
 
     public function edit($id)
     {
-        $bookUsers = User::query()->where('role', 'visitor')->get();
+        $this->authorize('admin-or-landlord');
+        $bookUsers = User::query()->whereIn('role', ['visitor', 'tenant'])->get();
         $bookItems = RentalItem::query()->get();
         $reserve   = Reserve::findOrFail($id);
 
@@ -114,6 +119,7 @@ class ReserveController extends Controller
 
     public function update(Request $request, $id)
     {
+        $this->authorize('admin-or-landlord');
         $reserve = Reserve::findOrFail($id);
 
         $validatedData = $request->validate([
@@ -128,7 +134,14 @@ class ReserveController extends Controller
             'status'         => 'required',
             'price'          => 'required',
             'payment_type'   => 'required',
+            'paid_at'        => 'nullable',
         ]);
+
+        if ($request->paid_at && $request->paid_at !== 'Não foi efetuado') {
+            $paidDate = Carbon::createFromFormat('d/m/Y', $request->paid_at);
+        } else {
+            $paidDate = null;
+        }
 
         $startDate = Carbon::createFromFormat('d/m/Y H:i', $request->start . ' ' . $request->start_time);
         $endDate   = Carbon::createFromFormat('d/m/Y H:i', $request->end . ' ' . $request->end_time);
@@ -145,6 +158,7 @@ class ReserveController extends Controller
             'status'         => $request->status,
             'price'          => $price,
             'payment_type'   => $request->payment_type,
+            'paid_at'        => $paidDate,
         ]);
 
         return back();
@@ -152,7 +166,7 @@ class ReserveController extends Controller
 
     public function getReservesJson(Request $request)
     {
-        $query = Reserve::query();
+        $query = Reserve::query()->where('status', 'confirmado');
 
         if ($request->has('rental_item_id') && !empty($request->rental_item_id)) {
             $query->where('rental_item_id', $request->rental_item_id);

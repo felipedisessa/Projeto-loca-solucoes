@@ -9,7 +9,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $bookUsers = User::query()->where('role', 'visitor', 'tenant')->get();
+        $bookUsers = User::query()->whereIn('role', ['visitor', 'tenant'])->get();
         $bookItems = RentalItem::query()->get();
         $user      = auth()->user();
 

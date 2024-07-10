@@ -15,6 +15,7 @@ class ProfileController extends Controller
      */
     public function edit($id)
     {
+        $this->authorize('admin-or-landlord');
         $user = User::with('address')->findOrFail($id);
 
         return response()->json($user);
@@ -25,6 +26,8 @@ class ProfileController extends Controller
      */
     public function create()
     {
+        $this->authorize('admin-or-landlord');
+
         return view('users.modal.create');
     }
 
@@ -33,6 +36,7 @@ class ProfileController extends Controller
      */
     public function update(Request $request, User $user)
     {
+        $this->authorize('admin-or-landlord');
         $updatedUser = $request->except('password');
 
         if ($request->filled('password')) {
@@ -76,6 +80,8 @@ class ProfileController extends Controller
      */
     public function show(User $user)
     {
+        $this->authorize('admin-or-landlord');
+
         return view('users.show', compact('user'));
     }
 
@@ -84,6 +90,7 @@ class ProfileController extends Controller
      */
     public function destroy(User $user)
     {
+        $this->authorize('admin-or-landlord');
         $user->delete();
 
         return redirect()->route('users.index');
@@ -94,6 +101,7 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('admin-or-landlord');
         $validatedData = $request->validate([
             'name'     => 'required|string|max:255',
             'email'    => 'required|email|max:255',

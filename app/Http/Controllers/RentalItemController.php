@@ -35,6 +35,7 @@ class RentalItemController extends Controller
 
     public function create()
     {
+        $this->authorize('admin-or-landlord');
         $landLordUsers = User::query()->where('role', 'landlord')->get();
 
         return view('rental-items.modal.create', compact('landLordUsers'));
@@ -42,6 +43,7 @@ class RentalItemController extends Controller
 
     public function store(Request $request)
     {
+        $this->authorize('admin-or-landlord');
         $validatedData = $request->validate([
             'user_id'      => 'required',
             'name'         => 'required',
@@ -93,11 +95,14 @@ class RentalItemController extends Controller
 
     public function show(RentalItem $rentalItem)
     {
+        $this->authorize('admin-or-landlord');
+
         return view('rental-items.show', compact('rentalItem'));
     }
 
     public function destroy(RentalItem $rentalItem)
     {
+        $this->authorize('admin-or-landlord');
         $rentalItem->delete();
 
         return redirect()->route('rental-items.index');
@@ -105,6 +110,7 @@ class RentalItemController extends Controller
 
     public function edit(RentalItem $rentalItem)
     {
+        $this->authorize('admin-or-landlord');
         $rentalItem = RentalItem::with('address')->findOrFail($rentalItem->id);
 
         return response()->json($rentalItem);
@@ -112,6 +118,7 @@ class RentalItemController extends Controller
 
     public function update(Request $request, RentalItem $rentalItem)
     {
+        $this->authorize('admin-or-landlord');
         $rentalItemUpdated = $request->all();
         $rentalItem->update($rentalItemUpdated);
 

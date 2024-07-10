@@ -21,6 +21,7 @@ return new class () extends Migration {
             $table->string('status')->nullable();
             $table->decimal('price', 8, 2)->nullable();
             $table->string('payment_type')->nullable();
+            $table->DateTime('paid_at')->nullable();
             $table->softDeletes()->nullable();
             $table->timestamps();
         });

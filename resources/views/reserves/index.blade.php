@@ -56,6 +56,7 @@
                 <th scope="col" class="px-6 py-3 whitespace-nowrap">Titulo</th>
                 <th scope="col" class="px-6 py-3 whitespace-nowrap">Descrição</th>
                 <th scope="col" class="px-6 py-3 whitespace-nowrap">Status</th>
+                <th scope="col" class="px-6 py-3 whitespace-nowrap">Pagamento</th>
                 <th scope="col" class="px-6 py-3 whitespace-nowrap">Ações</th>
             </tr>
             </thead>
@@ -67,6 +68,9 @@
                     </th>
                     <td class="px-6 py-4">{{ $reserve->description }}</td>
                     <td class="px-6 py-4">{{ $reserve->status }}</td>
+                    <td class="px-6 py-4">
+                        {{ $reserve->paid_at ? \Carbon\Carbon::parse($reserve->paid_at)->format('d/m/Y') : 'Não foi efetuado' }}
+                    </td>
                     <td class="flex items-center px-6 py-4 space-x-2">
                         <a href="{{ route('reserves.show', $reserve->id) }}" class="cursor-pointer">
                             <x-icons.eye/>

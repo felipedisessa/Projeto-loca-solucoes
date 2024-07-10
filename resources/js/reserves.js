@@ -28,6 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('update-price').value = reserveData.price ? reserveData.price : '0,00';
             document.getElementById('update-status').value = reserveData.status;
             document.getElementById('update-payment_type').value = reserveData.payment_type;
+            document.getElementById('update-paid_at').value = new Date(reserveData.paid_at).toLocaleDateString('pt-BR');
             document.getElementById('update-rental_item_id').value = reserveData.rental_item_id;
 
 
@@ -40,5 +41,19 @@ document.addEventListener('DOMContentLoaded', function () {
     editModal.querySelector('button[data-modal-toggle="edit-crud-modal"]').addEventListener('click', () => {
         editModal.classList.add('hidden');
     });
+
+    const paidCheckbox = document.getElementById('update-paid-checkbox');
+    const paidAtField = document.getElementById('update-paid_at');
+
+    paidCheckbox.addEventListener('change', () => {
+        if (paidCheckbox.checked) {
+            const currentDate = new Date();
+            const paidDate = currentDate.toLocaleDateString('pt-BR');
+            paidAtField.value = paidDate;
+        } else {
+            paidAtField.value = '';
+        }
+    });
+
 
 });

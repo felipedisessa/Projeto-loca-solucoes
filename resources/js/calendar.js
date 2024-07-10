@@ -61,18 +61,18 @@ document.addEventListener('DOMContentLoaded', function () {
             // },
             dateClick: function (info) {
                 if (window.userRole === 'visitor' || window.userRole === 'tenant') {
-                    const modal = document.getElementById('guest-create-crud-modal');
+                    const modalElement = document.getElementById('guest-create-crud-modal');
+                    const modal = new Modal(modalElement);
+                    modal.show();
+
                     const closeButton = document.getElementById('guest-close-modal-button');
-
-                    modal.classList.remove('hidden');
-
                     closeButton.addEventListener('click', function () {
-                        modal.classList.add('hidden');
+                        modal.hide();
                     });
 
 
-                    const startInput = modal.querySelector('.guest-start'); // Use uma classe em vez de ID
-                    const endInput = modal.querySelector('.guest-end'); // Use uma classe em vez de ID
+                    const startInput = modal.querySelector('.guest-start');
+                    const endInput = modal.querySelector('.guest-end');
 
                     const formattedDate = formatDate(new Date(info.dateStr + ' 00:00:00'));
                     startInput.value = formattedDate;
@@ -80,13 +80,13 @@ document.addEventListener('DOMContentLoaded', function () {
                     return;
                 }
 
-                const modal = document.getElementById('create-crud-modal');
+                const modalElement = document.getElementById('create-crud-modal');
+                const modal = new Modal(modalElement);
+                modal.show();
+
                 const closeButton = document.getElementById('close-modal-button');
-
-                modal.classList.remove('hidden');
-
                 closeButton.addEventListener('click', function () {
-                    modal.classList.add('hidden');
+                    modal.hide();
                 });
 
                 const startInput = document.getElementById('start');
@@ -125,15 +125,30 @@ document.addEventListener('DOMContentLoaded', function () {
                 document.getElementById('update-rental_item_id').value = reserve.rental_item_id;
                 document.getElementById('update-price').value = reserve.price;
                 document.getElementById('update-payment_type').value = reserve.payment_type;
+                document.getElementById('update-paid_at').value = reserve.paid_at ? reserve.paid_at : 'Não foi efetuado';
                 document.getElementById('update-status').value = reserve.status;
+
+                const paidCheckbox = document.getElementById('update-paid-checkbox');
+                const paidAtField = document.getElementById('update-paid_at');
+
+                paidCheckbox.addEventListener('change', () => {
+                    if (paidCheckbox.checked) {
+                        const currentDate = new Date();
+                        const paidDate = currentDate.toLocaleDateString('pt-BR');
+                        paidAtField.value = paidDate;
+                    } else {
+                        paidAtField.value = 'Não foi efetuado';
+                    }
+                });
+
+                const modalElement = document.getElementById('edit-crud-modal');
+                const modal = new Modal(modalElement);
+                modal.show();
 
                 const closeButton = document.getElementById('close-edit-crud-modal');
                 closeButton.addEventListener('click', function () {
-                    modal.classList.add('hidden');
+                    modal.hide();
                 });
-
-                const modal = document.getElementById('edit-crud-modal');
-                modal.classList.remove('hidden');
             },
 
             datesSet: fetchEvents // Adiciona a função de buscar eventos quando a visualização muda
