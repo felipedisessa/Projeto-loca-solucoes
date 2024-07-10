@@ -138,7 +138,11 @@ class ReserveController extends Controller
         ]);
 
         if ($request->paid_at && $request->paid_at !== 'Não foi efetuado') {
-            $paidDate = Carbon::createFromFormat('d/m/Y', $request->paid_at);
+            try {
+                $paidDate = Carbon::createFromFormat('d/m/Y', $request->paid_at);
+            } catch (\Exception $e) {
+                $paidDate = null;
+            }
         } else {
             $paidDate = null;
         }
