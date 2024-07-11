@@ -1,10 +1,10 @@
 document.addEventListener('DOMContentLoaded', function () {
-    document.getElementById('create-rental-item-form').addEventListener('submit', function (event) {
+    function validateForm(event, form) {
         let isValid = true;
 
         // Validando o campo nome
-        const nameInput = document.getElementById('name');
-        const nameError = document.getElementById('name-error');
+        const nameInput = form.querySelector('input[name="name"]');
+        const nameError = form.querySelector('#name-error');
         if (nameInput.value.trim().length < 3) {
             nameError.textContent = 'O nome deve ter pelo menos 3 letras.';
             isValid = false;
@@ -12,9 +12,9 @@ document.addEventListener('DOMContentLoaded', function () {
             nameError.textContent = '';
         }
 
-        //validnado descricao
-        const descriptionInput = document.getElementById('description');
-        const descriptionError = document.getElementById('description-error');
+        // Validando o campo descrição
+        const descriptionInput = form.querySelector('textarea[name="description"]');
+        const descriptionError = form.querySelector('#description-error');
         if (!descriptionInput.value) {
             descriptionError.textContent = 'O campo de descrição deve ser preenchido.';
             isValid = false;
@@ -22,9 +22,9 @@ document.addEventListener('DOMContentLoaded', function () {
             descriptionError.textContent = '';
         }
 
-        //validando o campo de status
-        const statusInput = document.getElementById('status');
-        const statusError = document.getElementById('status-error');
+        // Validando o campo status
+        const statusInput = form.querySelector('select[name="status"]');
+        const statusError = form.querySelector('#status-error');
         if (!statusInput.value) {
             statusError.textContent = 'O campo de status deve ser preenchido.';
             isValid = false;
@@ -32,52 +32,61 @@ document.addEventListener('DOMContentLoaded', function () {
             statusError.textContent = '';
         }
 
-        //validando os campos de enderecos
-        const streetInput = document.getElementById('street');
-        const streetError = document.getElementById('street-error');
+        // Validando os campos de endereço
+        const streetInput = form.querySelector('input[name="street"]');
+        const streetError = form.querySelector('#street-error');
         if (!streetInput.value) {
-            streetError.textContent = 'O campo de rua deve ter pelo menos 3 letras.';
+            streetError.textContent = 'O campo de rua deve ser preenchido.';
             isValid = false;
         } else {
             streetError.textContent = '';
         }
 
-        const cityInput = document.getElementById('city');
-        const cityError = document.getElementById('city-error');
+        //validando bairro para ter pelo menos 3 letras
+        const neighborhoodInput = form.querySelector('input[name="neighborhood"]');
+        const neighborhoodError = form.querySelector('#neighborhood-error');
+        if (neighborhoodInput.value.trim().length < 3) {
+            neighborhoodError.textContent = 'O campo de bairro deve ter pelo menos 3 letras.';
+            isValid = false;
+        } else {
+            neighborhoodError.textContent = '';
+        }
+
+
+        const cityInput = form.querySelector('input[name="city"]');
+        const cityError = form.querySelector('#city-error');
         if (!cityInput.value) {
-            cityError.textContent = 'O campo de cidade deve ter pelo menos 3 letras.';
+            cityError.textContent = 'O campo de cidade deve ser preenchido.';
             isValid = false;
         } else {
             cityError.textContent = '';
         }
 
-        const stateInput = document.getElementById('state');
-        const stateError = document.getElementById('state-error');
+        const stateInput = form.querySelector('input[name="state"]');
+        const stateError = form.querySelector('#state-error');
         if (!stateInput.value) {
-            stateError.textContent = 'O campo de estado deve ter pelo menos 2 letras.';
+            stateError.textContent = 'O campo de estado deve ser preenchido.';
             isValid = false;
         } else {
             stateError.textContent = '';
         }
 
-        const countryInput = document.getElementById('country');
-        const countryError = document.getElementById('country-error');
+        const countryInput = form.querySelector('input[name="country"]');
+        const countryError = form.querySelector('#country-error');
         if (!countryInput.value) {
-            countryError.textContent = 'O campo de pais deve ter pelo menos 3 letras.';
+            countryError.textContent = 'O campo de país deve ser preenchido.';
             isValid = false;
         } else {
             countryError.textContent = '';
         }
 
-
-        // Validando campos de preço
-        // Validando campos de preço
-        const pricePerHourInput = document.getElementById('price_per_hour');
-        const pricePerHourError = document.getElementById('price_per_hour-error');
-        const pricePerDayInput = document.getElementById('price_per_day');
-        const pricePerDayError = document.getElementById('price_per_day-error');
-        const pricePerMonthInput = document.getElementById('price_per_month');
-        const pricePerMonthError = document.getElementById('price_per_month-error');
+        // Validando campos de preço para que pelo menos um deles esteja preenchido
+        const pricePerHourInput = form.querySelector('input[name="price_per_hour"]');
+        const pricePerHourError = form.querySelector('#price_per_hour-error');
+        const pricePerDayInput = form.querySelector('input[name="price_per_day"]');
+        const pricePerDayError = form.querySelector('#price_per_day-error');
+        const pricePerMonthInput = form.querySelector('input[name="price_per_month"]');
+        const pricePerMonthError = form.querySelector('#price_per_month-error');
 
         let isAnyPriceFieldFilled = false;
 
@@ -109,23 +118,23 @@ document.addEventListener('DOMContentLoaded', function () {
             isValid = false;
         }
 
-        // validando o campo de zipcode
-        const zipcodeInput = document.getElementById('zipcode');
-        const zipcodeError = document.getElementById('zipcode-error');
+        // Validando o campo de CEP
+        const zipcodeInput = form.querySelector('input[name="zipcode"]');
+        const zipcodeError = form.querySelector('#zipcode-error');
         const zipcodePattern = /^[0-9]+$/;
         if (!zipcodePattern.test(zipcodeInput.value)) {
-            zipcodeError.textContent = 'O cep deve conter apenas números.';
+            zipcodeError.textContent = 'O CEP deve conter apenas números.';
             isValid = false;
         } else {
             zipcodeError.textContent = '';
         }
 
-        //validando o campo de number
-        const numberInput = document.getElementById('number');
-        const numberError = document.getElementById('number-error');
+        // Validando o campo de número
+        const numberInput = form.querySelector('input[name="number"]');
+        const numberError = form.querySelector('#number-error');
         const numberPattern = /^[0-9]+$/;
         if (!numberPattern.test(numberInput.value)) {
-            numberError.textContent = 'O numero deve conter apenas números.';
+            numberError.textContent = 'O número deve conter apenas números.';
             isValid = false;
         } else {
             numberError.textContent = '';
@@ -134,5 +143,21 @@ document.addEventListener('DOMContentLoaded', function () {
         if (!isValid) {
             event.preventDefault();
         }
-    });
+    }
+
+    // Adiciona evento de escuta para o formulário de criação de item de locação
+    const createRentalItemForm = document.getElementById('create-rental-item-form');
+    if (createRentalItemForm) {
+        createRentalItemForm.addEventListener('submit', function (event) {
+            validateForm(event, createRentalItemForm);
+        });
+    }
+
+    // Adiciona evento de escuta para o formulário de edição de item de locação
+    const editRentalItemForm = document.getElementById('edit-rental-item-form');
+    if (editRentalItemForm) {
+        editRentalItemForm.addEventListener('submit', function (event) {
+            validateForm(event, editRentalItemForm);
+        });
+    }
 });

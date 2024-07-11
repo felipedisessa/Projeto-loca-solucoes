@@ -15,4 +15,9 @@ class RolePolicy
     {
         return in_array($user->role, ['admin', 'landlord', 'tenant']);
     }
+
+    public function visitorTenant(User $user)
+    {
+        return in_array($user->role, ['visitor', 'tenant']);
+    }
 }

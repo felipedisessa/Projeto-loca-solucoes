@@ -101,7 +101,8 @@
                             </div>
                             <input type="time" id="start_time" name="start_time"
                                    class="bg-gray-50 border leading-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                   value="{{ old('start_time') }}" required/>
+                                   value="{{ old('start_time') }}"/>
+                            <div id="start_time-error" class="text-red-500 text-sm"></div>
                         </div>
                     </div>
 
@@ -119,7 +120,8 @@
                             </div>
                             <input type="time" id="end_time" name="end_time"
                                    class="bg-gray-50 border leading-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                   value="{{ old('end_time') }}" required/>
+                                   value="{{ old('end_time') }}"/>
+                            <div id="end_time-error" class="text-red-500 text-sm"></div>
                         </div>
                     </div>
 
@@ -149,6 +151,7 @@
                             de pagamento</label>
                         <input type="text" name="payment_type" id="payment_type" value="{{ old('payment_type') }}"
                                class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
+                        <div id="payment_type-error" class="text-red-500 text-sm"></div>
                     </div>
 
                     <div class="md:col-span-2">

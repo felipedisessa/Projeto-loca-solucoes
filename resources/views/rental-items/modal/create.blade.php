@@ -143,6 +143,7 @@
                                 <input type="text" name="neighborhood" id="neighborhood"
                                        value="{{ old('neighborhood') }}"
                                        class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
+                                <div id="neighborhood-error" class="text-red-600"></div>
                             </div>
                             <div>
                                 <label for="street"

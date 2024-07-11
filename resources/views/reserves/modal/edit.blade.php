@@ -40,12 +40,14 @@
                                     value="{{ $user->id }}" {{ $reserve->user_id == $user->id ? 'selected' : '' }}>{{ $user->name }}</option>
                             @endforeach
                         </select>
+                        <div id="user_id-error" class="text-red-500 text-sm"></div>
                     </div>
 
                     <div>
                         <label for="update-title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Título</label>
                         <input type="text" name="title" id="update-title" value="{{ $reserve->title }}"
                                class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
+                        <div id="title-error" class="text-red-500 text-sm"></div>
                     </div>
 
                     <div class="md:col-span-2">
@@ -53,12 +55,12 @@
                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Descrição</label>
                         <textarea name="description" id="update-description"
                                   class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">{{ $reserve->description }}</textarea>
+                        <div id="description-error" class="text-red-500 text-sm"></div>
                     </div>
 
                     <div>
                         <label for="update-start" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Data
-                            de
-                            início</label>
+                            de início</label>
                         <div class="relative max-w-sm">
                             <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                                 <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
@@ -76,8 +78,7 @@
 
                     <div>
                         <label for="update-end" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Data
-                            de
-                            fim</label>
+                            de fim</label>
                         <div class="relative max-w-sm">
                             <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                                 <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
@@ -108,8 +109,9 @@
                             </div>
                             <input type="time" id="update-start_time" name="start_time"
                                    class="bg-gray-50 border leading-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                   value="" required/>
+                                   value=""/>
                         </div>
+                        <div id="start_time-error" class="text-red-500 text-sm"></div>
                     </div>
 
                     <div>
@@ -128,8 +130,8 @@
                                    class="bg-gray-50 border leading-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                    value="" required/>
                         </div>
+                        <div id="end_time-error" class="text-red-500 text-sm"></div>
                     </div>
-
 
                     <div>
                         <label for="update-rental_item_id"
@@ -143,12 +145,14 @@
                                     value="{{ $rental_item->id }}" {{ $reserve->rental_item_id == $rental_item->id ? 'selected' : '' }}>{{ $rental_item->name }}</option>
                             @endforeach
                         </select>
+                        <div id="rental_item_id-error" class="text-red-500 text-sm"></div>
                     </div>
 
                     <div>
                         <label for="update-price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Preço</label>
                         <input type="text" name="price" id="update-price" value="{{ $reserve->price }}"
                                class="mask-money block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
+                        <div id="price-error" class="text-red-500 text-sm"></div>
                     </div>
                     <div>
                         <label for="update-paid_at"
@@ -162,7 +166,8 @@
                         <input id="update-paid-checkbox" type="checkbox" value="" name="paid_checkbox"
                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                         <label for="update-paid-checkbox"
-                               class="w-full py-4 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Marcar como
+                               class="w-full py-4 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Marcar
+                            como
                             Pago</label>
                     </div>
 
@@ -174,7 +179,6 @@
                                value="{{ $reserve->payment_type }}"
                                class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
                     </div>
-
 
                     <div class="md:col-span-2">
                         <label for="update-status"
@@ -191,7 +195,6 @@
                         </select>
                     </div>
                 </div>
-
 
                 <div class="flex justify-end mt-4">
                     <button type="submit"

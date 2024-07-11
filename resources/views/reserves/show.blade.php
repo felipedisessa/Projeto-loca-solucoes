@@ -42,6 +42,11 @@
             </div>
 
             <div class="flex flex-col pt-3">
+                <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Pagamento efetuado</dt>
+                <dd class="text-lg font-semibold">{{ $reserve->paid_at ? \Carbon\Carbon::parse($reserve->paid_at)->format('d/m/Y') : 'Não foi efetuado' }}</dd>
+            </div>
+
+            <div class="flex flex-col pt-3">
                 <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Status</dt>
                 <dd class="text-lg font-semibold">{{ $reserve->status }}</dd>
             </div>

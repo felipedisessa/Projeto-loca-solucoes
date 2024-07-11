@@ -15,18 +15,23 @@ class ReserveController extends Controller
 
     public function index()
     {
-        $this->authorize('admin-or-landlord');
+        $user = auth()->user(); // Pega o usuário autenticado
 
-        $reserves = Reserve::query()->orderBy('created_at', 'desc')->paginate(20);
-        $search   = request('search');
+        $reserves = Reserve::query()
+            ->unless($user->role === 'admin', function($query) use ($user) {
+                return $query->where('user_id', $user->id);
+            })
+            ->orderBy('created_at', 'desc')
+            ->paginate(20);
+
+        $search = request('search');
 
         if ($search) {
             $reserves = Reserve::query()->where('title', 'like', '%' . $search . '%')->paginate(20);
         }
 
         if ($reserves->isEmpty()) {
-            // Redireciona de volta ao index se nao existir nenhum usuario
-            return redirect()->route('users.index');
+            return redirect()->route('reserves.index');
         }
 
         $bookUsers = User::query()->whereIn('role', ['visitor', 'tenant'])->get();
@@ -84,6 +89,7 @@ class ReserveController extends Controller
 
     public function create()
     {
+        $this->authorize('admin-or-landlord');
         $bookUsers = User::query()->where('role', 'visitor', 'tenant')->get();
         $bookItems = RentalItem::query()->get();
 

@@ -34,7 +34,7 @@
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nome</label>
                                 <input type="text" name="name" id="update-name" value="{{ $user->name }}"
                                        class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                                       required/>
+                                />
                                 <div id="name-error" class="text-red-600"></div>
                             </div>
                             <div>
@@ -42,7 +42,7 @@
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">E-mail</label>
                                 <input type="email" name="email" id="update-email" value="{{ $user->email }}"
                                        class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                                       required/>
+                                />
                                 <div id="email-error" class="text-red-600"></div>
                             </div>
                             <div>
@@ -50,7 +50,8 @@
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Empresa</label>
                                 <input type="text" name="company" id="update-company" value="{{ $user->company }}"
                                        class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                                       required/>
+                                />
+                                <div id="company-error" class="text-red-600"></div>
                             </div>
                             <div>
                                 <label for="update-password"
@@ -59,6 +60,7 @@
                                        value="{{ old('password') }}"
                                        class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                                        placeholder=" ">
+                                <div id="password-error" class="text-red-600"></div>
                             </div>
                             <div>
                                 <label for="update-phone"
@@ -79,14 +81,16 @@
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cargo</label>
                                 <select id="update-role" name="role"
                                         class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                                        required>
+                                >
                                     <option value="{{ $user->role }}" selected>{{ $user->role }}</option>
-                                    <option value="visitor">visitor</option>
-                                    <option value="landlord">landlord</option>
-                                    <option value="admin">admin</option>
-                                    <option value="tenant">tenant</option>
+                                    @foreach(['visitor', 'landlord', 'admin', 'tenant'] as $role)
+                                        @if($role !== $user->role)
+                                            <option value="{{ $role }}">{{ $role }}</option>
+                                        @endif
+                                    @endforeach
                                 </select>
                             </div>
+
                             <div>
                                 <label for="update-cpf_cnpj"
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Documento</label>
@@ -136,6 +140,7 @@
                                 <input type="text" name="neighborhood" id="update-neighborhood"
                                        value="{{ $user->address->neighborhood ?? '' }}"
                                        class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
+                                <div id="neighborhood-error" class="text-red-600"></div>
                             </div>
                             <div>
                                 <label for="update-street"

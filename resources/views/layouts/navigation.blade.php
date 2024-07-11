@@ -29,9 +29,13 @@
                         <x-nav-link :href="route('reserves.index')" :active="request()->routeIs('reserves.index')">
                             {{ __('Reservas') }}
                         </x-nav-link>
-
                         <x-nav-link :href="route('reports.index')" :active="request()->routeIs('reports.index')">
                             {{ __('Relatorios') }}
+                        </x-nav-link>
+                    @endcan
+                    @can('visitor-tenant')
+                        <x-nav-link :href="route('reserves.index')" :active="request()->routeIs('reserves.index')">
+                            {{ __('Minhas Reservas') }}
                         </x-nav-link>
                     @endcan
 

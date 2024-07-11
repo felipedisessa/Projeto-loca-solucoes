@@ -1,150 +1,198 @@
 document.addEventListener('DOMContentLoaded', function () {
-    document.getElementById('user-form').addEventListener('submit', function (event) {
+    function validateForm(form) {
         let isValid = true;
 
         // Validando o campo nome
-        const nameInput = document.getElementById('name');
-        const nameError = document.getElementById('name-error');
-        if (nameInput.value.trim().length < 3) {
+        const nameInput = form.querySelector('input[name="name"]');
+        const nameError = form.querySelector('#name-error');
+        if (nameInput && nameInput.value.trim().length < 3) {
             nameError.textContent = 'O nome deve ter pelo menos 3 letras.';
             isValid = false;
-        } else {
+        } else if (nameError) {
             nameError.textContent = '';
         }
 
         // Validando o campo email
-        const emailInput = document.getElementById('email');
-        const emailError = document.getElementById('email-error');
+        const emailInput = form.querySelector('input[name="email"]');
+        const emailError = form.querySelector('#email-error');
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailPattern.test(emailInput.value)) {
+        if (emailInput && !emailPattern.test(emailInput.value)) {
             emailError.textContent = 'O email deve ser um email valido.';
             isValid = false;
-        } else {
+        } else if (emailError) {
             emailError.textContent = '';
         }
 
-        // Validando o campo telefone
-        const phoneInput = document.getElementById('phone');
-        const phoneError = document.getElementById('phone-error');
-        let phoneValid = true;
+        // Validando o campo senha para que tenha pelo menos 8 dígitos
+        const passwordInput = form.querySelector('input[name="password"]');
+        const passwordError = form.querySelector('#password-error');
+        if (passwordInput && passwordInput.value.trim().length < 8) {
+            passwordError.textContent = 'A senha deve ter pelo menos 8 dígitos.';
+            isValid = false;
+        } else if (passwordError) {
+            passwordError.textContent = '';
+        }
 
-        if (phoneInput.value.trim() === '') {
+        // Validando o campo empresa (company)
+        const companyInput = form.querySelector('input[name="company"]');
+        const companyError = form.querySelector('#company-error');
+        if (companyInput && companyInput.value.trim().length < 3) {
+            companyError.textContent = 'A empresa deve ter pelo menos 3 letras.';
+            isValid = false;
+        } else if (companyError) {
+            companyError.textContent = '';
+        }
+
+        // Validando o campo telefone
+        const phoneInput = form.querySelector('input[name="phone"]');
+        const phoneError = form.querySelector('#phone-error');
+        if (phoneInput && phoneInput.value.trim() === '') {
             phoneError.textContent = 'O campo de telefone deve ser preenchido.';
-            phoneValid = false;
-        } else {
+            isValid = false;
+        } else if (phoneError) {
             phoneError.textContent = '';
         }
 
-        if (!phoneValid) {
-            event.preventDefault();
-        }
-
-
         // Validando o campo cpf_cnpj
-        const cpfCnpjInput = document.getElementById('cpf_cnpj');
-        const cpfCnpjError = document.getElementById('cpf_cnpj-error');
+        const cpfCnpjInput = form.querySelector('input[name="cpf_cnpj"]');
+        const cpfCnpjError = form.querySelector('#cpf_cnpj-error');
         const cpfCnpjPattern = /^[0-9]+$/;
-        if (!cpfCnpjPattern.test(cpfCnpjInput.value)) {
+        if (cpfCnpjInput && !cpfCnpjPattern.test(cpfCnpjInput.value)) {
             cpfCnpjError.textContent = 'O cpf_cnpj deve conter apenas números.';
             isValid = false;
-        } else {
+        } else if (cpfCnpjError) {
             cpfCnpjError.textContent = '';
         }
 
-        // formatação de telefone
-        function formatPhone(value) {
-            if (!value) return value;
-            const phoneNumber = value.replace(/[^\d]/g, '');
-            const phoneNumberLength = phoneNumber.length;
-            if (phoneNumberLength <= 10) {
-                return phoneNumber.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3');
-            }
-            return phoneNumber.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
-        }
-
-// formatação de telefone
-        document.getElementById('phone').addEventListener('input', function (e) {
-            this.value = formatPhone(this.value);
-        });
-
-        document.getElementById('mobile').addEventListener('input', function (e) {
-            this.value = formatPhone(this.value);
-        });
-
-        document.getElementById('cpf_cnpj').addEventListener('input', function (e) {
-            this.value = formatCpfCnpj(this.value);
-        });
-
-
         // Validando o campo cep
-        const cepInput = document.getElementById('zipcode');
-        const cepError = document.getElementById('zipcode-error');
+        const cepInput = form.querySelector('input[name="zipcode"]');
+        const cepError = form.querySelector('#zipcode-error');
         const cepPattern = /^[0-9]+$/;
-        if (!cepPattern.test(cepInput.value)) {
+        if (cepInput && !cepPattern.test(cepInput.value)) {
             cepError.textContent = 'O cep deve conter apenas números.';
             isValid = false;
-        } else {
+        } else if (cepError) {
             cepError.textContent = '';
         }
 
-
         // Validando o campo numero
-        const numeroInput = document.getElementById('number');
-        const numeroError = document.getElementById('number-error');
+        const numeroInput = form.querySelector('input[name="number"]');
+        const numeroError = form.querySelector('#number-error');
         const numeroPattern = /^[0-9]+$/;
-        if (!numeroPattern.test(numeroInput.value)) {
+        if (numeroInput && !numeroPattern.test(numeroInput.value)) {
             numeroError.textContent = 'O numero deve conter apenas números.';
             isValid = false;
-        } else {
+        } else if (numeroError) {
             numeroError.textContent = '';
         }
 
-
-        //validando dados de enderecos obrigatorios
-        const streetInput = document.getElementById('street');
-        const streetError = document.getElementById('street-error');
-        if (streetInput.value.trim().length < 3) {
+        // Validando dados de endereços obrigatórios
+        const streetInput = form.querySelector('input[name="street"]');
+        const streetError = form.querySelector('#street-error');
+        if (streetInput && streetInput.value.trim().length < 3) {
             streetError.textContent = 'O nome da rua deve ter pelo menos 3 letras.';
             isValid = false;
-        } else {
+        } else if (streetError) {
             streetError.textContent = '';
         }
 
-
-        const cityInput = document.getElementById('city');
-        const cityError = document.getElementById('city-error');
-        if (cityInput.value.trim().length < 3) {
+        const cityInput = form.querySelector('input[name="city"]');
+        const cityError = form.querySelector('#city-error');
+        if (cityInput && cityInput.value.trim().length < 3) {
             cityError.textContent = 'O nome da cidade deve ter pelo menos 3 letras.';
             isValid = false;
-        } else {
+        } else if (cityError) {
             cityError.textContent = '';
         }
 
-
-        let stateValid = true;
-        const stateInput = document.getElementById('state');
-        const stateError = document.getElementById('state-error');
-        if (stateInput.value.trim().length < 2) {
-            stateError.textContent = 'O nome do estado deve ter pelo menos 2 letras.';
-            stateValid = false;
-        }
-
-        if (!stateValid) {
-            event.preventDefault(); // Impede a submissão do formulário
-        }
-
-        const countryInput = document.getElementById('country');
-        const countryError = document.getElementById('country-error');
-        if (countryInput.value.trim().length < 3) {
-            countryError.textContent = 'O nome do pais deve ter pelo menos 3 letras.';
+        const neighborhoodInput = form.querySelector('input[name="neighborhood"]');
+        const neighborhoodError = form.querySelector('#neighborhood-error');
+        if (neighborhoodInput && neighborhoodInput.value.trim().length < 3) {
+            neighborhoodError.textContent = 'O nome do bairro deve ter pelo menos 3 letras.';
             isValid = false;
-        } else {
+        } else if (neighborhoodError) {
+            neighborhoodError.textContent = '';
+        }
+
+        const stateInput = form.querySelector('input[name="state"]');
+        const stateError = form.querySelector('#state-error');
+        if (stateInput && stateInput.value.trim().length < 2) {
+            stateError.textContent = 'O nome do estado deve ter pelo menos 2 letras.';
+            isValid = false;
+        } else if (stateError) {
+            stateError.textContent = '';
+        }
+
+        const countryInput = form.querySelector('input[name="country"]');
+        const countryError = form.querySelector('#country-error');
+        if (countryInput && countryInput.value.trim().length < 3) {
+            countryError.textContent = 'O nome do país deve ter pelo menos 3 letras.';
+            isValid = false;
+        } else if (countryError) {
             countryError.textContent = '';
         }
-
 
         if (!isValid) {
             event.preventDefault(); // Impede a submissão do formulário
         }
+
+        return isValid;
+    }
+
+    // Adiciona evento de escuta para o formulário de criação de usuário
+    const createUserForm = document.getElementById('user-form');
+    if (createUserForm) {
+        createUserForm.addEventListener('submit', function (event) {
+            if (!validateForm(createUserForm)) {
+                event.preventDefault();
+            }
+        });
+    }
+
+    // Adiciona evento de escuta para o formulário de edição de usuário
+    const editUserForm = document.getElementById('edit-user-form');
+    if (editUserForm) {
+        editUserForm.addEventListener('submit', function (event) {
+            if (!validateForm(editUserForm)) {
+                event.preventDefault();
+            }
+        });
+    }
+
+    // Função de formatação de telefone
+    function formatPhone(value) {
+        if (!value) return value;
+        const phoneNumber = value.replace(/[^\d]/g, '');
+        const phoneNumberLength = phoneNumber.length;
+        if (phoneNumberLength <= 10) {
+            return phoneNumber.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3');
+        }
+        return phoneNumber.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+    }
+
+    // Formatação de telefone
+    const phoneInputs = document.querySelectorAll('input[name="phone"], input[name="mobile"]');
+    phoneInputs.forEach(input => {
+        input.addEventListener('input', function (e) {
+            this.value = formatPhone(this.value);
+        });
+    });
+
+    // Função de formatação de CPF/CNPJ
+    function formatCpfCnpj(value) {
+        if (!value) return value;
+        const cpfCnpj = value.replace(/[^\d]/g, '');
+        if (cpfCnpj.length <= 11) {
+            return cpfCnpj.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+        }
+        return cpfCnpj.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, '$1.$2.$3/$4-$5');
+    }
+
+    // Formatação de CPF/CNPJ
+    const cpfCnpjInputs = document.querySelectorAll('input[name="cpf_cnpj"]');
+    cpfCnpjInputs.forEach(input => {
+        input.addEventListener('input', function (e) {
+            this.value = formatCpfCnpj(this.value);
+        });
     });
 });

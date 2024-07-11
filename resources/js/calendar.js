@@ -43,21 +43,20 @@ document.addEventListener('DOMContentLoaded', function () {
             eventStartEditable: window.userRole !== 'visitor' && window.userRole !== 'tenant',
             eventDurationEditable: window.userRole !== 'visitor' && window.userRole !== 'tenant',
 
-            eventDrop: async function (info) {
-                console.log(info);
-                const response = await axios.put('/reserves/' + info.event.id, {
-                    start: info.event.start,
-                    end: info.event.end,
-                    user_id: info.event.extendedProps.user_id,
-                    title: info.event.title,
-                    description: info.event.extendedProps.description,
-                    rental_item_id: info.event.extendedProps.rental_item_id,
-                    status: info.event.extendedProps.status,
-                    price: info.event.extendedProps.price,
-                    payment_type: info.event.extendedProps.payment_type,
-                    _token: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                });
-            },
+            // eventDrop: async function (info) {
+            //     const response = await axios.put('/reserves/' + info.event.id, {
+            //         start: info.event.start,
+            //         end: info.event.end,
+            //         user_id: info.event.extendedProps.user_id,
+            //         title: info.event.title,
+            //         description: info.event.extendedProps.description,
+            //         rental_item_id: info.event.extendedProps.rental_item_id,
+            //         status: info.event.extendedProps.status,
+            //         price: info.event.extendedProps.price,
+            //         payment_type: info.event.extendedProps.payment_type,
+            //         _token: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            //     });
+            // },
 
             dateClick: function (info) {
                 if (window.userRole === 'visitor' || window.userRole === 'tenant') {

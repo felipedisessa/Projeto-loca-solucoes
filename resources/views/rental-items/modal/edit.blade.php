@@ -41,6 +41,7 @@
                                         <option value="{{$landLordUser->id}}">{{$landLordUser->name}}</option>
                                     @endforeach
                                 </select>
+                                <div id="user_id-error" class="text-red-500 text-sm"></div>
                             </div>
 
                             <div>
@@ -49,6 +50,7 @@
                                 <input type="text" name="name" id="update-name" value="{{ $rentalItem->name }}"
                                        class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                                        required/>
+                                <div id="name-error" class="text-red-500 text-sm"></div>
                             </div>
 
                             <div>
@@ -57,6 +59,7 @@
                                 <textarea name="description" id="update-description"
                                           class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                                           required>{{ $rentalItem->description }}</textarea>
+                                <div id="description-error" class="text-red-500 text-sm"></div>
                             </div>
 
                             <div class="grid grid-cols-2 gap-6">
@@ -69,6 +72,7 @@
                                            value="{{ $rentalItem->price_per_hour }}"
                                            class="mask-money block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                                            required/>
+                                    <div id="price_per_hour-error" class="text-red-500 text-sm"></div>
                                 </div>
 
                                 <div>
@@ -80,6 +84,7 @@
                                            value="{{ $rentalItem->price_per_day }}"
                                            class="mask-money block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                                            required/>
+                                    <div id="price_per_day-error" class="text-red-500 text-sm"></div>
                                 </div>
                             </div>
 
@@ -93,6 +98,7 @@
                                            value="{{ $rentalItem->price_per_month }}"
                                            class="mask-money block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                                            required/>
+                                    <div id="price_per_month-error" class="text-red-500 text-sm"></div>
                                 </div>
 
                                 <div>
@@ -100,11 +106,12 @@
                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status</label>
                                     <select id="update-status" name="status"
                                             class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                                        <option value="" selected disabled>Status</option>
-                                        <option value="1">Disponível</option>
-                                        <option value="2">Reservado</option>
-                                        <option value="3">Manutenção</option>
+                                        <selected value="{{ $rentalItem->status }}">{{ $rentalItem->status }}</selected>
+                                        <option value="available">Disponível</option>
+                                        <option value="reserved">Reservado</option>
+                                        <option value="maintenance">Manutenção</option>
                                     </select>
+                                    <div id="status-error" class="text-red-500 text-sm"></div>
                                 </div>
                             </div>
 
@@ -120,20 +127,38 @@
                         <h4 class="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Cadastro de Endereço do
                             Item</h4>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <label for="update-street"
-                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Rua</label>
-                                <input type="text" name="street" id="update-street"
-                                       value="{{ $rentalItem->address->street ?? '' }}"
-                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
-                            </div>
 
                             <div>
-                                <label for="update-number"
-                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Número</label>
-                                <input type="text" name="number" id="update-number"
-                                       value="{{ $rentalItem->address->number ?? '' }}"
+                                <label for="update-country"
+                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">País</label>
+                                <input type="text" name="country" id="update-country"
+                                       value="{{ $rentalItem->address->country ?? '' }}"
                                        class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
+                                <div id="country-error" class="text-red-500 text-sm"></div>
+                            </div>
+                            <div>
+                                <label for="update-zipcode"
+                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">CEP</label>
+                                <input type="text" name="zipcode" id="update-zipcode"
+                                       value="{{ $rentalItem->address->zipcode ?? '' }}"
+                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
+                                <div id="zipcode-error" class="text-red-500 text-sm"></div>
+                            </div>
+                            <div>
+                                <label for="update-state"
+                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Estado</label>
+                                <input type="text" name="state" id="update-state"
+                                       value="{{ $rentalItem->address->state ?? '' }}"
+                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
+                                <div id="state-error" class="text-red-500 text-sm"></div>
+                            </div>
+                            <div>
+                                <label for="update-city"
+                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cidade</label>
+                                <input type="text" name="city" id="update-city"
+                                       value="{{ $rentalItem->address->city ?? '' }}"
+                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
+                                <div id="city-error" class="text-red-500 text-sm"></div>
                             </div>
 
                             <div>
@@ -145,37 +170,22 @@
                             </div>
 
                             <div>
-                                <label for="update-city"
-                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cidade</label>
-                                <input type="text" name="city" id="update-city"
-                                       value="{{ $rentalItem->address->city ?? '' }}"
+                                <label for="update-street"
+                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Rua</label>
+                                <input type="text" name="street" id="update-street"
+                                       value="{{ $rentalItem->address->street ?? '' }}"
                                        class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
+                                <div id="street-error" class="text-red-500 text-sm"></div>
                             </div>
 
                             <div>
-                                <label for="update-state"
-                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Estado</label>
-                                <input type="text" name="state" id="update-state"
-                                       value="{{ $rentalItem->address->state ?? '' }}"
+                                <label for="update-number"
+                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Número</label>
+                                <input type="text" name="number" id="update-number"
+                                       value="{{ $rentalItem->address->number ?? '' }}"
                                        class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
+                                <div id="number-error" class="text-red-500 text-sm"></div>
                             </div>
-
-                            <div>
-                                <label for="update-zipcode"
-                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">CEP</label>
-                                <input type="text" name="zipcode" id="update-zipcode"
-                                       value="{{ $rentalItem->address->zipcode ?? '' }}"
-                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
-                            </div>
-
-                            <div>
-                                <label for="update-country"
-                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">País</label>
-                                <input type="text" name="country" id="update-country"
-                                       value="{{ $rentalItem->address->country ?? '' }}"
-                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
-                            </div>
-
                             <div class="md:col-span-2">
                                 <label for="update-complement"
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Complemento

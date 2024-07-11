@@ -10,11 +10,13 @@
                 </svg>
 
             </h2>
-            <button data-modal-target="create-crud-modal" data-modal-toggle="create-crud-modal"
-                    class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                    type="button">
-                Cadastrar Reserva
-            </button>
+            @can('admin-or-landlord')
+                <button data-modal-target="create-crud-modal" data-modal-toggle="create-crud-modal"
+                        class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        type="button">
+                    Cadastrar Reserva
+                </button>
+            @endcan
         </div>
     </x-slot>
 
@@ -45,6 +47,15 @@
                     </svg>
                     <span class="sr-only">Search</span>
                 </button>
+
+                <a class=" ms-2 inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    Pendentes
+                    <span
+                        class="inline-flex items-center justify-center w-4 h-4 ms-2 text-xs font-semibold text-blue-800 bg-blue-200 rounded-full">
+                        {{ $reserves->where('status', 'pendente')->count() }}
+                    </span>
+                </a>
+
             </div>
         </form>
     </div>
@@ -57,7 +68,9 @@
                 <th scope="col" class="px-6 py-3 whitespace-nowrap">Descrição</th>
                 <th scope="col" class="px-6 py-3 whitespace-nowrap">Status</th>
                 <th scope="col" class="px-6 py-3 whitespace-nowrap">Pagamento</th>
-                <th scope="col" class="px-6 py-3 whitespace-nowrap">Ações</th>
+                @can('admin-or-landlord')
+                    <th scope="col" class="px-6 py-3 whitespace-nowrap">Ações</th>
+                @endcan
             </tr>
             </thead>
             <tbody>
@@ -71,24 +84,26 @@
                     <td class="px-6 py-4">
                         {{ $reserve->paid_at ? \Carbon\Carbon::parse($reserve->paid_at)->format('d/m/Y') : 'Não foi efetuado' }}
                     </td>
-                    <td class="flex items-center px-6 py-4 space-x-2">
-                        <a href="{{ route('reserves.show', $reserve->id) }}" class="cursor-pointer">
-                            <x-icons.eye/>
-                        </a>
-                        <button type="button" class="cursor-pointer text-red-500"
-                                data-modal-target="popup-modal"
-                                data-modal-toggle="popup-modal"
-                                data-id="{{$reserve->id}}"
-                                data-name="{{$reserve->name}}">
-                            <x-icons.trash/>
-                        </button>
+                    @can('admin-or-landlord')
+                        <td class="flex items-center px-6 py-4 space-x-2">
+                            <a href="{{ route('reserves.show', $reserve->id) }}" class="cursor-pointer">
+                                <x-icons.eye/>
+                            </a>
+                            <button type="button" class="cursor-pointer text-red-500"
+                                    data-modal-target="popup-modal"
+                                    data-modal-toggle="popup-modal"
+                                    data-id="{{$reserve->id}}"
+                                    data-name="{{$reserve->name}}">
+                                <x-icons.trash/>
+                            </button>
 
-                        <a id="edit-button" data-modal-target="edit-crud-modal" data-modal-toggle="edit-crud-modal"
-                           data-id="{{ $reserve->id }}"
-                           class="cursor-pointer font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                            <x-icons.edit/>
-                        </a>
-                    </td>
+                            <a id="edit-button" data-modal-target="edit-crud-modal" data-modal-toggle="edit-crud-modal"
+                               data-id="{{ $reserve->id }}"
+                               class="cursor-pointer font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                                <x-icons.edit/>
+                            </a>
+                        </td>
+                    @endcan
                 </tr>
             @endforeach
             </tbody>
