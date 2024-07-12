@@ -21,9 +21,9 @@
                 </button>
             </div>
             <!-- Modal body -->
-            <form id="create-reserve-form" action="{{ route('reserves.store') }}" method="post" class="p-4 space-y-4">
+            <form id="guest-create-reserve-form" action="{{ route('reserves.store') }}" method="post"
+                  class="p-4 space-y-4">
                 @csrf
-
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                         <label for="guest-user_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Responsável</label>
@@ -99,7 +99,7 @@
                             </div>
                             <input type="time" id="start_time" name="start_time"
                                    class="bg-gray-50 border leading-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                   value="" required/>
+                                   value=""/>
                         </div>
                     </div>
 
@@ -117,7 +117,7 @@
                             </div>
                             <input type="time" id="end_time" name="end_time"
                                    class="bg-gray-50 border leading-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                   value="" required/>
+                                   value=""/>
                         </div>
                     </div>
 

@@ -43,21 +43,6 @@ document.addEventListener('DOMContentLoaded', function () {
             eventStartEditable: window.userRole !== 'visitor' && window.userRole !== 'tenant',
             eventDurationEditable: window.userRole !== 'visitor' && window.userRole !== 'tenant',
 
-            // eventDrop: async function (info) {
-            //     const response = await axios.put('/reserves/' + info.event.id, {
-            //         start: info.event.start,
-            //         end: info.event.end,
-            //         user_id: info.event.extendedProps.user_id,
-            //         title: info.event.title,
-            //         description: info.event.extendedProps.description,
-            //         rental_item_id: info.event.extendedProps.rental_item_id,
-            //         status: info.event.extendedProps.status,
-            //         price: info.event.extendedProps.price,
-            //         payment_type: info.event.extendedProps.payment_type,
-            //         _token: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-            //     });
-            // },
-
             dateClick: function (info) {
                 if (window.userRole === 'visitor' || window.userRole === 'tenant') {
                     const modalElement = document.getElementById('guest-create-crud-modal');
@@ -69,9 +54,8 @@ document.addEventListener('DOMContentLoaded', function () {
                         modal.hide();
                     });
 
-
-                    const startInput = modal.querySelector('.guest-start');
-                    const endInput = modal.querySelector('.guest-end');
+                    const startInput = modalElement.querySelector('.guest-start');
+                    const endInput = modalElement.querySelector('.guest-end');
 
                     const formattedDate = formatDate(new Date(info.dateStr + ' 00:00:00'));
                     startInput.value = formattedDate;
@@ -93,6 +77,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 startInput.value = formatDate(new Date(info.dateStr + ' 00:00:00'));
                 endInput.value = formatDate(new Date(info.dateStr + ' 00:00:00'));
+            },
+            eventDrop: async function (info) {
+                const response = await axios.post(`/reserves/${info.event.id}/update-date`, {
+                    start: info.event.start.toISOString(),
+                    end: info.event.end.toISOString()
+                });
             },
 
             eventClick: async function (info) {
@@ -124,8 +114,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 document.getElementById('update-rental_item_id').value = reserve.rental_item_id;
                 document.getElementById('update-price').value = reserve.price;
                 document.getElementById('update-payment_type').value = reserve.payment_type;
-                document.getElementById('update-paid_at').value = new Date(reserve.paid_at).toLocaleDateString('pt-BR');
+                document.getElementById('update-paid_at').value = reserve.paid_at ? new Date(reserve.paid_at).toLocaleDateString('pt-BR') : 'Não foi efetuado';
                 document.getElementById('update-status').value = reserve.status;
+
+                document.getElementById('update-paid-checkbox').checked = !!reserve.paid_at;
+
 
                 const paidCheckbox = document.getElementById('update-paid-checkbox');
                 const paidAtField = document.getElementById('update-paid_at');
@@ -133,10 +126,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 paidCheckbox.addEventListener('change', () => {
                     if (paidCheckbox.checked) {
                         const currentDate = new Date();
-                        const paidDate = currentDate.toLocaleDateString('pt-BR');
-                        paidAtField.value = paidDate;
+                        paidAtField.value = currentDate.toLocaleDateString('pt-BR');
                     } else {
-                        paidAtField.value = 'Não foi efetuado';
+                        paidAtField.value = null;
                     }
                 });
 
@@ -148,7 +140,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 closeButton.addEventListener('click', function () {
                     modal.hide();
                 });
-                // console.log(reserve);
             },
 
             datesSet: fetchEvents // Adiciona a função de buscar eventos quando a visualização muda
@@ -174,5 +165,4 @@ document.addEventListener('DOMContentLoaded', function () {
         const year = date.getFullYear();
         return `${day}/${month}/${year}`;
     }
-
 });

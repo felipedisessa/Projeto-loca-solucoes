@@ -15,20 +15,23 @@ class ReserveController extends Controller
 
     public function index()
     {
-        $user = auth()->user(); // Pega o usuário autenticado
+        $user = auth()->user();
 
-        $reserves = Reserve::query()
+        $reservesQuery = Reserve::query()
             ->unless($user->role === 'admin', function($query) use ($user) {
                 return $query->where('user_id', $user->id);
             })
-            ->orderBy('created_at', 'desc')
-            ->paginate(20);
+            ->orderBy('created_at', 'desc');
 
-        $search = request('search');
-
-        if ($search) {
-            $reserves = Reserve::query()->where('title', 'like', '%' . $search . '%')->paginate(20);
+        if (request('pendingSearch')) {
+            $reservesQuery->where('status', 'pendente');
         }
+
+        if ($search = request('search')) {
+            $reservesQuery->where('title', 'like', '%' . $search . '%');
+        }
+
+        $reserves = $reservesQuery->paginate(20);
 
         if ($reserves->isEmpty()) {
             return redirect()->route('reserves.index');
@@ -189,16 +192,20 @@ class ReserveController extends Controller
             if ($user->can('except-visitor')) {
                 // Usuário autorizado vê todos os detalhes
                 return [
-                    'user_id'       => $reserve->user_id,
-                    'id'            => $reserve->id,
-                    'title'         => $reserve->title,
-                    'start'         => $reserve->start,
-                    'end'           => $reserve->end,
-                    'price'         => $reserve->price,
-                    'description'   => $reserve->description,
-                    'status'        => $reserve->status,
-                    'payment_type'  => $reserve->payment_type,
-                    'extendedProps' => [
+                    'user_id'        => $reserve->user_id,
+                    'id'             => $reserve->id,
+                    'title'          => $reserve->title,
+                    'start'          => $reserve->start,
+                    'end'            => $reserve->end,
+                    'price'          => $reserve->price,
+                    'description'    => $reserve->description,
+                    'status'         => $reserve->status,
+                    'payment_type'   => $reserve->payment_type,
+                    'rental_item_id' => $reserve->rental_item_id,
+                    'start_time'     => $reserve->start_time,
+                    'end_time'       => $reserve->end_time,
+                    'paid_at'        => $reserve->paid_at,
+                    'extendedProps'  => [
                         'user_id'        => $reserve->user_id,
                         'rental_item_id' => $reserve->rental_item_id,
                         'description'    => $reserve->description,
@@ -207,6 +214,7 @@ class ReserveController extends Controller
                         'end'            => $reserve->end,
                         'price'          => $reserve->price,
                         'payment_type'   => $reserve->payment_type,
+                        'paid_at'        => $reserve->paid_at,
                     ],
                 ];
             } else {
@@ -222,5 +230,25 @@ class ReserveController extends Controller
         });
 
         return response()->json($events);
+    }
+
+    public function updateDate(Request $request, $id)
+    {
+        $this->authorize('admin-or-landlord');
+        $reserve = Reserve::findOrFail($id);
+
+        $validatedData = $request->validate([
+            'start' => 'required|date',
+            'end'   => 'required|date',
+        ]);
+
+        $start = Carbon::parse($validatedData['start'])->setTimezone('America/Sao_Paulo')->format('Y-m-d H:i:s');
+        $end   = Carbon::parse($validatedData['end'])->setTimezone('America/Sao_Paulo')->format('Y-m-d H:i:s');
+
+        $reserve->start = $start;
+        $reserve->end   = $end;
+        $reserve->save();
+
+        return response()->json();
     }
 }

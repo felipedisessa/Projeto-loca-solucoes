@@ -2,74 +2,84 @@ document.addEventListener('DOMContentLoaded', function () {
     function validateForm(event, form) {
         let isValid = true;
 
-        //validando usuario responsavel
-        const bookUserInput = form.querySelector('select[name="user_id"]');
+        // Validando usuário responsável
+        const bookUserInput = form.querySelector('input[name="user_id"]');
         const bookUserError = form.querySelector('#user_id-error');
-        if (!bookUserInput.value) {
+        if (bookUserInput && !bookUserInput.value) {
             bookUserError.textContent = 'O campo de usuario responsável deve ser preenchido.';
             isValid = false;
         } else {
             bookUserError.textContent = '';
         }
 
-        //validando descricao
+        // Validando descrição
         const descriptionInput = form.querySelector('textarea[name="description"]');
         const descriptionError = form.querySelector('#description-error');
-        if (!descriptionInput.value) {
+        if (descriptionInput && !descriptionInput.value) {
             descriptionError.textContent = 'O campo de descrição deve ser preenchido.';
             isValid = false;
         } else {
             descriptionError.textContent = '';
         }
 
-        // Validando o campo nome
+        // Validando título
         const nameInput = form.querySelector('input[name="title"]');
         const nameError = form.querySelector('#title-error');
-        if (nameInput.value.trim().length < 3) {
+        if (nameInput && nameInput.value.trim().length < 3) {
             nameError.textContent = 'O titulo deve ter pelo menos 3 letras.';
             isValid = false;
         } else {
             nameError.textContent = '';
         }
 
-        //validando o campo de start
+        // Validando data de início
         const startInput = form.querySelector('input[name="start"]');
         const startError = form.querySelector('#start-error');
-        if (!startInput.value) {
+        if (startInput && !startInput.value) {
             startError.textContent = 'O campo de data de inicio deve ser preenchido.';
             isValid = false;
         } else {
             startError.textContent = '';
         }
 
-        //validando o campo de end
+        // Validando data de fim
         const endInput = form.querySelector('input[name="end"]');
         const endError = form.querySelector('#end-error');
-        if (!endInput.value) {
+        if (endInput && !endInput.value) {
             endError.textContent = 'O campo de data de fim deve ser preenchido.';
             isValid = false;
         } else {
             endError.textContent = '';
         }
 
-        //validando o campo de sala
+        //valida que a hora inicial tem que ser preenchida
+        const startHourInput = form.querySelector('input[name="start_time"]');
+        const startHourError = form.querySelector('#start_time-error');
+        if (startHourInput && !startHourInput.value) {
+            startHourError.textContent = 'O campo de hora de inicio deve ser preenchido.';
+            isValid = false;
+        } else {
+            startHourError.textContent = '';
+        }
+
+        //valida que a hora final tem que ser preenchida
+        const endHourInput = form.querySelector('input[name="end_time"]');
+        const endHourError = form.querySelector('#end_time-error');
+        if (endHourInput && !endHourInput.value) {
+            endHourError.textContent = 'O campo de hora de fim deve ser preenchido.';
+            isValid = false;
+        } else {
+            endHourError.textContent = '';
+        }
+
+        // Validando sala
         const rentalItemInput = form.querySelector('select[name="rental_item_id"]');
         const rentalItemError = form.querySelector('#rental_item_id-error');
-        if (!rentalItemInput.value) {
+        if (rentalItemInput && !rentalItemInput.value) {
             rentalItemError.textContent = 'O campo de sala deve ser preenchido.';
             isValid = false;
         } else {
             rentalItemError.textContent = '';
-        }
-
-        //validando o campo de preço
-        const priceInput = form.querySelector('input[name="price"]');
-        const priceError = form.querySelector('#price-error');
-        if (priceInput.value.trim() === '') {
-            priceError.textContent = 'O campo de preço deve ser preenchido.';
-            isValid = false;
-        } else {
-            priceError.textContent = '';
         }
 
         if (!isValid) {
@@ -90,6 +100,14 @@ document.addEventListener('DOMContentLoaded', function () {
     if (editReserveForm) {
         editReserveForm.addEventListener('submit', function (event) {
             validateForm(event, editReserveForm);
+        });
+    }
+
+    // Adiciona evento de escuta para o formulário de criação de reserva de convidado
+    const guestCreateReserveForm = document.getElementById('guest-create-reserve-form');
+    if (guestCreateReserveForm) {
+        guestCreateReserveForm.addEventListener('submit', function (event) {
+            validateForm(event, guestCreateReserveForm);
         });
     }
 });

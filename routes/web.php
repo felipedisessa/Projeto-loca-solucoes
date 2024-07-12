@@ -29,6 +29,7 @@ Route::middleware('auth')->group(function() {
     Route::resource('salas', RentalItemController::class)->names('rental-items')->parameter('salas', 'rentalItem');
     Route::resource('usuarios', ProfileController::class)->names('users')->parameter('usuarios', 'user');
     Route::resource('reserves', ReserveController::class);
+    Route::post('/reserves/{id}/update-date', [ReserveController::class, 'updateDate'])->name('reserves.update-date');
 });
 
 require __DIR__ . '/auth.php';
