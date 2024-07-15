@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 endInput.value = formatDate(new Date(info.dateStr + ' 00:00:00'));
             },
             eventDrop: async function (info) {
-                const response = await axios.post(`/reserves/${info.event.id}/update-date`, {
+                const response = await axios.put(`/reserves/${info.event.id}/update-date`, {
                     start: info.event.start.toISOString(),
                     end: info.event.end.toISOString()
                 });

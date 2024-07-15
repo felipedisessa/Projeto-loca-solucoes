@@ -8,7 +8,7 @@ use App\Http\Controllers\ReserveController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function() {
-    return view('welcome');
+    return redirect()->route('login');
 });
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
@@ -29,7 +29,7 @@ Route::middleware('auth')->group(function() {
     Route::resource('salas', RentalItemController::class)->names('rental-items')->parameter('salas', 'rentalItem');
     Route::resource('usuarios', ProfileController::class)->names('users')->parameter('usuarios', 'user');
     Route::resource('reserves', ReserveController::class);
-    Route::post('/reserves/{id}/update-date', [ReserveController::class, 'updateDate'])->name('reserves.update-date');
+    Route::put('/reserves/{id}/update-date', [ReserveController::class, 'updateDate'])->name('reserves.update-date');
 });
 
 require __DIR__ . '/auth.php';

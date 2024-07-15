@@ -73,10 +73,10 @@
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cargo</label>
                                 <select id="role" name="role"
                                         class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                                    <option value="visitor">visitor</option>
-                                    <option value="landlord">landlord</option>
-                                    <option value="admin">admin</option>
-                                    <option value="tenant">tenant</option>
+                                    <option value="visitor">Visitante</option>
+                                    <option value="landlord">Proprietário</option>
+                                    <option value="admin">Administrador</option>
+                                    <option value="tenant">Morador</option>
                                 </select>
                             </div>
                             <div>

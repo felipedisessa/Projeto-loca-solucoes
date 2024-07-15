@@ -53,15 +53,15 @@
                                 />
                                 <div id="company-error" class="text-red-600"></div>
                             </div>
-                            <div>
-                                <label for="update-password"
-                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Senha</label>
-                                <input type="password" name="password" id="update-password"
-                                       value="{{ old('password') }}"
-                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                                       placeholder=" ">
-                                <div id="password-error" class="text-red-600"></div>
-                            </div>
+                            {{--                            <div>--}}
+                            {{--                                <label for="update-password"--}}
+                            {{--                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Senha</label>--}}
+                            {{--                                <input type="password" name="password" id="update-password"--}}
+                            {{--                                       value="{{ old('password') }}"--}}
+                            {{--                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"--}}
+                            {{--                                       placeholder=" ">--}}
+                            {{--                                <div id="password-error" class="text-red-600"></div>--}}
+                            {{--                            </div>--}}
                             <div>
                                 <label for="update-phone"
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Telefone</label>
@@ -76,19 +76,23 @@
                                        class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
                                 <div id="mobile-error" class="text-red-600"></div>
                             </div>
+                            @php
+                                use App\Enum\RoleEnum;
+                            @endphp
                             <div>
                                 <label for="update-role"
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cargo</label>
                                 <select id="update-role" name="role"
-                                        class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                                >
-                                    <option value="{{ $user->role }}" selected>{{ $user->role }}</option>
-                                    @foreach(['visitor', 'landlord', 'admin', 'tenant'] as $role)
-                                        @if($role !== $user->role)
-                                            <option value="{{ $role }}">{{ $role }}</option>
+                                        class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                                    <option value="{{ $user->role }}"
+                                            selected>{{ RoleEnum::from($user->role)->label() }}</option>
+                                    @foreach(RoleEnum::options() as $option)
+                                        @if($option['value'] !== $user->role)
+                                            <option value="{{ $option['value'] }}">{{ $option['label'] }}</option>
                                         @endif
                                     @endforeach
                                 </select>
+                                <div id="role-error" class="text-red-600"></div>
                             </div>
 
                             <div>

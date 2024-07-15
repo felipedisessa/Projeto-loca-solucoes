@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
@@ -19,6 +20,22 @@ class ProfileController extends Controller
         $user = User::with('address')->findOrFail($id);
 
         return response()->json($user);
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $user = Auth::user();
+        $user->update($request->all());
+        $user->save();
+
+        return redirect()->route('profile.edit');
+    }
+
+    public function editProfile()
+    {
+        $user = Auth::user();
+
+        return view('profile.edit', compact('user'));
     }
 
     /**

@@ -1,16 +1,17 @@
 <x-app-layout>
     <x-slot name="header" class="print:hidden">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight flex items-center">
-            {{ __('Relatório de reservas') }}
-            <svg class="w-6 h-6 text-gray-800 print:hidden dark:text-white" aria-hidden="true"
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight flex items-center py-2">
+            <svg class="w-6 h-6 text-gray-800 mr-2 dark:text-white" aria-hidden="true"
                  xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M19 6c0 1.657-3.134 3-7 3S5 7.657 5 6m14 0c0-1.657-3.134-3-7-3S5 4.343 5 6m14 0v6M5 6v6m0 0c0 1.657 3.134 3 7 3s7-1.343 7-3M5 12v6c0 1.657 3.134 3 7 3s7-1.343 7-3v-6"/>
+                      d="M10 3v4a1 1 0 0 1-1 1H5m4 8h6m-6-4h6m4-8v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7.914a1 1 0 0 1 .293-.707l3.914-3.914A1 1 0 0 1 9.914 3H18a1 1 0 0 1 1 1Z"/>
             </svg>
+
+            {{ __('Relatório de reservas') }}
         </h2>
     </x-slot>
 
-    <div class="max-w-6xl mx-auto sm:px-6 lg:px-8 mt-8">
+    <div class="max-w-6xl mx-auto sm:rounded-lg p-4">
         <form method="GET" action="{{ route('reports.index') }}" class="print:hidden">
             <div class="relative z-0 w-full mb-5 group bg-slate-800 p-8 shadow-md sm:rounded-lg">
                 <div class="flex space-x-4">
