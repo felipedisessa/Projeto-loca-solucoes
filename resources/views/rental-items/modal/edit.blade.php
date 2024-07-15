@@ -41,7 +41,7 @@
                                         <option value="{{$landLordUser->id}}">{{$landLordUser->name}}</option>
                                     @endforeach
                                 </select>
-                                <div id="user_id-error" class="text-red-500 text-sm"></div>
+                                <div id="owner-error" class="text-red-500 text-sm"></div>
                             </div>
 
                             <div>
@@ -49,7 +49,7 @@
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nome</label>
                                 <input type="text" name="name" id="update-name" value="{{ $rentalItem->name }}"
                                        class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                                       required/>
+                                />
                                 <div id="name-error" class="text-red-500 text-sm"></div>
                             </div>
 
@@ -58,7 +58,7 @@
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Descrição</label>
                                 <textarea name="description" id="update-description"
                                           class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                                          required>{{ $rentalItem->description }}</textarea>
+                                >{{ $rentalItem->description }}</textarea>
                                 <div id="description-error" class="text-red-500 text-sm"></div>
                             </div>
 
@@ -69,9 +69,9 @@
                                         por
                                         hora</label>
                                     <input type="text" name="price_per_hour" id="update-price_per_hour"
-                                           value="{{ $rentalItem->price_per_hour }}"
+                                           value="{{ $rentalItem->formatted_price_per_hour }}"
                                            class="mask-money block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                                           required/>
+                                    />
                                     <div id="price_per_hour-error" class="text-red-500 text-sm"></div>
                                 </div>
 
@@ -83,7 +83,7 @@
                                     <input type="text" name="price_per_day" id="update-price_per_day"
                                            value="{{ $rentalItem->price_per_day }}"
                                            class="mask-money block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                                           required/>
+                                    />
                                     <div id="price_per_day-error" class="text-red-500 text-sm"></div>
                                 </div>
                             </div>
@@ -97,7 +97,7 @@
                                     <input type="text" name="price_per_month" id="update-price_per_month"
                                            value="{{ $rentalItem->price_per_month }}"
                                            class="mask-money block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                                           required/>
+                                    />
                                     <div id="price_per_month-error" class="text-red-500 text-sm"></div>
                                 </div>
 
@@ -106,7 +106,8 @@
                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status</label>
                                     <select id="update-status" name="status"
                                             class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                                        <selected value="{{ $rentalItem->status }}">{{ $rentalItem->status }}</selected>
+                                        <option value="{{ $rentalItem->status }}"
+                                                selected>{{ $rentalItem->status }}</option>
                                         <option value="available">Disponível</option>
                                         <option value="reserved">Reservado</option>
                                         <option value="maintenance">Manutenção</option>
@@ -167,6 +168,7 @@
                                 <input type="text" name="neighborhood" id="update-neighborhood"
                                        value="{{ $rentalItem->address->neighborhood ?? '' }}"
                                        class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
+                                <div id="neighborhood-error" class="text-red-500 text-sm"></div>
                             </div>
 
                             <div>

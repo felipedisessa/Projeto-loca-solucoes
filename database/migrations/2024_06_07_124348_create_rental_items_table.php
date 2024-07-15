@@ -15,9 +15,9 @@ return new class () extends Migration {
             $table->foreignId(('user_id'))->constrained();
             $table->string('name');
             $table->string('description');
-            $table->decimal('price_per_hour')->nullable();
-            $table->decimal('price_per_day')->nullable();
-            $table->decimal('price_per_month')->nullable();
+            $table->decimal('price_per_hour', 8, 2)->nullable();
+            $table->decimal('price_per_day', 8, 2)->nullable();
+            $table->decimal('price_per_month', 8, 2)->nullable();
             $table->enum('status', ['available', 'reserved', 'maintenance'])->default('available');
             $table->longText('rental_item_notes')->nullable();
             $table->softDeletes();

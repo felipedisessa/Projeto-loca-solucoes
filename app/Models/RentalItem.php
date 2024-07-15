@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Helpers\FormatCurrencyHelper;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -12,6 +13,12 @@ class RentalItem extends Model
 {
     use HasFactory;
     use SoftDeletes;
+
+    protected $appends = [
+        'formatted_price_per_hour',
+        'formatted_price_per_day',
+        'formatted_price_per_month',
+    ];
 
     protected $fillable = [
         'user_id',
@@ -32,5 +39,20 @@ class RentalItem extends Model
     public function address(): HasOne
     {
         return $this->hasOne(Address::class);
+    }
+
+    public function getFormattedPricePerHourAttribute()
+    {
+        return FormatCurrencyHelper::formatCurrency($this->price_per_hour);
+    }
+
+    public function getFormattedPricePerDayAttribute()
+    {
+        return FormatCurrencyHelper::formatCurrency($this->price_per_day);
+    }
+
+    public function getFormattedPricePerMonthAttribute()
+    {
+        return FormatCurrencyHelper::formatCurrency($this->price_per_month);
     }
 }
