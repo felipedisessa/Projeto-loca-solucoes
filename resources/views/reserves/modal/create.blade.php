@@ -68,7 +68,6 @@
                         </div>
                         <div id="start-error" class="text-red-500 text-sm"></div>
                     </div>
-
                     <div>
                         <label for="end" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Data de
                             fim</label>

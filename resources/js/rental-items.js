@@ -15,9 +15,9 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('update-user_id').value = rentalItemData.user_id;
             document.getElementById('update-name').value = rentalItemData.name;
             document.getElementById('update-description').value = rentalItemData.description;
-            document.getElementById('update-price_per_day').value = rentalItemData.price_per_day;
-            document.getElementById('update-price_per_hour').value = rentalItemData.price_per_hour;
-            document.getElementById('update-price_per_month').value = rentalItemData.price_per_month;
+            document.getElementById('update-price_per_day').value = rentalItemData.price_per_day ? rentalItemData.formatted_price_per_day : '';
+            document.getElementById('update-price_per_hour').value = rentalItemData.price_per_hour ? rentalItemData.formatted_price_per_hour : '';
+            document.getElementById('update-price_per_month').value = rentalItemData.price_per_month ? rentalItemData.formatted_price_per_month : '';
             document.getElementById('update-status').value = rentalItemData.status;
             document.getElementById('update-rental_item_notes').value = rentalItemData.rental_item_notes;
             document.getElementById('update-street').value = rentalItemData.address.street;

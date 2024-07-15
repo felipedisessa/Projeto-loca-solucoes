@@ -21,7 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             SimpleMaskMoney.setMask(el, optionsBRL)
-
         }
     )
 })

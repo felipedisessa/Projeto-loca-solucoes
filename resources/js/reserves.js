@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 hour: '2-digit',
                 minute: '2-digit'
             });
-            document.getElementById('update-price').value = reserveData.price ? reserveData.price : '0,00';
+            document.getElementById('update-price').value = reserveData.price ? reserveData.formatted_price : '';
             document.getElementById('update-status').value = reserveData.status;
             document.getElementById('update-payment_type').value = reserveData.payment_type;
             document.getElementById('update-paid_at').value = reserveData.paid_at ? new Date(reserveData.paid_at).toLocaleDateString('pt-BR') : 'Não foi efetuado';

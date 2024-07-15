@@ -71,6 +71,7 @@
                 <th scope="col" class="px-6 py-3 whitespace-nowrap">Responsável</th>
                 <th scope="col" class="px-6 py-3 whitespace-nowrap">Titulo</th>
                 <th scope="col" class="px-6 py-3 whitespace-nowrap">Status</th>
+                <th scope="col" class="px-6 py-3 whitespace-nowrap">Preço</th>
                 <th scope="col" class="px-6 py-3 whitespace-nowrap">Pagamento</th>
                 @can('admin-or-landlord')
                     <th scope="col" class="px-6 py-3 whitespace-nowrap">Ações</th>
@@ -85,6 +86,7 @@
                     </th>
                     <td class="px-6 py-4">{{ $reserve->title}}</td>
                     <td class="px-6 py-4">{{ $reserve->status }}</td>
+                    <td class="px-6 py-4">{{ $reserve->formatted_price }}</td>
                     <td class="px-6 py-4">
                         {{ $reserve->paid_at ? \Carbon\Carbon::parse($reserve->paid_at)->format('d/m/Y') : 'Não foi efetuado' }}
                     </td>

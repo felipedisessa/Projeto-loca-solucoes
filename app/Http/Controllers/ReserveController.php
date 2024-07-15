@@ -81,7 +81,7 @@ class ReserveController extends Controller
         ];
 
         if ($request->filled('price')) {
-            $price                = str_replace(['R$', ','], '', $request->price);
+            $price                = str_replace(['R$', ','], '', $request->price) / 100;
             $reserveData['price'] = $price;
         }
 
@@ -159,7 +159,7 @@ class ReserveController extends Controller
         $startDate = Carbon::createFromFormat('d/m/Y H:i', $request->start . ' ' . $request->start_time);
         $endDate   = Carbon::createFromFormat('d/m/Y H:i', $request->end . ' ' . $request->end_time);
 
-        $price = str_replace(['R$', ','], '', $request->price) / 100;
+        $price = preg_replace('/[^0-9]/', '', $request->price) / 100;
 
         $reserve->update([
             'user_id'        => $request->user_id,

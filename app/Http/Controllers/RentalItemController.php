@@ -133,9 +133,9 @@ class RentalItemController extends Controller
             'price_per_month' => 'required',
         ]);
 
-        $pricePerHour  = str_replace(['R$', ','], '', $request->price_per_hour)  / 100;
-        $pricePerDay   = str_replace(['R$', ','], '', $request->price_per_day)   / 100;
-        $pricePerMonth = str_replace(['R$', ','], '', $request->price_per_month) / 100;
+        $pricePerHour  = preg_replace('/[^0-9]/', '', $request->price_per_hour)  / 100;
+        $pricePerDay   = preg_replace('/[^0-9]/', '', $request->price_per_day)   / 100;
+        $pricePerMonth = preg_replace('/[^0-9]/', '', $request->price_per_month) / 100;
 
         $rentalItem->update([
             'user_id'           => $request->user_id,

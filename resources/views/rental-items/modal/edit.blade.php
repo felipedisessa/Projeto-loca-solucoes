@@ -81,7 +81,7 @@
                                         por
                                         dia</label>
                                     <input type="text" name="price_per_day" id="update-price_per_day"
-                                           value="{{ $rentalItem->price_per_day }}"
+                                           value="{{ $rentalItem->formatted_price_per_day }}"
                                            class="mask-money block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                                     />
                                     <div id="price_per_day-error" class="text-red-500 text-sm"></div>
@@ -95,7 +95,7 @@
                                         por
                                         mês</label>
                                     <input type="text" name="price_per_month" id="update-price_per_month"
-                                           value="{{ $rentalItem->price_per_month }}"
+                                           value="{{ $rentalItem->formatted_price_per_month }}"
                                            class="mask-money block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                                     />
                                     <div id="price_per_month-error" class="text-red-500 text-sm"></div>
