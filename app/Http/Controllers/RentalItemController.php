@@ -58,39 +58,35 @@ class RentalItemController extends Controller
             'country'      => 'required',
         ]);
 
-        try {
-            // Formatar os preços removendo vírgulas e o símbolo "R$"
-            $pricePerHour  = str_replace(['R$', ','], '', $request->price_per_hour);
-            $pricePerDay   = str_replace(['R$', ','], '', $request->price_per_day);
-            $pricePerMonth = str_replace(['R$', ','], '', $request->price_per_month);
+        // Formatar os preços removendo vírgulas e o símbolo "R$"
+        $pricePerHour  = str_replace(['R$', ','], '', $request->price_per_hour);
+        $pricePerDay   = str_replace(['R$', ','], '', $request->price_per_day);
+        $pricePerMonth = str_replace(['R$', ','], '', $request->price_per_month);
 
-            $rentalItem = RentalItem::create([
-                'user_id'           => $request->user_id,
-                'name'              => $request->name,
-                'description'       => $request->description,
-                'price_per_hour'    => $pricePerHour,
-                'price_per_day'     => $pricePerDay,
-                'price_per_month'   => $pricePerMonth,
-                'status'            => $request->status,
-                'rental_item_notes' => $request->rental_item_notes,
-            ]);
+        $rentalItem = RentalItem::create([
+            'user_id'           => $request->user_id,
+            'name'              => $request->name,
+            'description'       => $request->description,
+            'price_per_hour'    => $pricePerHour,
+            'price_per_day'     => $pricePerDay,
+            'price_per_month'   => $pricePerMonth,
+            'status'            => $request->status,
+            'rental_item_notes' => $request->rental_item_notes,
+        ]);
 
-            Address::create([
-                'rental_item_id' => $rentalItem->id,
-                'street'         => $request->street,
-                'number'         => $request->number,
-                'complement'     => $request->complement,
-                'neighborhood'   => $request->neighborhood,
-                'city'           => $request->city,
-                'state'          => $request->state,
-                'zipcode'        => $request->zipcode,
-                'country'        => $request->country,
-            ]);
+        Address::create([
+            'rental_item_id' => $rentalItem->id,
+            'street'         => $request->street,
+            'number'         => $request->number,
+            'complement'     => $request->complement,
+            'neighborhood'   => $request->neighborhood,
+            'city'           => $request->city,
+            'state'          => $request->state,
+            'zipcode'        => $request->zipcode,
+            'country'        => $request->country,
+        ]);
 
-            return redirect()->route('rental-items.index')->with('success', 'Item de locação criado com sucesso!');
-        } catch (\Exception $e) {
-            return redirect()->route('rental-items.index')->with('error', $e->getMessage());
-        }
+        return redirect()->route('rental-items.index')->with('success', 'Item de locação criado com sucesso!');
     }
 
     public function show(RentalItem $rentalItem)
@@ -119,10 +115,42 @@ class RentalItemController extends Controller
     public function update(Request $request, RentalItem $rentalItem)
     {
         $this->authorize('admin-or-landlord');
-        $rentalItemUpdated = $request->all();
-        $rentalItem->update($rentalItemUpdated);
 
-        $addressData = $request->all();
+        $validatedData = $request->validate([
+            'user_id'         => 'required',
+            'name'            => 'required',
+            'description'     => 'required',
+            'status'          => 'required',
+            'street'          => 'required',
+            'number'          => 'required|numeric',
+            'neighborhood'    => 'required',
+            'city'            => 'required',
+            'state'           => 'required',
+            'zipcode'         => 'required|numeric',
+            'country'         => 'required',
+            'price_per_hour'  => 'required',
+            'price_per_day'   => 'required',
+            'price_per_month' => 'required',
+        ]);
+
+        $pricePerHour  = str_replace(['R$', ','], '', $request->price_per_hour)  / 100;
+        $pricePerDay   = str_replace(['R$', ','], '', $request->price_per_day)   / 100;
+        $pricePerMonth = str_replace(['R$', ','], '', $request->price_per_month) / 100;
+
+        $rentalItem->update([
+            'user_id'           => $request->user_id,
+            'name'              => $request->name,
+            'description'       => $request->description,
+            'status'            => $request->status,
+            'price_per_hour'    => $pricePerHour,
+            'price_per_day'     => $pricePerDay,
+            'price_per_month'   => $pricePerMonth,
+            'rental_item_notes' => $request->rental_item_notes,
+        ]);
+
+        $addressData = $request->only([
+            'country', 'zipcode', 'state', 'city', 'neighborhood', 'street', 'number', 'complement',
+        ]);
         $rentalItem->address()->updateOrCreate(['rental_item_id' => $rentalItem->id], $addressData);
 
         return redirect()->route('rental-items.index');

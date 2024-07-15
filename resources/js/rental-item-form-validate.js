@@ -2,6 +2,16 @@ document.addEventListener('DOMContentLoaded', function () {
     function validateForm(event, form) {
         let isValid = true;
 
+
+        const ownerInput = form.querySelector('select[name="user_id"]');
+        const ownerError = form.querySelector('#owner-error');
+        if (!ownerInput.value) {
+            ownerError.textContent = 'O campo de proprietário deve ser preenchido.';
+            isValid = false;
+        } else {
+            ownerError.textContent = '';
+        }
+
         // Validando o campo nome
         const nameInput = form.querySelector('input[name="name"]');
         const nameError = form.querySelector('#name-error');
