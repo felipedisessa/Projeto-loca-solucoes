@@ -20,4 +20,9 @@ class RolePolicy
     {
         return in_array($user->role, ['visitor', 'tenant']);
     }
+
+    public function tenant(User $user)
+    {
+        return $user->role === 'tenant';
+    }
 }

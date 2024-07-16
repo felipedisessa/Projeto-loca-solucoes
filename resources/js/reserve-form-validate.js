@@ -110,4 +110,5 @@ document.addEventListener('DOMContentLoaded', function () {
             validateForm(event, guestCreateReserveForm);
         });
     }
+
 });

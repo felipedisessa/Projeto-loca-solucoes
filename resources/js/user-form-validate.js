@@ -53,11 +53,10 @@ document.addEventListener('DOMContentLoaded', function () {
             phoneError.textContent = '';
         }
 
-        // Validando o campo cpf_cnpj
         const cpfCnpjInput = form.querySelector('input[name="cpf_cnpj"]');
         const cpfCnpjError = form.querySelector('#cpf_cnpj-error');
         const cpfCnpjPattern = /^[0-9]+$/;
-        if (cpfCnpjInput && !cpfCnpjPattern.test(cpfCnpjInput.value)) {
+        if (cpfCnpjInput && !cpfCnpjPattern.test(cpfCnpjInput.value.replace(/[^\d]/g, ''))) {
             cpfCnpjError.textContent = 'O cpf_cnpj deve conter apenas números.';
             isValid = false;
         } else if (cpfCnpjError) {
@@ -147,6 +146,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 event.preventDefault();
             }
         });
+
     }
 
     // Adiciona evento de escuta para o formulário de edição de usuário
@@ -157,26 +157,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 event.preventDefault();
             }
         });
-    }
 
-    // Função de formatação de telefone
-    function formatPhone(value) {
-        if (!value) return value;
-        const phoneNumber = value.replace(/[^\d]/g, '');
-        const phoneNumberLength = phoneNumber.length;
-        if (phoneNumberLength <= 10) {
-            return phoneNumber.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3');
-        }
-        return phoneNumber.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
     }
-
-    // Formatação de telefone
-    const phoneInputs = document.querySelectorAll('input[name="phone"], input[name="mobile"]');
-    phoneInputs.forEach(input => {
-        input.addEventListener('input', function (e) {
-            this.value = formatPhone(this.value);
-        });
-    });
 
     // Função de formatação de CPF/CNPJ
     function formatCpfCnpj(value) {

@@ -5,11 +5,19 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RentalItemController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ReserveController;
+use App\Http\Controllers\VisitorController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function() {
     return redirect()->route('login');
 });
+Route::post('/visitorCalendar/store', [VisitorController::class, 'store'])->name('visitorCalendar.store');
+Route::get('/visitorCalendar', [VisitorController::class, 'showVisitorCalendar'])->name('visitorCalendar');
+Route::get('/visitorCalendar/json', [VisitorController::class, 'getVisitorReservesJson'])->name('visitorCalendar.json');
+
+//Route::get('/welcome', function() {
+//    return view('welcome');
+//})->name('welcome');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 

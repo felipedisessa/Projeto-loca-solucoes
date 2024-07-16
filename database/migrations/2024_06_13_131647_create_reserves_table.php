@@ -18,7 +18,7 @@ return new class () extends Migration {
             $table->DateTime('start');
             $table->DateTime('end');
             $table->foreignId('rental_item_id')->constrained();
-            $table->string('status')->nullable();
+            $table->string('status')->nullable()->default('pendente');
             $table->decimal('price', 8, 2)->nullable();
             $table->string('payment_type')->nullable();
             $table->DateTime('paid_at')->nullable();

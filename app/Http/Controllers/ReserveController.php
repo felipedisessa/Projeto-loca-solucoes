@@ -181,7 +181,7 @@ class ReserveController extends Controller
     {
         $query = Reserve::query()->where('status', 'confirmado');
 
-        if ($request->has('rental_item_id') && !empty($request->rental_item_id)) {
+        if ($request->has('rental_item_id') && ! empty($request->rental_item_id)) {
             $query->where('rental_item_id', $request->rental_item_id);
         }
 
