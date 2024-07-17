@@ -46,6 +46,13 @@
     </style>
 </head>
 <body>
+@if(session('success'))
+    <div
+        class="fixed top-4 right-4 z-50 p-4 mb-4 text-sm text-blue-800 bg-blue-50 rounded-lg dark:bg-gray-800 dark:text-blue-400"
+        role="alert">
+        <span class="font-medium">Sucesso:</span> Solicitação feita com sucesso.
+    </div>
+@endif
 <div class="container">
 
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-4">

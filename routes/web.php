@@ -13,6 +13,8 @@ Route::get('/', function() {
     return redirect()->route('login');
 });
 // routes/web.php
+
+//Route::post('/validate-reserve-field', [VisitorController::class, 'validateFields'])->name('validate-reserve-field');
 Route::get('dev-Login', LoginController::class)->name('dev-login');
 Route::post('/visitorCalendar/store', [VisitorController::class, 'store'])->name('visitorCalendar.store');
 Route::get('/agenda', [VisitorController::class, 'showVisitorCalendar'])->name('visitorCalendar');

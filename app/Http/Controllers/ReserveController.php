@@ -68,6 +68,22 @@ class ReserveController extends Controller
         $startDate = Carbon::createFromFormat('d/m/Y H:i', $request->start . ' ' . $request->start_time);
         $endDate   = Carbon::createFromFormat('d/m/Y H:i', $request->end . ' ' . $request->end_time);
 
+        $reserve = Reserve::query()
+            ->where('rental_item_id', $request->input('rental_item_id'))
+            ->where(function($query) use ($startDate, $endDate) {
+                $query->whereBetween('start', [$startDate, $endDate])
+                    ->orWhereBetween('end', [$startDate, $endDate])
+                    ->orWhere(function($query) use ($startDate, $endDate) {
+                        $query->where('start', '<=', $startDate)
+                            ->where('end', '>=', $endDate);
+                    });
+            })
+            ->first();
+
+        if ($reserve) {
+            return redirect()->back()->with('error', 'A sala está ocupada no período selecionado.');
+        }
+
         $reserveData = [
             'user_id'        => $validatedData['user_id'],
             'title'          => $validatedData['title'],
@@ -87,7 +103,7 @@ class ReserveController extends Controller
 
         Reserve::query()->create($reserveData);
 
-        return back()->with('success', 'Reserva criada com sucesso!');
+        return redirect()->back()->with('success', 'Solicitação feita com sucesso.');
     }
 
     public function create()

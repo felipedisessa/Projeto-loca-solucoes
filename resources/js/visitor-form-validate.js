@@ -210,6 +210,12 @@ document.addEventListener('DOMContentLoaded', function () {
         if (modalElement) {
             modalElement.classList.remove('hidden');
             modalElement.classList.add('flex');
+
+            const closeButton = document.getElementById('noAuth-close-modal-button');
+            closeButton.addEventListener('click', function () {
+                modalElement.classList.remove('flex');
+                modalElement.classList.add('hidden');
+            });
         }
     }
 

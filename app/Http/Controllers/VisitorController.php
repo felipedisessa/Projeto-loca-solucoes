@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ReserveRequest;
 use App\Models\RentalItem;
 use App\Models\Reserve;
 use App\Models\User;
@@ -41,7 +42,7 @@ class VisitorController extends Controller
         return response()->json($events);
     }
 
-    public function store(Request $request)
+    public function store(ReserveRequest $request)
     {
         $startDate = Carbon::createFromFormat('d/m/Y H:i', $request->start . ' ' . $request->start_time);
         $endDate   = Carbon::createFromFormat('d/m/Y H:i', $request->end . ' ' . $request->end_time);
@@ -61,21 +62,6 @@ class VisitorController extends Controller
         if ($reserve) {
             return redirect()->back()->with('error', 'A sala está ocupada no período selecionado.');
         }
-
-        $request->validate([
-            'name'     => 'required',
-            'email'    => 'required|email',
-            'phone'    => 'required',
-            'mobile'   => 'required',
-            'cpf_cnpj' => 'required',
-            'company'  => 'required',
-            'street'   => 'required',
-            'number'   => 'required',
-            'city'     => 'required',
-            'state'    => 'required',
-            'zipcode'  => 'required',
-            'country'  => 'required',
-        ]);
 
         $defaultPassword = '12345678';
 
@@ -112,6 +98,6 @@ class VisitorController extends Controller
             'payment_type'   => $request->input('payment_type'),
         ]);
 
-        return back();
+        return redirect()->back()->with('success', 'Solicitação feita com sucesso.');
     }
 }
