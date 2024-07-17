@@ -37,7 +37,7 @@ class ReserveController extends Controller
             return redirect()->route('reserves.index');
         }
 
-        $bookUsers = User::query()->whereIn('role', ['tenant'])->get();
+        $bookUsers = User::query()->whereIn('role', ['tenant', 'visitor'])->get();
         $bookItems = RentalItem::query()->get();
 
         return view('reserves.index', compact('reserves', 'search', 'bookUsers', 'bookItems'));
@@ -141,7 +141,7 @@ class ReserveController extends Controller
             'end_time'       => 'nullable',
             'rental_item_id' => 'required',
             'status'         => 'required',
-            'price'          => 'required',
+            'price'          => 'nullable',
             'payment_type'   => 'required',
             'paid_at'        => 'nullable',
         ]);
@@ -159,7 +159,13 @@ class ReserveController extends Controller
         $startDate = Carbon::createFromFormat('d/m/Y H:i', $request->start . ' ' . $request->start_time);
         $endDate   = Carbon::createFromFormat('d/m/Y H:i', $request->end . ' ' . $request->end_time);
 
-        $price = preg_replace('/[^0-9]/', '', $request->price) / 100;
+        //$price = preg_replace('/[^0-9]/', '', $request->price) / 100;
+
+        if ($request->filled('price')) {
+            $price = preg_replace('/[^0-9]/', '', $request->price) / 100;
+        } else {
+            $price = null;
+        }
 
         $reserve->update([
             'user_id'        => $request->user_id,

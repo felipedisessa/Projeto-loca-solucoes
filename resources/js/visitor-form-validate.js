@@ -203,4 +203,31 @@ document.addEventListener('DOMContentLoaded', function () {
     if (noAuthCreateReserveForm) {
         noAuthCreateReserveForm.addEventListener('submit', validateNoAuthCreateReserveForm);
     }
+
+    const errorMessage = document.querySelector('.error-message');
+    if (errorMessage) {
+        const modalElement = document.getElementById('noAuth-create-crud-modal');
+        if (modalElement) {
+            modalElement.classList.remove('hidden');
+            modalElement.classList.add('flex');
+        }
+    }
+
+    // Função de formatação de CPF/CNPJ
+    function formatCpfCnpj(value) {
+        if (!value) return value;
+        const cpfCnpj = value.replace(/[^\d]/g, '');
+        if (cpfCnpj.length <= 11) {
+            return cpfCnpj.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+        }
+        return cpfCnpj.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, '$1.$2.$3/$4-$5');
+    }
+
+    // Formatação de CPF/CNPJ
+    const cpfCnpjInputs = document.querySelectorAll('input[name="cpf_cnpj"]');
+    cpfCnpjInputs.forEach(input => {
+        input.addEventListener('input', function (e) {
+            this.value = formatCpfCnpj(this.value);
+        });
+    });
 });

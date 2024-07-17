@@ -43,6 +43,25 @@ class VisitorController extends Controller
 
     public function store(Request $request)
     {
+        $startDate = Carbon::createFromFormat('d/m/Y H:i', $request->start . ' ' . $request->start_time);
+        $endDate   = Carbon::createFromFormat('d/m/Y H:i', $request->end . ' ' . $request->end_time);
+
+        $reserve = Reserve::query()
+            ->where('rental_item_id', $request->input('rental_item_id'))
+            ->where(function($query) use ($startDate, $endDate) {
+                $query->whereBetween('start', [$startDate, $endDate])
+                    ->orWhereBetween('end', [$startDate, $endDate])
+                    ->orWhere(function($query) use ($startDate, $endDate) {
+                        $query->where('start', '<=', $startDate)
+                            ->where('end', '>=', $endDate);
+                    });
+            })
+            ->first();
+
+        if ($reserve) {
+            return redirect()->back()->with('error', 'A sala está ocupada no período selecionado.');
+        }
+
         $request->validate([
             'name'     => 'required',
             'email'    => 'required|email',
@@ -59,7 +78,7 @@ class VisitorController extends Controller
         ]);
 
         $defaultPassword = '12345678';
-        // Criação do usuário
+
         $user = User::create([
             'name'     => $request->input('name'),
             'email'    => $request->input('email'),
@@ -81,9 +100,6 @@ class VisitorController extends Controller
             'zipcode'      => $request->input('zipcode'),
             'country'      => $request->input('country'),
         ]);
-
-        $startDate = Carbon::createFromFormat('d/m/Y H:i', $request->start . ' ' . $request->start_time);
-        $endDate   = Carbon::createFromFormat('d/m/Y H:i', $request->end . ' ' . $request->end_time);
 
         Reserve::create([
             'user_id'        => $user->id,
