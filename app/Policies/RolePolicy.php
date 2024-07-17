@@ -16,9 +16,9 @@ class RolePolicy
         return in_array($user->role, ['admin', 'landlord', 'tenant']);
     }
 
-    public function visitorTenant(User $user)
+    public function JustTenant(User $user)
     {
-        return in_array($user->role, ['visitor', 'tenant']);
+        return in_array($user->role, ['tenant']);
     }
 
     public function tenant(User $user)

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RentalItemController;
 use App\Http\Controllers\ReportController;
@@ -11,8 +12,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function() {
     return redirect()->route('login');
 });
+Route::get('dev-Login', LoginController::class)->name('dev-login');
+
 Route::post('/visitorCalendar/store', [VisitorController::class, 'store'])->name('visitorCalendar.store');
-Route::get('/visitorCalendar', [VisitorController::class, 'showVisitorCalendar'])->name('visitorCalendar');
+Route::get('/agenda', [VisitorController::class, 'showVisitorCalendar'])->name('visitorCalendar');
 Route::get('/visitorCalendar/json', [VisitorController::class, 'getVisitorReservesJson'])->name('visitorCalendar.json');
 
 //Route::get('/welcome', function() {

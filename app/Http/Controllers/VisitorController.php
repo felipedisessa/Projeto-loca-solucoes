@@ -43,6 +43,21 @@ class VisitorController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'name'     => 'required',
+            'email'    => 'required|email',
+            'phone'    => 'required',
+            'mobile'   => 'required',
+            'cpf_cnpj' => 'required',
+            'company'  => 'required',
+            'street'   => 'required',
+            'number'   => 'required',
+            'city'     => 'required',
+            'state'    => 'required',
+            'zipcode'  => 'required',
+            'country'  => 'required',
+        ]);
+
         $defaultPassword = '12345678';
         // Criação do usuário
         $user = User::create([
@@ -56,7 +71,6 @@ class VisitorController extends Controller
             'company'  => $request->input('company'),
         ]);
 
-        // Criação do endereço do usuário
         $user->address()->create([
             'street'       => $request->input('street'),
             'number'       => $request->input('number'),
@@ -67,9 +81,10 @@ class VisitorController extends Controller
             'zipcode'      => $request->input('zipcode'),
             'country'      => $request->input('country'),
         ]);
+
         $startDate = Carbon::createFromFormat('d/m/Y H:i', $request->start . ' ' . $request->start_time);
         $endDate   = Carbon::createFromFormat('d/m/Y H:i', $request->end . ' ' . $request->end_time);
-        // Criação da reserva
+
         Reserve::create([
             'user_id'        => $user->id,
             'title'          => $request->input('title'),

@@ -12,8 +12,7 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css','resources/css/calendar.css', 'resources/js/visitor-calendar.js',
- 'resources/js/datepicker-config.js', 'resources/js/reserve-form-validate.js',
-  'resources/js/user-form-validate.js'])
+ 'resources/js/datepicker-config.js', 'resources/js/visitor-form-validate.js', 'resources/js/formatPhone.js'])
 
     @include('reserves.modal.noAuthCreate')
 
@@ -48,7 +47,7 @@
 </head>
 <body>
 <div class="container">
-    <h1 class="text-center text-3xl font-bold mb-4 text-white">Calendário de Visitantes</h1>
+
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-4">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">

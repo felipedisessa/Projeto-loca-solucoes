@@ -37,7 +37,7 @@ class ReserveController extends Controller
             return redirect()->route('reserves.index');
         }
 
-        $bookUsers = User::query()->whereIn('role', ['visitor', 'tenant'])->get();
+        $bookUsers = User::query()->whereIn('role', ['tenant'])->get();
         $bookItems = RentalItem::query()->get();
 
         return view('reserves.index', compact('reserves', 'search', 'bookUsers', 'bookItems'));
@@ -181,7 +181,7 @@ class ReserveController extends Controller
     {
         $query = Reserve::query()->where('status', 'confirmado');
 
-        if ($request->has('rental_item_id') && ! empty($request->rental_item_id)) {
+        if ($request->has('rental_item_id') && !empty($request->rental_item_id)) {
             $query->where('rental_item_id', $request->rental_item_id);
         }
 

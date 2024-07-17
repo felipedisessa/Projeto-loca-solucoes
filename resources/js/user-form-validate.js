@@ -42,7 +42,6 @@ document.addEventListener('DOMContentLoaded', function () {
         } else if (companyError) {
             companyError.textContent = '';
         }
-
         // Validando o campo telefone
         const phoneInput = form.querySelector('input[name="phone"]');
         const phoneError = form.querySelector('#phone-error');
@@ -158,7 +157,9 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
 
+
     }
+
 
     // Função de formatação de CPF/CNPJ
     function formatCpfCnpj(value) {

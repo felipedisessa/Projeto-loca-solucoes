@@ -39,7 +39,7 @@ class AppServiceProvider extends ServiceProvider
 
         Gate::define('admin-or-landlord', [RolePolicy::class, 'adminOrLandlord']);
         Gate::define('except-visitor', [RolePolicy::class, 'exceptVisitor']);
-        Gate::define('visitor-tenant', [RolePolicy::class, 'visitorTenant']);
+        Gate::define('visitor-tenant', [RolePolicy::class, 'JustTenant']);
         Gate::define('tenant', [RolePolicy::class, 'tenant']);
 
         $roles = RoleEnum::options();

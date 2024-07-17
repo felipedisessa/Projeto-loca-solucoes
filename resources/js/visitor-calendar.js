@@ -39,6 +39,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 separator: ' - '
             },
 
+            eventClick: function (info) {
+                const startDateTime = info.event.start.toLocaleString('pt-BR');
+                const endDateTime = info.event.end ? info.event.end.toLocaleString('pt-BR') : 'Indefinido';
+                alert(`Evento: ${info.event.title}\n\nData: ${startDateTime}\n\nDuração: ${endDateTime}`);
+            },
+
             dateClick: function (info) {
                 const modalElement = document.getElementById('noAuth-create-crud-modal');
                 modalElement.classList.remove('hidden');
@@ -49,6 +55,18 @@ document.addEventListener('DOMContentLoaded', function () {
                     modalElement.classList.remove('flex');
                     modalElement.classList.add('hidden');
                 });
+                //faz o campo de sala vir preenchido caso o filtro esteja em uma especifica
+                if (filteredRoom) {
+                    const rentalItemIdInput = modalElement.querySelector('select[name="rental_item_id"]');
+                    rentalItemIdInput.value = filteredRoom;
+                }
+
+                const startInput = modalElement.querySelector('#noAuth-start');
+                const endInput = modalElement.querySelector('#noAuth-end');
+
+                const formattedDate = formatDate(new Date(info.dateStr + ' 00:00:00'));
+                startInput.value = formattedDate;
+                endInput.value = formattedDate;
             }
         });
 
@@ -72,5 +90,12 @@ document.addEventListener('DOMContentLoaded', function () {
             calendar.refetchEvents(); // Recarrega os eventos ao mudar o filtro
         });
 
+    }
+
+    function formatDate(date) {
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = date.getFullYear();
+        return `${day}/${month}/${year}`;
     }
 });

@@ -227,6 +227,7 @@
                             <input type="time" id="noAuth-start_time" name="start_time"
                                    class="bg-gray-50 border leading-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                    value=""/>
+                            <div id="start_time-error" class="text-red-500 text-sm"></div>
                         </div>
                     </div>
 
@@ -247,6 +248,7 @@
                             <input type="time" id="noAuth-end_time" name="end_time"
                                    class="bg-gray-50 border leading-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                    value=""/>
+                            <div id="end_time-error" class="text-red-500 text-sm"></div>
                         </div>
                     </div>
 
@@ -260,7 +262,7 @@
                                 <option value="{{ $bookItem->id }}">{{ $bookItem->name }}</option>
                             @endforeach
                         </select>
-                        <div id="noAuth-rental_item_id-error" class="text-red-500 text-sm"></div>
+                        <div id="rental_item_id-error" class="text-red-500 text-sm"></div>
                     </div>
 
                     <div>
@@ -297,3 +299,4 @@
         </div>
     </div>
 </div>
+<
