@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const emailError = form.querySelector('#email-error');
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (emailInput && !emailPattern.test(emailInput.value)) {
-            emailError.textContent = 'O email deve ser um email valido.';
+            emailError.textContent = 'O email deve ser um email válido.';
             isValid = false;
         } else if (emailError) {
             emailError.textContent = '';
@@ -42,6 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
         } else if (companyError) {
             companyError.textContent = '';
         }
+
         // Validando o campo telefone
         const phoneInput = form.querySelector('input[name="phone"]');
         const phoneError = form.querySelector('#phone-error');
@@ -52,11 +53,12 @@ document.addEventListener('DOMContentLoaded', function () {
             phoneError.textContent = '';
         }
 
+        // Validando o campo cpf_cnpj
         const cpfCnpjInput = form.querySelector('input[name="cpf_cnpj"]');
         const cpfCnpjError = form.querySelector('#cpf_cnpj-error');
         const cpfCnpjPattern = /^[0-9]+$/;
         if (cpfCnpjInput && !cpfCnpjPattern.test(cpfCnpjInput.value.replace(/[^\d]/g, ''))) {
-            cpfCnpjError.textContent = 'O cpf_cnpj deve conter apenas números.';
+            cpfCnpjError.textContent = 'O CPF/CNPJ deve conter apenas números.';
             isValid = false;
         } else if (cpfCnpjError) {
             cpfCnpjError.textContent = '';
@@ -67,18 +69,18 @@ document.addEventListener('DOMContentLoaded', function () {
         const cepError = form.querySelector('#zipcode-error');
         const cepPattern = /^[0-9]+$/;
         if (cepInput && !cepPattern.test(cepInput.value)) {
-            cepError.textContent = 'O cep deve conter apenas números.';
+            cepError.textContent = 'O CEP deve conter apenas números.';
             isValid = false;
         } else if (cepError) {
             cepError.textContent = '';
         }
 
-        // Validando o campo numero
+        // Validando o campo número
         const numeroInput = form.querySelector('input[name="number"]');
         const numeroError = form.querySelector('#number-error');
         const numeroPattern = /^[0-9]+$/;
         if (numeroInput && !numeroPattern.test(numeroInput.value)) {
-            numeroError.textContent = 'O numero deve conter apenas números.';
+            numeroError.textContent = 'O número deve conter apenas números.';
             isValid = false;
         } else if (numeroError) {
             numeroError.textContent = '';
@@ -145,7 +147,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 event.preventDefault();
             }
         });
-
     }
 
     // Adiciona evento de escuta para o formulário de edição de usuário
@@ -156,10 +157,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 event.preventDefault();
             }
         });
-
-
     }
-
 
     // Função de formatação de CPF/CNPJ
     function formatCpfCnpj(value) {
@@ -176,6 +174,21 @@ document.addEventListener('DOMContentLoaded', function () {
     cpfCnpjInputs.forEach(input => {
         input.addEventListener('input', function (e) {
             this.value = formatCpfCnpj(this.value);
+        });
+    });
+
+    // Validando e formatando os campos número e CEP para aceitar apenas números
+    const numberInputs = document.querySelectorAll('input[name="number"]');
+    numberInputs.forEach(input => {
+        input.addEventListener('input', function (e) {
+            this.value = this.value.replace(/[^\d]/g, '');
+        });
+    });
+
+    const zipcodeInputs = document.querySelectorAll('input[name="zipcode"]');
+    zipcodeInputs.forEach(input => {
+        input.addEventListener('input', function (e) {
+            this.value = this.value.replace(/[^\d]/g, '');
         });
     });
 });

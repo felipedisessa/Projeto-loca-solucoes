@@ -87,7 +87,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
             eventClick: async function (info) {
                 if (window.userRole === 'visitor' || window.userRole === 'tenant') {
-                    alert('Horário indisponível: ' + info.event.start + ' - ' + info.event.end);
+                    const startDateTime = info.event.start.toLocaleString('pt-BR');
+                    const endDateTime = info.event.end ? info.event.end.toLocaleString('pt-BR') : 'Indefinido';
+                    alert(`Evento: ${info.event.title}\n\nData: ${startDateTime}\n\nDuração: ${endDateTime}`);
                     return;
                 }
 
@@ -112,7 +114,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     minute: '2-digit'
                 })
                 document.getElementById('update-rental_item_id').value = reserve.rental_item_id;
-                document.getElementById('update-price').value = reserve.price;
+                document.getElementById('update-price').value = reserve.price ? reserve.formatted_price : '';
                 document.getElementById('update-payment_type').value = reserve.payment_type;
                 document.getElementById('update-paid_at').value = reserve.paid_at ? new Date(reserve.paid_at).toLocaleDateString('pt-BR') : 'Não foi efetuado';
                 document.getElementById('update-status').value = reserve.status;
@@ -157,6 +159,7 @@ document.addEventListener('DOMContentLoaded', function () {
             filteredRoom = this.value;
             calendar.refetchEvents(); // Recarrega os eventos ao mudar o filtro
         });
+
     }
 
     function formatDate(date) {

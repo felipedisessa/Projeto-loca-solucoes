@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const emailError = form.querySelector('#email-error');
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (emailInput && !emailPattern.test(emailInput.value)) {
-            emailError.textContent = 'O email deve ser um email valido.';
+            emailError.textContent = 'O email deve ser um email válido.';
             isValid = false;
         } else {
             emailError.textContent = '';
@@ -234,6 +234,20 @@ document.addEventListener('DOMContentLoaded', function () {
     cpfCnpjInputs.forEach(input => {
         input.addEventListener('input', function (e) {
             this.value = formatCpfCnpj(this.value);
+        });
+    });
+
+    // Validando e formatando os campos número e CEP para aceitar apenas números
+    const numberInputs = document.querySelectorAll('input[name="number"]');
+    numberInputs.forEach(input => {
+        input.addEventListener('input', function (e) {
+            this.value = this.value.replace(/[^\d]/g, '');
+        });
+    });
+    const zipcodeInputs = document.querySelectorAll('input[name="zipcode"]');
+    zipcodeInputs.forEach(input => {
+        input.addEventListener('input', function (e) {
+            this.value = this.value.replace(/[^\d]/g, '');
         });
     });
 });

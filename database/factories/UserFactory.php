@@ -29,7 +29,7 @@ class UserFactory extends Factory
             'phone'             => fake()->phoneNumber(),
             'mobile'            => fake()->phoneNumber(),
             'role'              => fake()->randomElement(['admin', 'landlord', 'tenant', 'visitor']),
-            'cpf_cnpj'          => '11111111111',
+            'cpf_cnpj'          => fake()->unique()->numerify('###########'),
             'user_notes'        => fake()->sentence(),
             'email_verified_at' => now(),
             'password'          => static::$password ??= Hash::make('password'),

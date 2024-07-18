@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Address;
 use App\Models\RentalItem;
+use App\Models\Reserve;
 use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
@@ -93,7 +94,14 @@ class RentalItemController extends Controller
     {
         $this->authorize('admin-or-landlord');
 
-        return view('rental-items.show', compact('rentalItem'));
+        $monthlyReserves = Reserve::selectRaw('YEAR(start) as year, MONTH(start) as month, COUNT(*) as total')
+            ->where('rental_item_id', $rentalItem->id)
+            ->groupBy('year', 'month')
+            ->get();
+
+        $averageReservesPerMonth = $monthlyReserves->avg('total');
+
+        return view('rental-items.show', compact('rentalItem', 'averageReservesPerMonth'));
     }
 
     public function destroy(RentalItem $rentalItem)

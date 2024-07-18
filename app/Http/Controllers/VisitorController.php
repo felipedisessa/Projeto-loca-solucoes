@@ -7,6 +7,7 @@ use App\Models\RentalItem;
 use App\Models\Reserve;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -65,27 +66,35 @@ class VisitorController extends Controller
 
         $defaultPassword = '12345678';
 
-        $user = User::create([
-            'name'     => $request->input('name'),
-            'email'    => $request->input('email'),
-            'phone'    => $request->input('phone'),
-            'mobile'   => $request->input('mobile'),
-            'role'     => 'visitor',
-            'cpf_cnpj' => $request->input('cpf_cnpj'),
-            'password' => Hash::make($defaultPassword),
-            'company'  => $request->input('company'),
-        ]);
+        try {
+            $user = User::create([
+                'name'     => $request->input('name'),
+                'email'    => $request->input('email'),
+                'phone'    => $request->input('phone'),
+                'mobile'   => $request->input('mobile'),
+                'role'     => 'visitor',
+                'cpf_cnpj' => $request->input('cpf_cnpj'),
+                'password' => Hash::make($defaultPassword),
+                'company'  => $request->input('company'),
+            ]);
 
-        $user->address()->create([
-            'street'       => $request->input('street'),
-            'number'       => $request->input('number'),
-            'complement'   => $request->input('complement'),
-            'neighborhood' => $request->input('neighborhood'),
-            'city'         => $request->input('city'),
-            'state'        => $request->input('state'),
-            'zipcode'      => $request->input('zipcode'),
-            'country'      => $request->input('country'),
-        ]);
+            $user->address()->create([
+                'street'       => $request->input('street'),
+                'number'       => $request->input('number'),
+                'complement'   => $request->input('complement'),
+                'neighborhood' => $request->input('neighborhood'),
+                'city'         => $request->input('city'),
+                'state'        => $request->input('state'),
+                'zipcode'      => $request->input('zipcode'),
+                'country'      => $request->input('country'),
+            ]);
+        } catch (QueryException $e) {
+            if ($e->errorInfo[1] == 1062) {
+                return redirect()->back()->with('error', 'O e-mail informado já está em uso.');
+            }
+
+            throw $e;
+        }
 
         Reserve::create([
             'user_id'        => $user->id,
@@ -98,6 +107,9 @@ class VisitorController extends Controller
             'payment_type'   => $request->input('payment_type'),
         ]);
 
-        return redirect()->back()->with('success', 'Solicitação feita com sucesso.');
+        return redirect()->back()->with(
+            'success',
+            'Solicitação feita com sucesso, aguarde a confirmação em seu celular.'
+        );
     }
 }

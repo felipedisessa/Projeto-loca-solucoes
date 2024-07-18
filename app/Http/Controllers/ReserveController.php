@@ -211,8 +211,8 @@ class ReserveController extends Controller
         $user     = auth()->user();
 
         $events = $reserves->map(function($reserve) use ($user) {
-            if ($user->can('except-visitor')) {
-                // Usuário autorizado vê todos os detalhes
+            if ($user->can('admin-or-landlord') || $reserve->user_id == $user->id) {
+                // Usuário autorizado ou dono da reserva vê todos os detalhes
                 return [
                     'user_id'        => $reserve->user_id,
                     'id'             => $reserve->id,

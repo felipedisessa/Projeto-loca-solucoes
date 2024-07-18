@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function () {
         this.value = formatPhone(this.value);
     });
 
-    document.getElementById('cpf_cnpj').addEventListener('input', function (e) {
-        this.value = formatCpfCnpj(this.value);
-    });
+    // document.getElementById('cpf_cnpj').addEventListener('input', function (e) {
+    //     this.value = formatCpfCnpj(this.value);
+    // });
 });

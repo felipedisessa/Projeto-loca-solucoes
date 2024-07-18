@@ -11,6 +11,13 @@
             </h2>
         </div>
     </x-slot>
+    @if(session('error'))
+        <div
+            class="error-message fixed top-4 right-4 z-50 p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
+            role="alert">
+            <span class="font-medium">Erro:</span> {{ session('error') }}
+        </div>
+    @endif
     @if(session('success'))
         <div
             class="fixed top-4 right-4 z-50 p-4 mb-4 text-sm text-blue-800 bg-blue-50 rounded-lg dark:bg-gray-800 dark:text-blue-400"

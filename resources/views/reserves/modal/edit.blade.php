@@ -178,7 +178,6 @@
                                value="{{ $reserve->payment_type }}"
                                class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
                     </div>
-
                     <div class="md:col-span-2">
                         <label for="update-status"
                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
@@ -188,9 +187,9 @@
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                         >
                             <option value="" disabled selected>Selecione um status</option>
-                            <option value="confirmado">Confirmado</option>
-                            <option value="pendente">Pendente</option>
-                            <option value="cancelado">Cancelado</option>
+                            <option value="confirmed">Confirmado</option>
+                            <option value="pending">Pendente</option>
+                            <option value="canceled">Cancelado</option>
                         </select>
                     </div>
                 </div>

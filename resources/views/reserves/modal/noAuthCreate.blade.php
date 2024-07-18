@@ -23,7 +23,6 @@
             <form id="noAuth-create-reserve-form" action="{{ route('visitorCalendar.store') }}" method="post"
                   class="p-4 space-y-4">
                 @csrf
-
                 @if(session('error'))
                     <div
                         class="error-message p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"

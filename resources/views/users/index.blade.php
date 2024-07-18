@@ -59,7 +59,13 @@
             </button>
         </div>
     </x-slot>
-
+    @if(session('error'))
+        <div
+            class="error-message fixed top-4 right-4 z-50 p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
+            role="alert">
+            <span class="font-medium">Erro:</span> {{ session('error') }}
+        </div>
+    @endif
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-4">
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">

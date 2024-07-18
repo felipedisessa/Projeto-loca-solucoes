@@ -10,7 +10,6 @@
     #footer,
     #nav,
     .hidden {
-
         display: none !important;
     }
 
@@ -53,5 +52,46 @@
     .py-4 {
         padding-top: 2px; /* Ajuste o padding das células para reduzir espaço */
         padding-bottom: 2px;
+    }
+
+    .m-4 {
+        margin: 0 !important;
+    }
+
+    .p-6 {
+        padding: 2px !important;
+    }
+
+    .rounded-lg {
+        border-radius: 0 !important;
+    }
+
+    .shadow {
+        box-shadow: none !important;
+    }
+
+    .bg-white {
+        background-color: white !important;
+    }
+
+    .border-gray-200 {
+        border-color: #ccc !important;
+    }
+
+    .text-gray-900 {
+        color: black !important;
+    }
+
+    .dark\:bg-gray-800 {
+        background-color: white !important;
+    }
+
+    .dark\:text-white {
+        color: black !important;
+    }
+
+    /* Ocultar a coluna de exclusão ao imprimir */
+    .print\:hidden {
+        display: none !important;
     }
 }

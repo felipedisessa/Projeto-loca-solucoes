@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -119,33 +120,42 @@ class ProfileController extends Controller
     public function store(Request $request)
     {
         $this->authorize('admin-or-landlord');
+
         $validatedData = $request->validate([
             'name'     => 'required|string|max:255',
             'email'    => 'required|email|max:255',
             'phone'    => 'required|string|max:255',
             'mobile'   => 'required|string|max:255',
             'role'     => 'required|string|max:255',
-            'cpf_cnpj' => 'required|numeric|',
+            'cpf_cnpj' => 'required',
             'password' => 'required|string',
             'company'  => 'required|string|max:255',
         ]);
 
-        $user = User::create([
-            'name'       => $request->name,
-            'email'      => $request->email,
-            'phone'      => $request->phone,
-            'mobile'     => $request->mobile,
-            'role'       => $request->role,
-            'cpf_cnpj'   => $request->cpf_cnpj,
-            'user_notes' => $request->user_notes,
-            'password'   => bcrypt($request->password),
-            'company'    => $request->company,
-        ]);
+        try {
+            $user = User::create([
+                'name'       => $request->name,
+                'email'      => $request->email,
+                'phone'      => $request->phone,
+                'mobile'     => $request->mobile,
+                'role'       => $request->role,
+                'cpf_cnpj'   => $request->cpf_cnpj,
+                'user_notes' => $request->user_notes,
+                'password'   => bcrypt($request->password),
+                'company'    => $request->company,
+            ]);
 
-        $addressData = $request->only([
-            'street', 'number', 'complement', 'neighborhood', 'city', 'state', 'zipcode', 'country',
-        ]);
-        $user->address()->create($addressData);
+            $addressData = $request->only([
+                'street', 'number', 'complement', 'neighborhood', 'city', 'state', 'zipcode', 'country',
+            ]);
+            $user->address()->create($addressData);
+        } catch (QueryException $e) {
+            if ($e->errorInfo[1] == 1062) { // Código de erro para violação de unicidade
+                return redirect()->back()->with('error', 'O e-mail informado já está em uso.');
+            }
+
+            throw $e;
+        }
 
         return back();
     }

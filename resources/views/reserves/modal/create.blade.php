@@ -158,15 +158,14 @@
                                class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
                         <div id="payment_type-error" class="text-red-500 text-sm"></div>
                     </div>
-
                     <div class="md:col-span-2">
                         <label for="status"
                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status</label>
                         <select name="status" id="status"
                                 class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                            <option value="pendente" selected>Pendente</option>
-                            <option value="confirmado">Confirmado</option>
-                            <option value="cancelado">Cancelado</option>
+                            <option value="pending">Pendente</option>
+                            <option value="confirmed">Confirmado</option>
+                            <option value="canceled">Cancelado</option>
                         </select>
                     </div>
                 </div>
