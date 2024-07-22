@@ -103,6 +103,14 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    const editCalendarReserveForm = document.getElementById('editfullcalendar-reserve-form');
+    if (editCalendarReserveForm) {
+        editCalendarReserveForm.addEventListener('submit', function (event) {
+            validateForm(event, editCalendarReserveForm);
+        });
+    }
+
+
     // Adiciona evento de escuta para o formulário de criação de reserva de convidado
     const guestCreateReserveForm = document.getElementById('guest-create-reserve-form');
     if (guestCreateReserveForm) {
