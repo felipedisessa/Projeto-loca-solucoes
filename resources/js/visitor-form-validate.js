@@ -222,7 +222,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Função de formatação de CPF/CNPJ
     function formatCpfCnpj(value) {
         if (!value) return value;
-        const cpfCnpj = value.replace(/[^\d]/g, '');
+        const cpfCnpj = value.replace(/[^\d]/g, '').slice(0, 14); // Limita o valor a 14 dígitos
         if (cpfCnpj.length <= 11) {
             return cpfCnpj.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
         }

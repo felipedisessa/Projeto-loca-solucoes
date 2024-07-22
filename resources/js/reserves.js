@@ -7,11 +7,11 @@ document.addEventListener('DOMContentLoaded', function () {
             const reserveId = button.getAttribute('data-id');
 
             // Fetch reserve data from the server
-            const response = await fetch(`/reserves/${reserveId}/edit`);
+            const response = await fetch(`/reservas/${reserveId}/edit`);
             const reserveData = await response.json();
 
             // Populate the form fields with the reserve data
-            editForm.action = `/reserves/${reserveId}`;
+            editForm.action = `/reservas/${reserveId}`;
             document.getElementById('update-user_id').value = reserveData.user_id;
             document.getElementById('update-title').value = reserveData.title;
             document.getElementById('update-description').value = reserveData.description;

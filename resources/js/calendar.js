@@ -117,13 +117,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 //     return;
                 // }
 
-                const response = await axios.get('/reserves/' + info.event.id + '/edit');
+                const response = await axios.get('/reservas/' + info.event.id + '/edit');
                 const reserve = response.data;
 
                 console.log(reserve);
 
                 document.getElementById('reserve_id').value = reserve.id;
-                document.getElementById('editfullcalendar-reserve-form').action = `/reserves/${reserve.id}`;
+                document.getElementById('editfullcalendar-reserve-form').action = `/reservas/${reserve.id}`;
                 document.getElementById('update-user_id').value = reserve.user_id;
                 document.getElementById('update-title').value = reserve.title;
                 document.getElementById('update-description').value = reserve.description;

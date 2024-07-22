@@ -6,119 +6,108 @@
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                       d="M10 3v4a1 1 0 0 1-1 1H5m4 8h6m-6-4h6m4-8v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7.914a1 1 0 0 1 .293-.707l3.914-3.914A1 1 0 0 1 9.914 3H18a1 1 0 0 1 1 1Z"/>
             </svg>
-
             {{ __('Relatório de reservas') }}
         </h2>
     </x-slot>
 
-    <div class="w-full mx-auto sm:rounded-lg p-4">
-        <form method="GET" action="{{ route('reports.index') }}" class="print:hidden">
-            <div class="relative z-0 w-full mb-5 group bg-slate-800 p-8 shadow-md sm:rounded-lg">
-                <div class="flex space-x-4">
-                    <div class="flex-1">
-                        <label for="start" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Data
-                            de
-                            início</label>
-                        <div class="relative">
-                            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                                     xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                    <path
-                                        d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
-                                </svg>
-                            </div>
-                            <input id="start" datepicker type="text" name="start" autocomplete="off"
-                                   class="datepicker-custom bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                   placeholder="Selecione uma data">
+    <div class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
+        <form method="GET" action="{{ route('reports.index') }}"
+              class="print:hidden bg-white dark:bg-gray-800 p-6 shadow-md rounded-lg space-y-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div>
+                    <label for="start" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Data de
+                        início</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                 xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                <path
+                                    d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+                            </svg>
                         </div>
-                        <div id="start-error" class="text-red-500 text-sm"></div>
+                        <input id="start" datepicker type="text" name="start" autocomplete="off"
+                               class="datepicker-custom bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                               placeholder="Selecione uma data">
                     </div>
+                    <div id="start-error" class="text-red-500 text-sm"></div>
+                </div>
 
-                    <div class="flex-1">
-                        <label for="end" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Data
-                            de
-                            fim</label>
-                        <div class="relative">
-                            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                                     xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                    <path
-                                        d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
-                                </svg>
-                            </div>
-                            <input id="end" datepicker type="text" name="end" autocomplete="off"
-                                   class="datepicker-custom bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                   placeholder="Selecione uma data">
+                <div>
+                    <label for="end" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Data de
+                        fim</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                 xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                <path
+                                    d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+                            </svg>
                         </div>
-                        <div id="end-error" class="text-red-500 text-sm"></div>
+                        <input id="end" datepicker type="text" name="end" autocomplete="off"
+                               class="datepicker-custom bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                               placeholder="Selecione uma data">
                     </div>
+                    <div id="end-error" class="text-red-500 text-sm"></div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div>
+                    <label for="rental_item_id"
+                           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sala</label>
+                    <select id="rental_item_id" name="rental_item_id"
+                            class="block w-full py-2.5 px-4 text-sm text-gray-900 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option value="" selected disabled>Selecione uma sala</option>
+                        @foreach($rental_items as $rental_item)
+                            <option value="{{ $rental_item->id }}">{{ $rental_item->name }}</option>
+                        @endforeach
+                    </select>
                 </div>
 
-                <div class="flex items-center space-x-14">
-                    <div class="relative z-0 w-full mb-5 group">
-                        <label for="rental_item_id" class="sr-only">Underline select</label>
-                        <select id="rental_item_id" name="rental_item_id"
-                                class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
-                            <option value="" selected disabled>Sala</option>
-                            @foreach($rental_items as $rental_item)
-                                <option value="{{ $rental_item->id }}">{{ $rental_item->name }}</option>
-                            @endforeach
-                        </select>
-                        @error('rental_item_id')
-                        <div class="text-amber-50">{{ $message }}</div>
-                        @enderror
-                    </div>
+                <div>
+                    <label for="status"
+                           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status</label>
+                    <select id="status" name="status"
+                            class="block w-full py-2.5 px-4 text-sm text-gray-900 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option value="" selected disabled>Selecione o status</option>
+                        <option value="pending">Pendente</option>
+                        <option value="confirmed">Confirmada</option>
+                        <option value="canceled">Cancelada</option>
+                    </select>
+                </div>
+            </div>
 
-                    <div class="relative z-0 w-full mb-5 group">
-                        <label for="status" class="sr-only">Underline select</label>
-                        <select id="status" name="status"
-                                class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
-                            <option value="" selected disabled>Status</option>
-                            <option value="pending">Pendente</option>
-                            <option value="confirmed">Confirmada</option>
-                            <option value="canceled">Cancelada</option>
-                        </select>
-                        @error('status')
-                        <div class="text-amber-50">{{ $message }}</div>
-                        @enderror
-                    </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div>
+                    <label for="user_id"
+                           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cliente</label>
+                    <select id="user_id" name="user_id"
+                            class="block w-full py-2.5 px-4 text-sm text-gray-900 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option value="" selected disabled>Selecione um cliente</option>
+                        @foreach($users as $user)
+                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                        @endforeach
+                    </select>
                 </div>
 
-                <div class="flex items-center space-x-4">
-                    <div class="relative z-0 w-full mb-5 group">
-                        <label for="user_id" class="sr-only">Underline select</label>
-                        <select id="user_id" name="user_id"
-                                class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
-                            <option value="" selected disabled>Cliente</option>
-                            @foreach($users as $user)
-                                <option value="{{ $user->id }}">{{ $user->name }}</option>
-                            @endforeach
-                        </select>
-                        @error('user_id')
-                        <div class="text-amber-50">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-
-
-                <div class="flex items-center mb-4">
+                <div class="flex items-center">
                     <input id="showDeleted" name="showDeleted" type="checkbox" value=""
                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                    <label for="showDeleted" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Exibir
+                    <label for="showDeleted" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Exibir
                         reservas deletadas</label>
                 </div>
+            </div>
 
-                <div class="flex items-center mb-4">
-                    <button type="submit"
-                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        Emitir Relatório
-                    </button>
-                </div>
+            <div class="flex justify-center mt-4">
+                <button type="submit"
+                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    Emitir Relatório
+                </button>
             </div>
         </form>
 
         @if($reservations->isNotEmpty())
-            <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-8 bg-white dark:bg-gray-800">
+            <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-8 bg-white dark:bg-gray-800 mt-6">
                 <div class="flex justify-end mb-4">
                     <button type="button"
                             class="ml-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 flex items-center"
@@ -161,7 +150,7 @@
                 </table>
             </div>
         @else
-            <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-8 bg-white dark:bg-gray-800">
+            <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-8 bg-white dark:bg-gray-800 mt-6">
                 <p class="text-gray-500 dark:text-gray-400">Selecione um periodo válido para gerar o relatório</p>
             </div>
         @endif

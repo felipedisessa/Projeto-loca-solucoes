@@ -14,8 +14,16 @@
                 </svg>
                 {{ __('Calendário de Reservas') }}
             </h2>
+            <select id="room-filter"
+                    class="block w-1/3 pl-3 pr-10 py-2 border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300">
+                <option value="">Todas as Salas</option>
+                @foreach($bookItems as $bookItem)
+                    <option value="{{ $bookItem->id }}">{{ $bookItem->name }}</option>
+                @endforeach
+            </select>
         </div>
     </x-slot>
+
     @if(session('error'))
         <div
             class="fixed top-4 right-4 z-50 p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800 flex items-center"
@@ -28,6 +36,7 @@
             <span class="font-medium">Erro:</span> {{ session('error') }}
         </div>
     @endif
+
     @if(session('success'))
         <div
             class="fixed top-4 right-4 z-50 p-4 mb-4 text-sm text-blue-800 bg-blue-50 rounded-lg dark:bg-gray-800 dark:text-blue-400 flex items-center"
@@ -40,25 +49,18 @@
             <span class="font-medium">Sucesso:</span> Solicitação feita com sucesso.
         </div>
     @endif
+
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-4">
         <div class="w-full mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100 flex justify-between items-center">
-                    <div>
-                        {{ __("Bem vindo, ".auth()->user()->name) . "!" }}<br>
-                    </div>
-                    <select id="room-filter"
-                            class="block w-1/5 pl-3 pr-10 py-2 border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300">
-                        <option value="" disabled selected>Selecione uma sala</option>
-                        @foreach($bookItems as $bookItem)
-                            <option value="{{ $bookItem->id }}">{{ $bookItem->name }}</option>
-                        @endforeach
-                    </select>
+                <div class="p-6 text-gray-900 dark:text-gray-100 flex justify-center items-center">
+                    <p class="text-2xl font-semibold text-center">{{ __("Bem-vindo, ") . auth()->user()->name . "!" }}</p>
                 </div>
                 <div class="max-w-7xl mx-auto" id="calendar"></div>
             </div>
         </div>
     </div>
+
 </x-app-layout>
 
 @include('reserves.modal.create')

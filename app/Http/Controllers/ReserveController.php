@@ -152,7 +152,7 @@ class ReserveController extends Controller
             'start_time'     => 'nullable',
             'end_time'       => 'nullable',
             'rental_item_id' => 'required',
-            'status'         => 'required',
+            'status'         => 'nullable',
             'price'          => 'nullable',
             'payment_type'   => 'required',
             'paid_at'        => 'nullable',
