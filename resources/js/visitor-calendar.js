@@ -39,11 +39,23 @@ document.addEventListener('DOMContentLoaded', function () {
                 separator: ' - '
             },
 
-            eventClick: function (info) {
-                const startDateTime = info.event.start.toLocaleString('pt-BR');
-                const endDateTime = info.event.end ? info.event.end.toLocaleString('pt-BR') : 'Indefinido';
-                alert(`Evento: ${info.event.title}\n\nData: ${startDateTime}\n\nDuração: ${endDateTime}`);
-            },
+            // eventClick: function (info) {
+            //     const startDateTime = info.event.start.toLocaleString('pt-BR').slice(0, -3);
+            //     const endDateTime = info.event.end ? info.event.end.toLocaleString('pt-BR').slice(0, -3) : 'Indefinido';
+            //     const toastMessage = `Periodo: ${startDateTime}\n\naté: ${endDateTime}`;
+            //
+            //     const toast = document.getElementById('toast-default');
+            //     const toastMessageEl = document.getElementById('toast-message');
+            //     toastMessageEl.textContent = toastMessage;
+            //
+            //     toast.classList.remove('hidden');
+            //     toast.classList.add('flex');
+            //
+            //     setTimeout(() => {
+            //         toast.classList.remove('flex');
+            //         toast.classList.add('hidden');
+            //     }, 5000);
+            // },
 
             dateClick: function (info) {
                 const modalElement = document.getElementById('noAuth-create-crud-modal');
@@ -67,6 +79,27 @@ document.addEventListener('DOMContentLoaded', function () {
                 const formattedDate = formatDate(new Date(info.dateStr + ' 00:00:00'));
                 startInput.value = formattedDate;
                 endInput.value = formattedDate;
+            },
+
+            eventMouseEnter: function (info) {
+                const startDateTime = info.event.start.toLocaleString('pt-BR').slice(0, -3);
+                const endDateTime = info.event.end ? info.event.end.toLocaleString('pt-BR').slice(0, -3) : 'Indefinido';
+                const tooltipContent = `Periodo: ${startDateTime}\n\naté: ${endDateTime}`;
+
+                const tooltip = document.createElement('div');
+                tooltip.className = 'tooltip';
+                tooltip.textContent = tooltipContent;
+
+                document.body.appendChild(tooltip);
+
+                info.el.addEventListener('mousemove', function (event) {
+                    tooltip.style.left = event.pageX + 10 + 'px';
+                    tooltip.style.top = event.pageY + 10 + 'px';
+                });
+
+                info.el.addEventListener('mouseleave', function () {
+                    tooltip.remove();
+                });
             }
         });
 

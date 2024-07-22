@@ -24,7 +24,7 @@ class ReserveController extends Controller
             ->orderBy('created_at', 'desc');
 
         if (request('pendingSearch')) {
-            $reservesQuery->where('status', 'pendente');
+            $reservesQuery->where('status', 'pending');
         }
 
         if ($search = request('search')) {
@@ -32,10 +32,6 @@ class ReserveController extends Controller
         }
 
         $reserves = $reservesQuery->paginate(20);
-
-        if ($reserves->isEmpty()) {
-            return redirect()->route('reserves.index');
-        }
 
         $bookUsers = User::query()->whereIn('role', ['tenant', 'visitor'])->get();
         $bookItems = RentalItem::query()->get();
@@ -91,7 +87,7 @@ class ReserveController extends Controller
             'start'          => $startDate,
             'end'            => $endDate,
             'rental_item_id' => $validatedData['rental_item_id'],
-            'status'         => $validatedData['status'],
+            'status'         => $validatedData['status'] ?? 'pending',  // Valor padrão 'pending'
             'payment_type'   => $validatedData['payment_type'],
             'paid_at'        => $paidDate,
         ];
@@ -201,7 +197,7 @@ class ReserveController extends Controller
 
     public function getReservesJson(Request $request)
     {
-        $query = Reserve::query()->where('status', 'confirmado');
+        $query = Reserve::query()->where('status', 'confirmed');
 
         if ($request->has('rental_item_id') && !empty($request->rental_item_id)) {
             $query->where('rental_item_id', $request->rental_item_id);

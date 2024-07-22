@@ -43,9 +43,17 @@
             width: 100%;
             height: 80vh;
         }
+
+        #toast-default {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 50;
+        }
     </style>
 </head>
 <body>
+
 @if(session('success'))
     <div
         class="fixed top-4 right-4 z-50 p-4 mb-4 text-sm text-blue-800 bg-blue-50 rounded-lg dark:bg-gray-800 dark:text-blue-400"
@@ -54,7 +62,6 @@
     </div>
 @endif
 <div class="container">
-
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-4">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">

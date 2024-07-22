@@ -15,16 +15,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function formatPhoneNumber(event) {
         let input = event.target;
-        input.value = formatToBrazilianPhone(input.value);
+        let value = input.value.replace(/\D/g, ''); // Remove todos os caracteres não numéricos
+
+        // Limitar a quantidade de caracteres para 11 (celular) ou 10 (fixo)
+        if (value.length > 11) {
+            value = value.slice(0, 11);
+        }
+
+        // Atualizar o valor formatado
+        input.value = formatToBrazilianPhone(value);
     }
 
     function formatToBrazilianPhone(value) {
         value = value.replace(/\D/g, ''); // Remove todos os caracteres não numéricos
 
         // Verifica se é um número de celular (começa com 9 após o código de área)
-        let isMobile = value.length > 2 && value[2] === '9';
+        let isMobile = value.length === 11 && value[2] === '9';
 
-        if (isMobile && value.length === 11) {
+        if (isMobile) {
             // Formatar como (XX) XXXXX-XXXX
             return value.replace(/^(\d{2})(\d{5})(\d{4})$/, '($1) $2-$3');
         } else if (value.length === 10) {

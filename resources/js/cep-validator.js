@@ -22,11 +22,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     countryInput.value = 'Brasil';
                 } else {
                     clearAddressFields();
-                    alert('CEP não encontrado.');
                 }
             } catch (error) {
                 clearAddressFields();
-                alert('Erro ao buscar o CEP.');
             }
         }
     });

@@ -23,7 +23,7 @@ class VisitorController extends Controller
 
     public function getVisitorReservesJson(Request $request)
     {
-        $query = Reserve::query()->where('status', 'confirmado');
+        $query = Reserve::query()->where('status', 'confirmed');
 
         if ($request->has('rental_item_id') && !empty($request->rental_item_id)) {
             $query->where('rental_item_id', $request->rental_item_id);
@@ -90,7 +90,15 @@ class VisitorController extends Controller
             ]);
         } catch (QueryException $e) {
             if ($e->errorInfo[1] == 1062) {
-                return redirect()->back()->with('error', 'O e-mail informado já está em uso.');
+                if (str_contains($e->getMessage(), 'users_email_unique')) {
+                    return redirect()->back()->with('error', 'O e-mail informado já está em uso.');
+                } elseif (str_contains($e->getMessage(), 'users_cpf_cnpj_unique')) {
+                    return redirect()->back()->with('error', 'O CPF/CNPJ informado já está em uso.');
+                } elseif (str_contains($e->getMessage(), 'users_phone_unique')) {
+                    return redirect()->back()->with('error', 'O telefone informado já está em uso.');
+                } elseif (str_contains($e->getMessage(), 'users_mobile_unique')) {
+                    return redirect()->back()->with('error', 'O celular informado já está em uso.');
+                }
             }
 
             throw $e;
@@ -103,7 +111,7 @@ class VisitorController extends Controller
             'start'          => $startDate,
             'end'            => $endDate,
             'rental_item_id' => $request->input('rental_item_id'),
-            'status'         => 'pendente',
+            'status'         => 'pending',
             'payment_type'   => $request->input('payment_type'),
         ]);
 

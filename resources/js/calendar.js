@@ -1,6 +1,7 @@
 import {Calendar} from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
+import axios from 'axios'; // Certifique-se de que o axios está disponível
 
 document.addEventListener('DOMContentLoaded', function () {
     let calendarEl = document.getElementById('calendar');
@@ -60,6 +61,11 @@ document.addEventListener('DOMContentLoaded', function () {
                     const formattedDate = formatDate(new Date(info.dateStr + ' 00:00:00'));
                     startInput.value = formattedDate;
                     endInput.value = formattedDate;
+                    if (filteredRoom) {
+                        const roomSelect = document.getElementById('guest-rental_item_id');
+                        roomSelect.value = filteredRoom;
+                    }
+
                     return;
                 }
 
@@ -77,6 +83,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 startInput.value = formatDate(new Date(info.dateStr + ' 00:00:00'));
                 endInput.value = formatDate(new Date(info.dateStr + ' 00:00:00'));
+
+                // Preencher o campo de sala com o valor do filtro atual
+                if (filteredRoom) {
+                    const roomSelect = document.getElementById('rental_item_id');
+                    roomSelect.value = filteredRoom;
+                }
             },
             eventDrop: async function (info) {
                 const response = await axios.put(`/reserves/${info.event.id}/update-date`, {
@@ -86,12 +98,24 @@ document.addEventListener('DOMContentLoaded', function () {
             },
 
             eventClick: async function (info) {
-                if (window.userRole === 'visitor' || window.userRole === 'tenant') {
-                    const startDateTime = info.event.start.toLocaleString('pt-BR');
-                    const endDateTime = info.event.end ? info.event.end.toLocaleString('pt-BR') : 'Indefinido';
-                    alert(`Evento: ${info.event.title}\n\nData: ${startDateTime}\n\nDuração: ${endDateTime}`);
-                    return;
-                }
+                // if (window.userRole === 'visitor' || window.userRole === 'tenant') {
+                //     const startDateTime = info.event.start.toLocaleString('pt-BR').slice(0, -3);
+                //     const endDateTime = info.event.end ? info.event.end.toLocaleString('pt-BR').slice(0, -3) : 'Indefinido';
+                //     const toastMessage = `Período: ${startDateTime}\n\nAté: ${endDateTime}`;
+                //
+                //     const toast = document.getElementById('toast-default');
+                //     const toastMessageEl = document.getElementById('toast-message');
+                //     toastMessageEl.textContent = toastMessage;
+                //
+                //     toast.classList.remove('hidden');
+                //     toast.classList.add('flex');
+                //
+                //     setTimeout(() => {
+                //         toast.classList.remove('flex');
+                //         toast.classList.add('hidden');
+                //     }, 5000); // Esconde o toast após 5 segundos
+                //     return;
+                // }
 
                 const response = await axios.get('/reserves/' + info.event.id + '/edit');
                 const reserve = response.data;
@@ -108,11 +132,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 document.getElementById('update-start_time').value = new Date(reserve.start).toLocaleTimeString([], {
                     hour: '2-digit',
                     minute: '2-digit'
-                })
+                });
                 document.getElementById('update-end_time').value = new Date(reserve.end).toLocaleTimeString([], {
                     hour: '2-digit',
                     minute: '2-digit'
-                })
+                });
                 document.getElementById('update-rental_item_id').value = reserve.rental_item_id;
                 document.getElementById('update-price').value = reserve.price ? reserve.formatted_price : '';
                 document.getElementById('update-payment_type').value = reserve.payment_type;
@@ -120,7 +144,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 document.getElementById('update-status').value = reserve.status;
 
                 document.getElementById('update-paid-checkbox').checked = !!reserve.paid_at;
-
 
                 const paidCheckbox = document.getElementById('update-paid-checkbox');
                 const paidAtField = document.getElementById('update-paid_at');
@@ -144,6 +167,27 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
             },
 
+            eventMouseEnter: function (info) {
+                const startDateTime = info.event.start.toLocaleString('pt-BR').slice(0, -3);
+                const endDateTime = info.event.end ? info.event.end.toLocaleString('pt-BR').slice(0, -3) : 'Indefinido';
+                const tooltipContent = `Período: ${startDateTime}\n\nAté: ${endDateTime}`;
+
+                const tooltip = document.createElement('div');
+                tooltip.className = 'tooltip';
+                tooltip.textContent = tooltipContent;
+
+                document.body.appendChild(tooltip);
+
+                info.el.addEventListener('mousemove', function (event) {
+                    tooltip.style.left = event.pageX + 10 + 'px';
+                    tooltip.style.top = event.pageY + 10 + 'px';
+                });
+
+                info.el.addEventListener('mouseleave', function () {
+                    tooltip.remove();
+                });
+            },
+
             datesSet: fetchEvents // Adiciona a função de buscar eventos quando a visualização muda
         });
 
@@ -159,7 +203,6 @@ document.addEventListener('DOMContentLoaded', function () {
             filteredRoom = this.value;
             calendar.refetchEvents(); // Recarrega os eventos ao mudar o filtro
         });
-
     }
 
     function formatDate(date) {

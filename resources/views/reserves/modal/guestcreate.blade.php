@@ -159,13 +159,6 @@
                     </div>
                 </div>
 
-                <div class="md:col-span-2">
-                    <label for="status"
-                           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status</label>
-                    <input type="text" name="status" id="status" value="pendente" readonly
-                           class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
-                </div>
-
                 <div class="flex items-center">
                     <input id="link-checkbox" type="checkbox" value=""
                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">

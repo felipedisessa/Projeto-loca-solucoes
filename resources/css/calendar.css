@@ -23,3 +23,15 @@
 .fc-day-today {
     background-color: #eaf6ff !important; /* Cor de fundo do dia atual */
 }
+
+/*invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0*/
+.tooltip {
+    position: absolute;
+    background-color: #374151;
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 8px;
+    z-index: 1000;
+    pointer-events: none;
+    white-space: pre-line;
+}

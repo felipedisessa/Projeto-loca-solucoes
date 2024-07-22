@@ -14,23 +14,17 @@ Route::get('/', function() {
 });
 // routes/web.php
 
-//Route::post('/validate-reserve-field', [VisitorController::class, 'validateFields'])->name('validate-reserve-field');
 Route::get('dev-Login', LoginController::class)->name('dev-login');
 Route::post('/visitorCalendar/store', [VisitorController::class, 'store'])->name('visitorCalendar.store');
 Route::get('/agenda', [VisitorController::class, 'showVisitorCalendar'])->name('visitorCalendar');
 Route::get('/visitorCalendar/json', [VisitorController::class, 'getVisitorReservesJson'])->name('visitorCalendar.json');
-
-//Route::get('/welcome', function() {
-//    return view('welcome');
-//})->name('welcome');
-
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function() {
     // Profile Routes
     Route::get('/profile', [ProfileController::class, 'editProfile'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'updateProfile'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/calendario', [DashboardController::class, 'index'])->name('dashboard');
 
     // Additional Routes
     Route::match(
@@ -41,7 +35,7 @@ Route::middleware('auth')->group(function() {
     Route::resource('relatorios', ReportController::class)->names('reports')->parameter('relatorios', 'report');
     Route::resource('salas', RentalItemController::class)->names('rental-items')->parameter('salas', 'rentalItem');
     Route::resource('usuarios', ProfileController::class)->names('users')->parameter('usuarios', 'user');
-    Route::resource('reserves', ReserveController::class);
+    Route::resource('reservas', ReserveController::class)->names('reserves')->parameter('reservas', 'reserve');
     Route::put('/reserves/{id}/update-date', [ReserveController::class, 'updateDate'])->name('reserves.update-date');
 });
 

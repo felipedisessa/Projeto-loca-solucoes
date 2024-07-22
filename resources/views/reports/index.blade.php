@@ -11,12 +11,13 @@
         </h2>
     </x-slot>
 
-    <div class="max-w-6xl mx-auto sm:rounded-lg p-4">
+    <div class="w-full mx-auto sm:rounded-lg p-4">
         <form method="GET" action="{{ route('reports.index') }}" class="print:hidden">
             <div class="relative z-0 w-full mb-5 group bg-slate-800 p-8 shadow-md sm:rounded-lg">
                 <div class="flex space-x-4">
                     <div class="flex-1">
-                        <label for="start" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Data de
+                        <label for="start" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Data
+                            de
                             início</label>
                         <div class="relative">
                             <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -26,7 +27,7 @@
                                         d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
                                 </svg>
                             </div>
-                            <input id="start" datepicker type="text" name="start"
+                            <input id="start" datepicker type="text" name="start" autocomplete="off"
                                    class="datepicker-custom bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                    placeholder="Selecione uma data">
                         </div>
@@ -34,7 +35,8 @@
                     </div>
 
                     <div class="flex-1">
-                        <label for="end" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Data de
+                        <label for="end" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Data
+                            de
                             fim</label>
                         <div class="relative">
                             <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -44,7 +46,7 @@
                                         d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
                                 </svg>
                             </div>
-                            <input id="end" datepicker type="text" name="end"
+                            <input id="end" datepicker type="text" name="end" autocomplete="off"
                                    class="datepicker-custom bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                    placeholder="Selecione uma data">
                         </div>
@@ -72,10 +74,9 @@
                         <select id="status" name="status"
                                 class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
                             <option value="" selected disabled>Status</option>
-                            <option value="Pago">Pago</option>
-                            <option value="Pendente">Pendente</option>
-                            <option value="Cancelado">Cancelado</option>
-                            <option value="confirmado">Confirmado</option>
+                            <option value="pending">Pendente</option>
+                            <option value="confirmed">Confirmada</option>
+                            <option value="canceled">Cancelada</option>
                         </select>
                         @error('status')
                         <div class="text-amber-50">{{ $message }}</div>
@@ -134,7 +135,7 @@
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
                         <th scope="col" class="px-6 py-3">Titulo</th>
-                        <th scope="col" class="px-6 py-3">Descricão</th>
+                        <th scope="col" class="px-6 py-3 print:hidden">Descricão</th>
                         <th scope="col" class="px-6 py-3">Sala</th>
                         <th scope="col" class="px-6 py-3">Status</th>
                         <th scope="col" class="px-6 py-3">Responsável</th>
@@ -146,9 +147,9 @@
                     @forelse($reservations as $reservation)
                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                             <td class="px-6 py-4">{{ $reservation->title }}</td>
-                            <td class="px-6 py-4">{{ $reservation->description }}</td>
+                            <td class="px-6 py-4 print:hidden">{{ $reservation->description }}</td>
                             <td class="px-6 py-4">{{ $reservation->rentalItem->name }}</td>
-                            <td class="px-6 py-4">{{ $reservation->status }}</td>
+                            <td class="px-6 py-4">{{ \App\Enum\ReserveEnum::from($reservation->status)->label() }}</td>
                             <td class="px-6 py-4">{{ $reservation->user->name }}</td>
                             <td class="px-6 py-4">{{ \Carbon\Carbon::parse($reservation->start)->format('d/m/Y') }}
                                 até {{ \Carbon\Carbon::parse($reservation->end)->format('d/m/Y') }}</td>

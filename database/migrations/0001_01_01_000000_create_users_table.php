@@ -14,8 +14,8 @@ return new class () extends Migration {
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('phone')->nullable();
-            $table->string('mobile')->nullable();
+            $table->string('phone')->unique();
+            $table->string('mobile')->unique()->nullable();
             $table->enum('role', ['admin', 'landlord', 'tenant', 'visitor'])->default('visitor');
             $table->string('cpf_cnpj')->unique()->nullable();
             $table->string('company')->nullable();

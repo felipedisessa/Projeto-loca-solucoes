@@ -150,13 +150,21 @@ class ProfileController extends Controller
             ]);
             $user->address()->create($addressData);
         } catch (QueryException $e) {
-            if ($e->errorInfo[1] == 1062) { // Código de erro para violação de unicidade
-                return redirect()->back()->with('error', 'O e-mail informado já está em uso.');
+            if ($e->errorInfo[1] == 1062) {
+                if (str_contains($e->getMessage(), 'users_email_unique')) {
+                    return redirect()->back()->with('error', 'O e-mail informado já está em uso.');
+                } elseif (str_contains($e->getMessage(), 'users_cpf_cnpj_unique')) {
+                    return redirect()->back()->with('error', 'O CPF/CNPJ informado já está em uso.');
+                } elseif (str_contains($e->getMessage(), 'users_phone_unique')) {
+                    return redirect()->back()->with('error', 'O telefone informado já está em uso.');
+                } elseif (str_contains($e->getMessage(), 'users_mobile_unique')) {
+                    return redirect()->back()->with('error', 'O celular informado já está em uso.');
+                }
             }
 
             throw $e;
         }
 
-        return back();
+        return back()->with('success', 'Usuário criado com sucesso.');
     }
 }

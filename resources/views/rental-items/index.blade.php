@@ -14,7 +14,7 @@
                 </svg>
                 {{ __('Items de locação') }}
             </h2>
-            <div class=" max-w-lg mx-auto">
+            <div class="max-w-lg mx-auto">
                 <form id="formSearch" method="GET" class="max-w-md mx-auto ">
                     @csrf
                     @method('GET')
