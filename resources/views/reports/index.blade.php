@@ -90,6 +90,16 @@
                         @endforeach
                     </select>
                 </div>
+                <div>
+                    <label for="payment_status" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status
+                        de Pagamento</label>
+                    <select id="payment_status" name="payment_status"
+                            class="block w-full py-2.5 px-4 text-sm text-gray-900 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option value="" selected disabled>Selecione o status de pagamento</option>
+                        <option value="paid">Pago</option>
+                        <option value="unpaid">Não Pago</option>
+                    </select>
+                </div>
 
                 <div class="flex items-center">
                     <input id="showDeleted" name="showDeleted" type="checkbox" value=""
@@ -129,6 +139,7 @@
                         <th scope="col" class="px-6 py-3">Sala</th>
                         <th scope="col" class="px-6 py-3">Status</th>
                         <th scope="col" class="px-6 py-3">Responsável</th>
+                        <th scope="col" class="px-6 py-3">Pagamento</th>
                         <th scope="col" class="px-6 py-3">Período</th>
                         <th scope="col" class="px-6 py-3 print:hidden">Data de exclusão</th>
                     </tr>
@@ -141,6 +152,9 @@
                             <td class="px-6 py-4">{{ $reservation->rentalItem->name }}</td>
                             <td class="px-6 py-4">{{ \App\Enum\ReserveEnum::from($reservation->status)->label() }}</td>
                             <td class="px-6 py-4">{{ $reservation->user->name }}</td>
+                            <td class="px-6 py-4">
+                                {{ $reservation->paid_at ? \Carbon\Carbon::parse($reservation->paid_at)->format('d/m/Y') : 'Não' }}
+                            </td>
                             <td class="px-6 py-4">{{ \Carbon\Carbon::parse($reservation->start)->format('d/m/Y') }}
                                 até {{ \Carbon\Carbon::parse($reservation->end)->format('d/m/Y') }}</td>
                             <td class="px-6 py-4 print:hidden">{{  $reservation->deleted_at ? $reservation->deleted_at->format('d/m/Y') : '' }}</td>

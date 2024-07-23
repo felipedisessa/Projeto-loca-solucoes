@@ -18,7 +18,7 @@
                 <form id="formFilter" method="GET">
                     <label for="room-filter" class="sr-only">Filtrar por Sala</label>
                     <select id="room-filter" name="room-filter"
-                            class="p-2.5 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                            class="p-2.5 text-sm font-medium text-white bg-blue-600 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         <option value="">Todas as Salas</option>
                         @foreach($bookItems as $bookItem)
                             <option value="{{ $bookItem->id }}">{{ $bookItem->name }}</option>

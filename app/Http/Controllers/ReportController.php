@@ -22,11 +22,12 @@ class ReportController extends Controller
         $reservations = collect();
 
         if ($request->has(['start', 'end'])) {
-            $start        = $request->input('start');
-            $end          = $request->input('end');
-            $status       = $request->input('status');
-            $userId       = $request->input('user_id');
-            $rentalItemId = $request->input('rental_item_id');
+            $start         = $request->input('start');
+            $end           = $request->input('end');
+            $status        = $request->input('status');
+            $userId        = $request->input('user_id');
+            $rentalItemId  = $request->input('rental_item_id');
+            $paymentStatus = $request->input('payment_status');
 
             $startDate = null;
             $endDate   = null;
@@ -61,6 +62,16 @@ class ReportController extends Controller
 
                 if ($rentalItemId) {
                     $query->where('rental_item_id', $rentalItemId);
+                }
+
+                if ($paymentStatus) {
+                    if ($paymentStatus === 'paid') {
+                        $query->whereNotNull('paid_at');
+                    } else {
+                        if ($paymentStatus === 'unpaid') {
+                            $query->whereNull('paid_at');
+                        }
+                    }
                 }
 
                 $reservations = $query->get();
