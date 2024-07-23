@@ -100,6 +100,17 @@ class ProfileController extends Controller
     {
         $this->authorize('admin-or-landlord');
 
+        $user->loadCount([
+            'reserves', 'reserves as reserves_cancelled_count' => function($query) {
+                $query->where('status', 'canceled');
+            }, 'reserves as reserves_active_count' => function($query) {
+                $query->where('status', 'confirmed');
+            }
+        ]);
+
+        $user->last_reserve = $user->reserves()->latest('end')->first()->end ?? 'Não disponível';
+        $user->total_spent  = $user->reserves()->sum('price')                ?? 0;
+
         return view('users.show', compact('user'));
     }
 

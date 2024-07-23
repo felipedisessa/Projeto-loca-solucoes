@@ -101,7 +101,11 @@ class RentalItemController extends Controller
 
         $averageReservesPerMonth = $monthlyReserves->avg('total');
 
-        return view('rental-items.show', compact('rentalItem', 'averageReservesPerMonth'));
+        $totalReserves = Reserve::where('rental_item_id', $rentalItem->id)->where('status', 'confirmed')->count();
+
+        $totalRevenue = Reserve::where('rental_item_id', $rentalItem->id)->where('status', '!=', 'cancelled')->sum('price');
+
+        return view('rental-items.show', compact('rentalItem', 'averageReservesPerMonth', 'totalReserves', 'totalRevenue'));
     }
 
     public function destroy(RentalItem $rentalItem)

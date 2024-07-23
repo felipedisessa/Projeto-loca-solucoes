@@ -29,7 +29,6 @@
         </div>
     </x-slot>
 
-
     @if(session('error'))
         <div
             class="fixed top-4 right-4 z-50 p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800 flex items-center"
@@ -52,7 +51,8 @@
                       d="M2 10a8 8 0 1116 0 8 8 0 01-16 0zm8 5a1 1 0 000-2 1 1 0 000 2zm-1-4V7a1 1 0 012 0v4a1 1 0 01-2 0z"
                       clip-rule="evenodd"/>
             </svg>
-            <span class="font-medium">Sucesso:</span> Solicitação feita com sucesso.
+            <span class="font-medium">Sucesso:</span> Solicitação feita com sucesso, aguarde a confirmação em seu
+            celular.
         </div>
     @endif
 
