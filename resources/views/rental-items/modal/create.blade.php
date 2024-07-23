@@ -90,7 +90,7 @@
                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status</label>
                                     <select id="status" name="status"
                                             class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                                        <option value="" selected disabled></option>
+                                        {{--                                        <option value="" selected disabled></option>--}}
                                         <option value="1">Disponível</option>
                                         <option value="2">Reservado</option>
                                         <option value="3">Manutenção</option>

@@ -9,7 +9,8 @@
     #header,
     #footer,
     #nav,
-    .hidden {
+    .hidden,
+    .print\:hidden {
         display: none !important;
     }
 
@@ -17,11 +18,13 @@
         margin: 0;
         padding: 0;
         box-shadow: none;
+        font-size: 12px; /* Ajuste o tamanho da fonte para impressão */
+        line-height: 1.5; /* Ajuste a altura da linha para melhorar a legibilidade */
     }
 
     th, td {
         border: 1px solid #ccc;
-        padding: 4px; /* Reduza o padding */
+        padding: 8px; /* Aumente o padding para melhorar o espaçamento */
         text-align: left;
     }
 
@@ -45,13 +48,13 @@
     }
 
     .px-6 {
-        padding-left: 2px; /* Ajuste o padding das células para reduzir espaço */
-        padding-right: 2px;
+        padding-left: 8px; /* Aumente o padding para melhorar o espaçamento */
+        padding-right: 8px;
     }
 
     .py-4 {
-        padding-top: 2px; /* Ajuste o padding das células para reduzir espaço */
-        padding-bottom: 2px;
+        padding-top: 8px; /* Aumente o padding para melhorar o espaçamento */
+        padding-bottom: 8px;
     }
 
     .m-4 {
@@ -59,7 +62,7 @@
     }
 
     .p-6 {
-        padding: 2px !important;
+        padding: 8px !important; /* Aumente o padding para melhorar o espaçamento */
     }
 
     .rounded-lg {
@@ -70,7 +73,8 @@
         box-shadow: none !important;
     }
 
-    .bg-white {
+    .bg-white,
+    .dark\:bg-gray-800 {
         background-color: white !important;
     }
 
@@ -78,20 +82,26 @@
         border-color: #ccc !important;
     }
 
-    .text-gray-900 {
-        color: black !important;
-    }
-
-    .dark\:bg-gray-800 {
-        background-color: white !important;
-    }
-
+    .text-gray-900,
     .dark\:text-white {
         color: black !important;
     }
 
-    /* Ocultar a coluna de exclusão ao imprimir */
-    .print\:hidden {
-        display: none !important;
+    /* Garantir que a tabela esteja centralizada na página */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    /* Ajuste de margem e padding */
+    .container {
+        width: auto;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Estilos de fonte */
+    body {
+        font-family: Arial, sans-serif;
     }
 }

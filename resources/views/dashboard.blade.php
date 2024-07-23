@@ -5,7 +5,7 @@
         <div id="toast-message" class="text-sm font-normal"></div>
     </div>
     <x-slot name="header">
-        <div class="flex items-center justify-between py-2">
+        <div class="flex items-center justify-between">
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight flex items-center">
                 <svg class="w-6 h-6 mr-2 text-gray-800 dark:text-white" aria-hidden="true"
                      xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -14,15 +14,21 @@
                 </svg>
                 {{ __('Calendário de Reservas') }}
             </h2>
-            <select id="room-filter"
-                    class="block w-1/3 pl-3 pr-10 py-2 border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300">
-                <option value="">Todas as Salas</option>
-                @foreach($bookItems as $bookItem)
-                    <option value="{{ $bookItem->id }}">{{ $bookItem->name }}</option>
-                @endforeach
-            </select>
+            <div class="flex items-center space-x-2">
+                <form id="formFilter" method="GET">
+                    <label for="room-filter" class="sr-only">Filtrar por Sala</label>
+                    <select id="room-filter" name="room-filter"
+                            class="p-2.5 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        <option value="">Todas as Salas</option>
+                        @foreach($bookItems as $bookItem)
+                            <option value="{{ $bookItem->id }}">{{ $bookItem->name }}</option>
+                        @endforeach
+                    </select>
+                </form>
+            </div>
         </div>
     </x-slot>
+
 
     @if(session('error'))
         <div

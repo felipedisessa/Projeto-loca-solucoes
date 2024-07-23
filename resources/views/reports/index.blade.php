@@ -15,7 +15,8 @@
               class="print:hidden bg-white dark:bg-gray-800 p-6 shadow-md rounded-lg space-y-6">
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
-                    <label for="start" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Data de
+                    <label for="start" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Data
+                        de
                         início</label>
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
