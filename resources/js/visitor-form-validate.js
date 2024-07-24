@@ -45,18 +45,17 @@ document.addEventListener('DOMContentLoaded', function () {
             mobileError.textContent = '';
         }
 
-        // Validando o campo cpf_cnpj
         const cpfCnpjInput = form.querySelector('input[name="cpf_cnpj"]');
         const cpfCnpjError = form.querySelector('#cpf_cnpj-error');
         const cpfCnpjPattern = /^[0-9]+$/;
-        if (cpfCnpjInput && !cpfCnpjPattern.test(cpfCnpjInput.value.replace(/[^\d]/g, ''))) {
-            cpfCnpjError.textContent = 'O CPF/CNPJ deve conter apenas números.';
+        const cpfCnpjValue = cpfCnpjInput.value.replace(/[^\d]/g, '');
+        if (cpfCnpjInput && (!cpfCnpjPattern.test(cpfCnpjValue) || (cpfCnpjValue.length !== 11 && cpfCnpjValue.length !== 14))) {
+            cpfCnpjError.textContent = 'O CPF deve ter 11 números ou o CNPJ deve ter 14 números.';
             isValid = false;
-        } else {
+        } else if (cpfCnpjError) {
             cpfCnpjError.textContent = '';
         }
 
-        // Validando o campo empresa
         const companyInput = form.querySelector('input[name="company"]');
         const companyError = form.querySelector('#company-error');
         if (companyInput && companyInput.value.trim().length < 3) {

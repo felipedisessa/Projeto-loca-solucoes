@@ -57,8 +57,9 @@ document.addEventListener('DOMContentLoaded', function () {
         const cpfCnpjInput = form.querySelector('input[name="cpf_cnpj"]');
         const cpfCnpjError = form.querySelector('#cpf_cnpj-error');
         const cpfCnpjPattern = /^[0-9]+$/;
-        if (cpfCnpjInput && !cpfCnpjPattern.test(cpfCnpjInput.value.replace(/[^\d]/g, ''))) {
-            cpfCnpjError.textContent = 'O CPF/CNPJ deve conter apenas números.';
+        const cpfCnpjValue = cpfCnpjInput.value.replace(/[^\d]/g, '');
+        if (cpfCnpjInput && (!cpfCnpjPattern.test(cpfCnpjValue) || (cpfCnpjValue.length !== 11 && cpfCnpjValue.length !== 14))) {
+            cpfCnpjError.textContent = 'O CPF deve ter 11 números ou o CNPJ deve ter 14 números.';
             isValid = false;
         } else if (cpfCnpjError) {
             cpfCnpjError.textContent = '';

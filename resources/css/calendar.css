@@ -1,37 +1,29 @@
 #calendar {
-    background-color: #ffffff; /* Fundo branco */
+    @apply bg-white;
 }
 
 .fc-toolbar {
-    background-color: #ffffff; /* Fundo branco na barra de ferramentas */
+    @apply bg-white;
 }
 
 .fc-daygrid-day {
-    background-color: #ffffff; /* Fundo branco nos dias */
+    @apply bg-white;
 }
 
 .fc-daygrid-day-number {
-    color: #000000; /* Texto preto nos números dos dias */
+    @apply text-black;
 }
 
 .fc-event {
-    background-color: #3788d8; /* Cor de fundo do evento */
-    color: #ffffff; /* Cor do texto do evento */
-    border: 1px solid #ffffff; /* Borda do evento */
+    @apply bg-blue-600 text-white border border-white;
 }
 
 .fc-day-today {
-    background-color: #eaf6ff !important; /* Cor de fundo do dia atual */
+    @apply bg-blue-100 !important;
 }
 
-/*invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0*/
 .tooltip {
-    position: absolute;
-    background-color: #374151;
-    color: #fff;
-    padding: 8px 12px;
-    border-radius: 8px;
-    z-index: 1000;
+    @apply absolute bg-gray-900 text-white px-3 py-2 rounded-lg z-50;
     pointer-events: none;
     white-space: pre-line;
 }

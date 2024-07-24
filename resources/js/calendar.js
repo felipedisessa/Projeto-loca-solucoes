@@ -1,24 +1,43 @@
 import {Calendar} from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
-import axios from 'axios'; // Certifique-se de que o axios está disponível
+import timeGridPlugin from '@fullcalendar/timegrid'
+import ptBrLocale from '@fullcalendar/core/locales/pt-br';
+import axios from 'axios';
 
 document.addEventListener('DOMContentLoaded', function () {
     let calendarEl = document.getElementById('calendar');
-    let filteredRoom = null; // Variável para armazenar o filtro atual
+    let filteredRoom = null;
 
-    if (calendarEl) { // Verifica se o elemento #calendar existe
+    if (calendarEl) {
         let calendar = new Calendar(calendarEl, {
-            locale: 'pt-br',
+            locale: ptBrLocale,
             timeZone: 'local',
-            plugins: [dayGridPlugin, interactionPlugin],
-            initialView: 'dayGridMonth',
-            events: fetchEvents, // Função para buscar eventos
+            plugins: [dayGridPlugin, interactionPlugin, timeGridPlugin],
+            views: {
+                timeGridWeek: {
+                    firstDay: 1,
+                    weekends: false,
+                    slotLabelFormat: {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        meridiem: false,
+                        hour12: false,
+                        separator: ' - '
+                    }
+                }
+            },
+            initialView: 'timeGridWeek',
+            slotLabelInterval: '00:30:00',
+            slotMinTime: '08:00:00',
+            slotMaxTime: '18:00:00',
+            expandRows: true,
+            events: fetchEvents,
 
             headerToolbar: {
                 left: 'prev,next today',
                 center: 'title',
-                right: 'dayGridMonth,dayGridWeek,dayGridDay'
+                right: 'dayGridMonth,dayGridDay,timeGridWeek'
             },
 
             buttonText: {
