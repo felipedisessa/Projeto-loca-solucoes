@@ -59,51 +59,57 @@
     </x-slot>
 
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-4">
-        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-            <tr>
-                <th scope="col" class="px-6 py-3">Nome</th>
-                <th scope="col" class="px-6 py-3">Descrição</th>
-                <th scope="col" class="px-6 py-3">Proprietário</th>
-                <th scope="col" class="px-6 py-3">Preço por hora</th>
-                <th scope="col" class="px-6 py-3">Status</th>
-                <th scope="col" class="px-6 py-3">Ações</th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach($rentalItems as $rentalItem)
-                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        {{ $rentalItem->name }}
-                    </th>
-                    <td class="px-6 py-4">{{ $rentalItem->description }}</td>
-                    <td class="px-6 py-4">{{ $rentalItem->user?->name ?? 'N/A' }}</td>
-                    <td class="px-6 py-4">{{ $rentalItem->formatted_price_per_hour }}</td>
-                    <td class="px-6 py-4">{{ RentalItemEnum::from($rentalItem->status)->label() }}</td>
-                    <td class="flex items-center px-6 py-4 space-x-2">
-                        <a href="{{route('rental-items.show', $rentalItem->id ) }}" class="cursor-pointer">
-                            <x-icons.eye/>
-                        </a>
-
-                        <button type="button" class="cursor-pointer text-red-500"
-                                data-modal-target="popup-modal"
-                                data-modal-toggle="popup-modal"
-                                data-id="{{$rentalItem->id}}"
-                                data-name="{{$rentalItem->name}}">
-                            <x-icons.trash/>
-                        </button>
-
-                        <a id="edit-button" data-modal-target="edit-crud-modal" data-modal-toggle="edit-crud-modal"
-                           data-id="{{ $rentalItem->id }}"
-                           class="cursor-pointer font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                            <x-icons.edit/>
-                        </a>
-                    </td>
+        @if ($rentalItems->isEmpty())
+            <div class="text-center text-gray-500 dark:text-gray-400">
+                <p>Não há items de locação.</p>
+            </div>
+        @else
+            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" class="px-6 py-3">Nome</th>
+                    <th scope="col" class="px-6 py-3">Descrição</th>
+                    <th scope="col" class="px-6 py-3">Proprietário</th>
+                    <th scope="col" class="px-6 py-3">Preço por hora</th>
+                    <th scope="col" class="px-6 py-3">Status</th>
+                    <th scope="col" class="px-6 py-3">Ações</th>
                 </tr>
-            @endforeach
-            </tbody>
-        </table>
-        <div class="my-4">{{ $rentalItems->links() }}</div>
+                </thead>
+                <tbody>
+                @foreach($rentalItems as $rentalItem)
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            {{ $rentalItem->name }}
+                        </th>
+                        <td class="px-6 py-4">{{ $rentalItem->description }}</td>
+                        <td class="px-6 py-4">{{ $rentalItem->user?->name ?? 'N/A' }}</td>
+                        <td class="px-6 py-4">{{ $rentalItem->formatted_price_per_hour }}</td>
+                        <td class="px-6 py-4">{{ RentalItemEnum::from($rentalItem->status)->label() }}</td>
+                        <td class="flex items-center px-6 py-4 space-x-2">
+                            <a href="{{route('rental-items.show', $rentalItem->id ) }}" class="cursor-pointer">
+                                <x-icons.eye/>
+                            </a>
+
+                            <button type="button" class="cursor-pointer text-red-500"
+                                    data-modal-target="popup-modal"
+                                    data-modal-toggle="popup-modal"
+                                    data-id="{{$rentalItem->id}}"
+                                    data-name="{{$rentalItem->name}}">
+                                <x-icons.trash/>
+                            </button>
+
+                            <a id="edit-button" data-modal-target="edit-crud-modal" data-modal-toggle="edit-crud-modal"
+                               data-id="{{ $rentalItem->id }}"
+                               class="cursor-pointer font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                                <x-icons.edit/>
+                            </a>
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+            <div class="my-4">{{ $rentalItems->links() }}</div>
+        @endif
     </div>
 
     <div id="popup-modal" tabindex="-1"
@@ -146,7 +152,7 @@
     </div>
 
     @include('rental-items.modal.create')
-    @include('rental-items.modal.edit')
+    @includeWhen(isset($rentalItem), 'rental-items.modal.edit')
     @vite('resources/js/rental-items.js')
     @vite('resources/js/rental-item-form-validate.js')
     @vite('resources/js/cep-validator.js')

@@ -42,19 +42,21 @@
         </div>
     @endif
 
-    @if(session('success'))
-        <div
-            class="fixed top-4 right-4 z-50 p-4 mb-4 text-sm text-blue-800 bg-blue-50 rounded-lg dark:bg-gray-800 dark:text-blue-400 flex items-center"
-            role="alert">
-            <svg class="w-5 h-5 mr-2 text-blue-800 dark:text-blue-400" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd"
-                      d="M2 10a8 8 0 1116 0 8 8 0 01-16 0zm8 5a1 1 0 000-2 1 1 0 000 2zm-1-4V7a1 1 0 012 0v4a1 1 0 01-2 0z"
-                      clip-rule="evenodd"/>
-            </svg>
-            <span class="font-medium">Sucesso:</span> Solicitação feita com sucesso, aguarde a confirmação em seu
-            celular.
-        </div>
-    @endif
+    @can('tenant')
+        @if(session('success'))
+            <div
+                class="fixed top-4 right-4 z-50 p-4 mb-4 text-sm text-blue-800 bg-blue-50 rounded-lg dark:bg-gray-800 dark:text-blue-400 flex items-center"
+                role="alert">
+                <svg class="w-5 h-5 mr-2 text-blue-800 dark:text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd"
+                          d="M2 10a8 8 0 1116 0 8 8 0 01-16 0zm8 5a1 1 0 000-2 1 1 0 000 2zm-1-4V7a1 1 0 012 0v4a1 1 0 01-2 0z"
+                          clip-rule="evenodd"/>
+                </svg>
+                <span class="font-medium">Sucesso:</span> Solicitação feita com sucesso, aguarde a confirmação em seu
+                celular.
+            </div>
+        @endif
+    @endcan
 
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-4">
         <div class="w-full mx-auto">

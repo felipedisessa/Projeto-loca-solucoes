@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
             locale: ptBrLocale,
             timeZone: 'local',
             plugins: [dayGridPlugin, interactionPlugin, timeGridPlugin],
+            initialView: 'timeGridWeek',
             views: {
                 timeGridWeek: {
                     firstDay: 1,
@@ -27,7 +28,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                 }
             },
-            initialView: 'timeGridWeek',
             slotLabelInterval: '00:30:00',
             slotMinTime: '08:00:00',
             slotMaxTime: '18:00:00',
@@ -78,8 +78,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     const endInput = modalElement.querySelector('.guest-end');
 
                     const formattedDate = formatDate(new Date(info.dateStr + ' 00:00:00'));
-                    startInput.value = formattedDate;
-                    endInput.value = formattedDate;
+                    startInput.value = formattedDate.date;
+                    endInput.value = formattedDate.date;
                     if (filteredRoom) {
                         const roomSelect = document.getElementById('guest-rental_item_id');
                         roomSelect.value = filteredRoom;
@@ -99,16 +99,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 const startInput = document.getElementById('start');
                 const endInput = document.getElementById('end');
+                const startTimeInput = document.getElementById('start_time');
+                const endTimeInput = document.getElementById('end_time');
 
-                startInput.value = formatDate(new Date(info.dateStr + ' 00:00:00'));
-                endInput.value = formatDate(new Date(info.dateStr + ' 00:00:00'));
+                const formattedDate = formatDate(info.date);
 
-                // Preencher o campo de sala com o valor do filtro atual
+                startInput.value = formattedDate.date;
+                endInput.value = formattedDate.date;
+                startTimeInput.value = formattedDate.time;
+                endTimeInput.value = formattedDate.time;
+
                 if (filteredRoom) {
                     const roomSelect = document.getElementById('rental_item_id');
                     roomSelect.value = filteredRoom;
                 }
-            },
+            }
+            ,
             eventDrop: async function (info) {
                 const response = await axios.put(`/reserves/${info.event.id}/update-date`, {
                     start: info.event.start.toISOString(),
@@ -228,6 +234,12 @@ document.addEventListener('DOMContentLoaded', function () {
         const day = String(date.getDate()).padStart(2, '0');
         const month = String(date.getMonth() + 1).padStart(2, '0');
         const year = date.getFullYear();
-        return `${day}/${month}/${year}`;
+        const hours = String(date.getHours()).padStart(2, '0');
+        const minutes = String(date.getMinutes()).padStart(2, '0');
+        return {
+            date: `${day}/${month}/${year}`,
+            time: `${hours}:${minutes}`
+        };
     }
+
 });

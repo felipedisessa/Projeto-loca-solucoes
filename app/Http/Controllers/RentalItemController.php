@@ -17,17 +17,14 @@ class RentalItemController extends Controller
     {
         $this->authorize('admin-or-landlord');
 
-        $rentalItems = RentalItem::query()->orderBy('created_at', 'desc')->paginate(20);
-        $search      = request('search');
+        $rentalItemsQuery = RentalItem::query()->orderBy('created_at', 'desc')->paginate(20);
+        $search           = request('search');
 
         if ($search) {
-            $rentalItems = RentalItem::query()->where('name', 'like', '%' . $search . '%')->paginate(20);
+            $rentalItemsQuery = RentalItem::query()->where('name', 'like', '%' . $search . '%')->paginate(20);
         }
 
-        if ($rentalItems->isEmpty()) {
-            // Redireciona de volta ao index se nao existir nenhum item
-            return redirect()->route('rental-items.index');
-        }
+        $rentalItems = $rentalItemsQuery;
 
         $landLordUsers = User::query()->where('role', 'landlord')->get();
 
@@ -103,9 +100,16 @@ class RentalItemController extends Controller
 
         $totalReserves = Reserve::where('rental_item_id', $rentalItem->id)->where('status', 'confirmed')->count();
 
-        $totalRevenue = Reserve::where('rental_item_id', $rentalItem->id)->where('status', '!=', 'cancelled')->sum('price');
+        $totalRevenue = Reserve::where('rental_item_id', $rentalItem->id)->where(
+            'status',
+            '!=',
+            'cancelled'
+        )->sum('price');
 
-        return view('rental-items.show', compact('rentalItem', 'averageReservesPerMonth', 'totalReserves', 'totalRevenue'));
+        return view(
+            'rental-items.show',
+            compact('rentalItem', 'averageReservesPerMonth', 'totalReserves', 'totalRevenue')
+        );
     }
 
     public function destroy(RentalItem $rentalItem)
