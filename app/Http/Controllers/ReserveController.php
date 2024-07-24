@@ -18,7 +18,7 @@ class ReserveController extends Controller
         $user = auth()->user();
 
         $reservesQuery = Reserve::query()
-            ->unless($user->role === 'admin', function($query) use ($user) {
+            ->unless(in_array($user->role, ['admin', 'landlord']), function($query) use ($user) {
                 return $query->where('user_id', $user->id);
             })
             ->orderBy('created_at', 'desc');
@@ -199,7 +199,7 @@ class ReserveController extends Controller
     {
         $query = Reserve::query()->where('status', 'confirmed');
 
-        if ($request->has('rental_item_id') && !empty($request->rental_item_id)) {
+        if ($request->has('rental_item_id') && ! empty($request->rental_item_id)) {
             $query->where('rental_item_id', $request->rental_item_id);
         }
 

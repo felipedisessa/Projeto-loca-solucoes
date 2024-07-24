@@ -6,11 +6,9 @@ document.addEventListener('DOMContentLoaded', function () {
         button.addEventListener('click', async () => {
             const rentalItemId = button.getAttribute('data-id');
 
-            // Fetch rental item data from the server
             const response = await fetch(`/salas/${rentalItemId}/edit`);
             const rentalItemData = await response.json();
 
-            // Populate the form fields with the rental item data
             editForm.action = `/salas/${rentalItemId}`;
             document.getElementById('update-user_id').value = rentalItemData.user_id;
             document.getElementById('update-name').value = rentalItemData.name;
@@ -29,13 +27,10 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('update-country').value = rentalItemData.address.country;
             document.getElementById('update-neighborhood').value = rentalItemData.address.neighborhood;
 
-
-            // Show the modal
             editModal.classList.remove('hidden');
         });
     });
 
-    // Hide the modal when the close button is clicked
     editModal.querySelector('button[data-modal-toggle="edit-crud-modal"]').addEventListener('click', () => {
         editModal.classList.add('hidden');
     });

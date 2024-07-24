@@ -1,29 +1,44 @@
 #calendar {
-    @apply bg-white;
+    @apply bg-gray-900;
+    /* Fundo do calendário escuro */
 }
 
 .fc-toolbar {
-    @apply bg-white;
+    @apply bg-gray-800 text-white;
 }
 
 .fc-daygrid-day {
-    @apply bg-white;
+    @apply bg-gray-900;
 }
 
 .fc-daygrid-day-number {
-    @apply text-black;
+    @apply text-white;
+
 }
 
 .fc-event {
-    @apply bg-blue-600 text-white border border-white;
+    @apply bg-blue-600 text-white border border-blue-600;
+    /* Eventos com fundo azul escuro e texto branco */
 }
 
 .fc-day-today {
-    @apply bg-blue-100 !important;
+    @apply bg-blue-900 !important;
+}
+
+.fc-timegrid-slot {
+    @apply text-white;
+}
+
+.fc-timegrid-axis-cushion {
+    @apply text-white;
+}
+
+.fc-col-header-cell-cushion {
+    @apply text-white;
 }
 
 .tooltip {
-    @apply absolute bg-gray-900 text-white px-3 py-2 rounded-lg z-50;
+    @apply absolute bg-gray-800 text-white px-3 py-2 rounded-lg z-50;
     pointer-events: none;
     white-space: pre-line;
 }
