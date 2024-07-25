@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\RentalItem;
 use App\Models\Reserve;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class ReserveSeeder extends Seeder
@@ -12,6 +14,14 @@ class ReserveSeeder extends Seeder
      */
     public function run(): void
     {
-        Reserve::factory()->count(5)->create();
+        $tenants     = User::query()->where('role', 'tenant')->get();
+        $rentalItems = RentalItem::all();
+
+        foreach ($tenants as $index => $tenant) {
+            Reserve::factory()->create([
+                'user_id'        => $tenant->id,
+                'rental_item_id' => $rentalItems[$index]->id,
+            ]);
+        }
     }
 }

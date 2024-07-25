@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enum\RentalItemEnum;
 use App\Models\Address;
 use App\Models\RentalItem;
 use App\Models\Reserve;
@@ -106,9 +107,12 @@ class RentalItemController extends Controller
             'cancelled'
         )->sum('price');
 
+        // Obter o label do status em português
+        $statusLabel = RentalItemEnum::from($rentalItem->status)->label();
+
         return view(
             'rental-items.show',
-            compact('rentalItem', 'averageReservesPerMonth', 'totalReserves', 'totalRevenue')
+            compact('rentalItem', 'averageReservesPerMonth', 'totalReserves', 'totalRevenue', 'statusLabel')
         );
     }
 

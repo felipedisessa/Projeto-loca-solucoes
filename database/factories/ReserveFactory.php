@@ -29,9 +29,9 @@ class ReserveFactory extends Factory
             'start'          => $start,
             'end'            => $end,
             'rental_item_id' => RentalItem::factory(),
-            'status'         => $this->faker->randomElement(['confirmado', 'pendente', 'pago', 'cancelado']),
+            'status'         => $this->faker->randomElement(['pending', 'canceled', 'confirmed']),
             'price'          => $this->faker->randomFloat(2, 50, 1000),
-            'payment_type'   => $this->faker->randomElement(['cartão', 'dinheiro', 'transferência']),
+            'payment_type'   => $this->faker->randomElement(['cartão', 'dinheiro', 'transferência', 'pix']),
         ];
     }
 }

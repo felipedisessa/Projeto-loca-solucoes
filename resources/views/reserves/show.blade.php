@@ -22,7 +22,7 @@
             <div>
                 <h3 class="text-lg font-semibold mb-4">Responsável</h3>
                 <div class="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg shadow">
-                    @foreach(['Nome' => $reserve->user->name, 'Email' => $reserve->user->email, 'Telefone' => $reserve->user->phone, 'Rua' => $reserve->user->address->street, 'Número' => $reserve->user->address->number, 'Bairro' => $reserve->user->address->neighborhood, 'Cidade' => $reserve->user->address->city, 'Estado' => $reserve->user->address->state, 'CEP' => $reserve->user->address->zipcode] as $label => $value)
+                    @foreach(['Nome' => $reserve->user->name, 'Email' => $reserve->user->email, 'Empresa' => $reserve->user->company, 'Telefone' => $reserve->user->phone, 'Rua' => $reserve->user->address->street, 'Número' => $reserve->user->address->number, 'Bairro' => $reserve->user->address->neighborhood, 'Cidade' => $reserve->user->address->city, 'Estado' => $reserve->user->address->state, 'CEP' => $reserve->user->address->zipcode] as $label => $value)
                         <div class="mb-4">
                             <dt class="text-gray-500 md:text-lg dark:text-gray-400">{{ $label }}</dt>
                             <dd class="text-lg font-semibold">{{ $value }}</dd>

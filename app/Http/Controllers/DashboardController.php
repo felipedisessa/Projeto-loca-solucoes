@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\RentalItem;
+use App\Models\Reserve;
 use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
@@ -18,6 +19,22 @@ class DashboardController extends Controller
         $bookItems = RentalItem::query()->get();
         $user      = auth()->user();
 
-        return view('dashboard', compact('bookUsers', 'bookItems', 'user'));
+        $reservesPending = Reserve::query()
+            ->where('status', 'pending')
+            ->unless(in_array($user->role, ['admin', 'landlord']), function($query) use ($user) {
+                return $query->where('user_id', $user->id);
+            })
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        $reservesToday = Reserve::query()
+            ->whereDate('start', now()->toDateString())
+            ->unless(in_array($user->role, ['admin', 'landlord']), function($query) use ($user) {
+                return $query->where('user_id', $user->id);
+            })
+            ->orderBy('start', 'asc')
+            ->get();
+
+        return view('dashboard', compact('bookUsers', 'bookItems', 'user', 'reservesPending', 'reservesToday'));
     }
 }

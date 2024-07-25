@@ -1,7 +1,7 @@
 import {Calendar} from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
-import timeGridPlugin from '@fullcalendar/timegrid'
+import timeGridPlugin from '@fullcalendar/timegrid';
 import ptBrLocale from '@fullcalendar/core/locales/pt-br';
 import axios from 'axios';
 
@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
             locale: ptBrLocale,
             timeZone: 'local',
             plugins: [dayGridPlugin, interactionPlugin, timeGridPlugin],
-            initialView: 'timeGridWeek',
+            initialView: 'dayGridMonth',
             views: {
                 timeGridWeek: {
                     firstDay: 1,
@@ -127,49 +127,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
             },
 
-            // select: function (info) {
-            //     const modalElement = document.getElementById('create-crud-modal');
-            //     const modal = new Modal(modalElement);
-            //     modal.show();
-            //
-            //     const closeButton = document.getElementById('close-modal-button');
-            //     closeButton.addEventListener('click', function () {
-            //         modal.hide();
-            //     });
-            //
-            //     const startInput = document.getElementById('start');
-            //     const endInput = document.getElementById('end');
-            //     const startTimeInput = document.getElementById('start_time');
-            //     const endTimeInput = document.getElementById('end_time');
-            //
-            //     const formattedStartDate = formatDate(info.start);
-            //     const endDate = new Date(info.end);
-            //
-            //     const calendarView = calendar.view.type;
-            //
-            //     if (calendarView === 'dayGridMonth') {
-            //         endDate.setDate(endDate.getDate() - 1);
-            //     }
-            //
-            //     const formattedEndDate = formatDate(endDate);
-            //
-            //     startInput.value = formattedStartDate.date;
-            //     endInput.value = formattedEndDate.date;
-            //     startTimeInput.value = formattedStartDate.time;
-            //     endTimeInput.value = formattedEndDate.time;
-            //
-            //     if (filteredRoom) {
-            //         const roomSelect = document.getElementById('rental_item_id');
-            //         roomSelect.value = filteredRoom;
-            //     }
-            // },
-
             eventClick: async function (info) {
-
                 const response = await axios.get('/reservas/' + info.event.id + '/edit');
                 const reserve = response.data;
-
-                console.log(reserve);
 
                 document.getElementById('reserve_id').value = reserve.id;
                 document.getElementById('editfullcalendar-reserve-form').action = `/reservas/${reserve.id}`;
@@ -244,13 +204,25 @@ document.addEventListener('DOMContentLoaded', function () {
 
         async function fetchEvents(fetchInfo) {
             const params = filteredRoom ? {rental_item_id: filteredRoom} : {};
-            const response = await axios.get('/reserves/json', {params});
-            return response.data;
+            try {
+                const response = await axios.get('/reserves/json', {params});
+                const now = new Date();
+                const events = response.data.map(event => {
+                    const isPast = new Date(event.end) < now;
+                    return {
+                        ...event,
+                        className: [event.status, isPast ? 'event-past' : ''].filter(Boolean).join(' ')
+                    };
+                });
+                return events;
+            } catch (error) {
+                console.error('Erro ao buscar eventos:', error);
+            }
         }
 
         document.getElementById('room-filter').addEventListener('change', function () {
             filteredRoom = this.value;
-            calendar.refetchEvents(); // Recarrega os eventos ao mudar o filtro
+            calendar.refetchEvents();
         });
     }
 
@@ -265,5 +237,4 @@ document.addEventListener('DOMContentLoaded', function () {
             time: `${hours}:${minutes}`
         };
     }
-
 });

@@ -30,7 +30,7 @@
                         'Preço por hora' => 'R$ ' . number_format($rentalItem->price_per_hour, 2, ',', '.'),
                         'Preço por dia' => 'R$ ' . number_format($rentalItem->price_per_day, 2, ',', '.'),
                         'Preço por mês' => 'R$ ' . number_format($rentalItem->price_per_month, 2, ',', '.'),
-                        'Status' => $rentalItem->status,
+                       'Status' => \App\Enum\RentalItemEnum::from($rentalItem->status)->label(), // Status em português
                         'Observações' => $rentalItem->rental_item_notes ?? 'Não informado'
                     ] as $label => $value)
                         <div class="mb-4">

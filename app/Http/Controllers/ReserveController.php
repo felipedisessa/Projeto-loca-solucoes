@@ -36,7 +36,15 @@ class ReserveController extends Controller
         $bookUsers = User::query()->whereIn('role', ['tenant', 'visitor'])->get();
         $bookItems = RentalItem::query()->get();
 
-        return view('reserves.index', compact('reserves', 'search', 'bookUsers', 'bookItems'));
+        $reservesPending = Reserve::query()
+            ->where('status', 'pending')
+            ->unless(in_array($user->role, ['admin', 'landlord']), function($query) use ($user) {
+                return $query->where('user_id', $user->id);
+            })
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('reserves.index', compact('reserves', 'search', 'bookUsers', 'bookItems', 'reservesPending'));
     }
 
     public function store(Request $request)
@@ -197,7 +205,7 @@ class ReserveController extends Controller
 
     public function getReservesJson(Request $request)
     {
-        $query = Reserve::query()->where('status', 'confirmed');
+        $query = Reserve::query()->whereIn('status', ['confirmed', 'pending', 'canceled']);
 
         if ($request->has('rental_item_id') && !empty($request->rental_item_id)) {
             $query->where('rental_item_id', $request->rental_item_id);

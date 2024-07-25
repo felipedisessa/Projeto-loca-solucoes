@@ -13,12 +13,31 @@
 
 .fc-daygrid-day-number {
     @apply text-white;
-
 }
 
 .fc-event {
-    @apply bg-blue-600 text-white border border-blue-600;
+    @apply text-white border;
     /* Eventos com fundo azul escuro e texto branco */
+}
+
+/* Adicione classes específicas para cada status */
+.fc-event.confirmed {
+    @apply bg-blue-700 border-blue-700;
+    /* Confirmado: fundo verde escuro e borda verde escura */
+}
+
+.fc-event.pending {
+    @apply bg-yellow-600 border-yellow-600;
+    /* Pendente: fundo amarelo escuro e borda amarela escura */
+}
+
+.fc-event.event-past {
+    @apply bg-gray-500 border-gray-500;
+}
+
+.fc-event.canceled {
+    @apply bg-red-500 border-red-500;
+    /* Cancelado: fundo vermelho escuro e borda vermelha escura */
 }
 
 .fc-day-today {
