@@ -76,10 +76,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     const startInput = modalElement.querySelector('.guest-start');
                     const endInput = modalElement.querySelector('.guest-end');
+                    const startTimeInput = document.getElementById('guest-start_time');
+                    const endTimeInput = document.getElementById('guest-end_time');
 
-                    const formattedDate = formatDate(new Date(info.dateStr + ' 00:00:00'));
+                    const formattedDate = formatDate(info.date);
                     startInput.value = formattedDate.date;
                     endInput.value = formattedDate.date;
+                    startTimeInput.value = formattedDate.time;
+                    endTimeInput.value = formattedDate.time;
+
                     if (filteredRoom) {
                         const roomSelect = document.getElementById('guest-rental_item_id');
                         roomSelect.value = filteredRoom;
@@ -113,8 +118,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     const roomSelect = document.getElementById('rental_item_id');
                     roomSelect.value = filteredRoom;
                 }
-            }
-            ,
+            },
+
             eventDrop: async function (info) {
                 const response = await axios.put(`/reserves/${info.event.id}/update-date`, {
                     start: info.event.start.toISOString(),
@@ -122,25 +127,44 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
             },
 
+            // select: function (info) {
+            //     const modalElement = document.getElementById('create-crud-modal');
+            //     const modal = new Modal(modalElement);
+            //     modal.show();
+            //
+            //     const closeButton = document.getElementById('close-modal-button');
+            //     closeButton.addEventListener('click', function () {
+            //         modal.hide();
+            //     });
+            //
+            //     const startInput = document.getElementById('start');
+            //     const endInput = document.getElementById('end');
+            //     const startTimeInput = document.getElementById('start_time');
+            //     const endTimeInput = document.getElementById('end_time');
+            //
+            //     const formattedStartDate = formatDate(info.start);
+            //     const endDate = new Date(info.end);
+            //
+            //     const calendarView = calendar.view.type;
+            //
+            //     if (calendarView === 'dayGridMonth') {
+            //         endDate.setDate(endDate.getDate() - 1);
+            //     }
+            //
+            //     const formattedEndDate = formatDate(endDate);
+            //
+            //     startInput.value = formattedStartDate.date;
+            //     endInput.value = formattedEndDate.date;
+            //     startTimeInput.value = formattedStartDate.time;
+            //     endTimeInput.value = formattedEndDate.time;
+            //
+            //     if (filteredRoom) {
+            //         const roomSelect = document.getElementById('rental_item_id');
+            //         roomSelect.value = filteredRoom;
+            //     }
+            // },
+
             eventClick: async function (info) {
-                // if (window.userRole === 'visitor' || window.userRole === 'tenant') {
-                //     const startDateTime = info.event.start.toLocaleString('pt-BR').slice(0, -3);
-                //     const endDateTime = info.event.end ? info.event.end.toLocaleString('pt-BR').slice(0, -3) : 'Indefinido';
-                //     const toastMessage = `Período: ${startDateTime}\n\nAté: ${endDateTime}`;
-                //
-                //     const toast = document.getElementById('toast-default');
-                //     const toastMessageEl = document.getElementById('toast-message');
-                //     toastMessageEl.textContent = toastMessage;
-                //
-                //     toast.classList.remove('hidden');
-                //     toast.classList.add('flex');
-                //
-                //     setTimeout(() => {
-                //         toast.classList.remove('flex');
-                //         toast.classList.add('hidden');
-                //     }, 5000); // Esconde o toast após 5 segundos
-                //     return;
-                // }
 
                 const response = await axios.get('/reservas/' + info.event.id + '/edit');
                 const reserve = response.data;

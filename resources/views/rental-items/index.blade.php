@@ -68,7 +68,6 @@
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                     <th scope="col" class="px-6 py-3">Nome</th>
-                    <th scope="col" class="px-6 py-3">Descrição</th>
                     <th scope="col" class="px-6 py-3">Proprietário</th>
                     <th scope="col" class="px-6 py-3">Preço por hora</th>
                     <th scope="col" class="px-6 py-3">Status</th>
@@ -81,7 +80,6 @@
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             {{ $rentalItem->name }}
                         </th>
-                        <td class="px-6 py-4">{{ $rentalItem->description }}</td>
                         <td class="px-6 py-4">{{ $rentalItem->user?->name ?? 'N/A' }}</td>
                         <td class="px-6 py-4">{{ $rentalItem->formatted_price_per_hour }}</td>
                         <td class="px-6 py-4">{{ RentalItemEnum::from($rentalItem->status)->label() }}</td>

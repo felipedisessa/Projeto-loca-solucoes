@@ -199,7 +199,7 @@ class ReserveController extends Controller
     {
         $query = Reserve::query()->where('status', 'confirmed');
 
-        if ($request->has('rental_item_id') && ! empty($request->rental_item_id)) {
+        if ($request->has('rental_item_id') && !empty($request->rental_item_id)) {
             $query->where('rental_item_id', $request->rental_item_id);
         }
 
@@ -208,7 +208,6 @@ class ReserveController extends Controller
 
         $events = $reserves->map(function($reserve) use ($user) {
             if ($user->can('admin-or-landlord') || $reserve->user_id == $user->id) {
-                // Usuário autorizado ou dono da reserva vê todos os detalhes
                 return [
                     'user_id'        => $reserve->user_id,
                     'id'             => $reserve->id,
@@ -236,7 +235,6 @@ class ReserveController extends Controller
                     ],
                 ];
             } else {
-                // Usuário não autorizado vê apenas a hora e título como "Ocupado"
                 return [
                     'id'             => $reserve->id,
                     'title'          => 'Ocupado',
