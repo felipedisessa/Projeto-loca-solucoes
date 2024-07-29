@@ -6,6 +6,7 @@ use App\Models\RentalItem;
 use App\Models\Reserve;
 use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Carbon;
 
 class DashboardController extends Controller
 {
@@ -28,6 +29,7 @@ class DashboardController extends Controller
             ->get();
 
         $reservesToday = Reserve::query()
+            ->where('status', 'confirmed')
             ->whereDate('start', now()->toDateString())
             ->unless(in_array($user->role, ['admin', 'landlord']), function($query) use ($user) {
                 return $query->where('user_id', $user->id);
@@ -35,6 +37,18 @@ class DashboardController extends Controller
             ->orderBy('start', 'asc')
             ->get();
 
-        return view('dashboard', compact('bookUsers', 'bookItems', 'user', 'reservesPending', 'reservesToday'));
+        $reservesNextWeek = Reserve::query()
+            ->where('status', 'confirmed')
+            ->whereBetween('start', [Carbon::now(), Carbon::now()->addDays(7)])
+            ->unless(in_array($user->role, ['admin', 'landlord']), function($query) use ($user) {
+                return $query->where('user_id', $user->id);
+            })
+            ->orderBy('start', 'asc')
+            ->get();
+
+        return view(
+            'dashboard',
+            compact('bookUsers', 'bookItems', 'user', 'reservesPending', 'reservesToday', 'reservesNextWeek')
+        );
     }
 }

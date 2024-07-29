@@ -163,7 +163,7 @@
                             class="relative overflow-x-auto shadow-md sm:rounded-lg p-8 bg-gray-100 dark:bg-gray-700 mt-6">
                             <div class="flex justify-end mb-4">
                                 <button type="button"
-                                        class="ml-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 flex items-center"
+                                        class="print:hidden ml-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 flex items-center"
                                         onclick="window.print()">
                                     <svg class="w-6 h-6 text-gray-800 dark:text-white mr-2" aria-hidden="true"
                                          xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
@@ -175,7 +175,8 @@
                                     Imprimir em PDF
                                 </button>
                             </div>
-                            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                            <table
+                                class="w-full text-sm  text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                 <thead
                                     class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-600 dark:text-gray-300">
                                 <tr>
@@ -185,7 +186,7 @@
                                     <th scope="col" class="px-6 py-3">Status</th>
                                     <th scope="col" class="px-6 py-3">Responsável</th>
                                     <th scope="col" class="px-6 py-3">Pagamento</th>
-                                    <th scope="col" class="px-6 py-3">Período</th>
+                                    <th scope="col" class="px-6 py-3">Data</th>
                                     <th scope="col" class="px-6 py-3 print:hidden">Data de exclusão</th>
                                 </tr>
                                 </thead>
@@ -201,7 +202,7 @@
                                             {{ $reservation->paid_at ? \Carbon\Carbon::parse($reservation->paid_at)->format('d/m/Y') : 'Não pago' }}
                                         </td>
                                         <td class="px-6 py-4">{{ \Carbon\Carbon::parse($reservation->start)->format('d/m/Y') }}
-                                            até {{ \Carbon\Carbon::parse($reservation->end)->format('d/m/Y') }}</td>
+                                        {{--                                            até {{ \Carbon\Carbon::parse($reservation->end)->format('d/m/Y') }}</td>--}}
                                         <td class="px-6 py-4 print:hidden">{{  $reservation->deleted_at ? $reservation->deleted_at->format('d/m/Y') : '' }}</td>
                                     </tr>
                                 @empty

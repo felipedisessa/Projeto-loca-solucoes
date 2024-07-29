@@ -27,7 +27,6 @@
                         'Nome' => $user->name,
                         'E-mail' => $user->email,
                         'Telefone' => $user->phone,
-                        'Celular' => $user->mobile,
                         'Permissão' => $user->role,
                         'Documento' => $user->cpf_cnpj,
                         'Empresa' => $user->company ?? 'Não informado',

@@ -36,7 +36,7 @@
                 <div class="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg shadow">
                     @foreach([
                         'Nome' => $reserve->title,
-                        'Descrição' => $reserve->description,
+                        'Organização da sala' => $reserve->description,
                         'Hora de início' => \Carbon\Carbon::parse($reserve->start)->format('d/m/Y H:i'),
                         'Hora de fim' => \Carbon\Carbon::parse($reserve->end)->format('d/m/Y H:i'),
                         'Sala' => $reserve->rentalItem->name,

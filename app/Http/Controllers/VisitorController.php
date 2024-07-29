@@ -8,12 +8,12 @@ use App\Models\Reserve;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\QueryException;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class VisitorController extends Controller
 {
-    //
     public function showVisitorCalendar()
     {
         $bookItems = RentalItem::query()->get();
@@ -25,7 +25,7 @@ class VisitorController extends Controller
     {
         $query = Reserve::query()->where('status', 'confirmed');
 
-        if ($request->has('rental_item_id') && !empty($request->rental_item_id)) {
+        if ($request->has('rental_item_id') && ! empty($request->rental_item_id)) {
             $query->where('rental_item_id', $request->rental_item_id);
         }
 
@@ -64,60 +64,58 @@ class VisitorController extends Controller
             return redirect()->back()->with('error', 'A sala está ocupada no período selecionado.');
         }
 
-        $defaultPassword = '12345678';
+        $defaultPassword = 'JXjh(C!!Eg0E4KohwOS';
 
         try {
-            $user = User::create([
-                'name'     => $request->input('name'),
-                'email'    => $request->input('email'),
-                'phone'    => $request->input('phone'),
-                'mobile'   => $request->input('mobile'),
-                'role'     => 'visitor',
-                'cpf_cnpj' => $request->input('cpf_cnpj'),
-                'password' => Hash::make($defaultPassword),
-                'company'  => $request->input('company'),
-            ]);
+            $user = User::where('email', $request->input('email'))->first();
 
-            $user->address()->create([
-                'street'       => $request->input('street'),
-                'number'       => $request->input('number'),
-                'complement'   => $request->input('complement'),
-                'neighborhood' => $request->input('neighborhood'),
-                'city'         => $request->input('city'),
-                'state'        => $request->input('state'),
-                'zipcode'      => $request->input('zipcode'),
-                'country'      => $request->input('country'),
-            ]);
-        } catch (QueryException $e) {
-            if ($e->errorInfo[1] == 1062) {
-                if (str_contains($e->getMessage(), 'users_email_unique')) {
-                    return redirect()->back()->with('error', 'O e-mail informado já está em uso.');
-                } elseif (str_contains($e->getMessage(), 'users_cpf_cnpj_unique')) {
-                    return redirect()->back()->with('error', 'O CPF/CNPJ informado já está em uso.');
-                } elseif (str_contains($e->getMessage(), 'users_phone_unique')) {
-                    return redirect()->back()->with('error', 'O telefone informado já está em uso.');
-                } elseif (str_contains($e->getMessage(), 'users_mobile_unique')) {
-                    return redirect()->back()->with('error', 'O celular informado já está em uso.');
-                }
+            if (! $user) {
+                $user = User::create([
+                    'name'     => $request->input('name'),
+                    'email'    => $request->input('email'),
+                    'phone'    => $request->input('phone'),
+                    'role'     => 'visitor',
+                    'cpf_cnpj' => $request->input('cpf_cnpj'),
+                    'password' => Hash::make($defaultPassword),
+                    'company'  => $request->input('company'),
+                ]);
+
+                $user->address()->create([
+                    'street'       => $request->input('street'),
+                    'number'       => $request->input('number'),
+                    'complement'   => $request->input('complement'),
+                    'neighborhood' => $request->input('neighborhood'),
+                    'city'         => $request->input('city'),
+                    'state'        => $request->input('state'),
+                    'zipcode'      => $request->input('zipcode'),
+                    'country'      => $request->input('country'),
+                ]);
             }
 
-            throw $e;
+            Reserve::create([
+                'user_id'        => $user->id,
+                'title'          => $request->input('title'),
+                'description'    => $request->input('description'),
+                'start'          => $startDate,
+                'end'            => $endDate,
+                'rental_item_id' => $request->input('rental_item_id'),
+                'status'         => 'pending',
+                'payment_type'   => $request->input('payment_type'),
+            ]);
+
+            return redirect()->back()->with(
+                'success',
+                'Solicitação feita com sucesso, aguarde a confirmação em seu celular.'
+            );
+        } catch (QueryException $e) {
+            return redirect()->back()->with('error', 'Ocorreu um erro ao processar sua solicitação.');
         }
+    }
 
-        Reserve::create([
-            'user_id'        => $user->id,
-            'title'          => $request->input('title'),
-            'description'    => $request->input('description'),
-            'start'          => $startDate,
-            'end'            => $endDate,
-            'rental_item_id' => $request->input('rental_item_id'),
-            'status'         => 'pending',
-            'payment_type'   => $request->input('payment_type'),
-        ]);
+    public function checkIfUserExists($email): JsonResponse
+    {
+        $user = User::query()->where('email', $email)->with('address')->first();
 
-        return redirect()->back()->with(
-            'success',
-            'Solicitação feita com sucesso, aguarde a confirmação em seu celular.'
-        );
+        return response()->json($user);
     }
 }

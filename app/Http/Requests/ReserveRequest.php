@@ -25,7 +25,6 @@ class ReserveRequest extends FormRequest
             'name'           => 'required',
             'email'          => 'required|email',
             'phone'          => 'required',
-            'mobile'         => 'required',
             'cpf_cnpj'       => 'required',
             'company'        => 'required',
             'street'         => 'required',

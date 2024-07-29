@@ -1,10 +1,12 @@
+import axios from "axios";
+
 document.addEventListener('DOMContentLoaded', function () {
+
     function validateNoAuthCreateReserveForm(event) {
         let isValid = true;
 
         const form = document.getElementById('noAuth-create-reserve-form');
 
-        // Validando o campo nome
         const nameInput = form.querySelector('input[name="name"]');
         const nameError = form.querySelector('#name-error');
         if (nameInput && nameInput.value.trim().length < 3) {
@@ -14,7 +16,6 @@ document.addEventListener('DOMContentLoaded', function () {
             nameError.textContent = '';
         }
 
-        // Validando o campo email
         const emailInput = form.querySelector('input[name="email"]');
         const emailError = form.querySelector('#email-error');
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -33,16 +34,6 @@ document.addEventListener('DOMContentLoaded', function () {
             isValid = false;
         } else {
             phoneError.textContent = '';
-        }
-
-        // Validando o campo celular
-        const mobileInput = form.querySelector('input[name="mobile"]');
-        const mobileError = form.querySelector('#mobile-error');
-        if (mobileInput && mobileInput.value.trim() === '') {
-            mobileError.textContent = 'O campo de celular deve ser preenchido.';
-            isValid = false;
-        } else {
-            mobileError.textContent = '';
         }
 
         const cpfCnpjInput = form.querySelector('input[name="cpf_cnpj"]');
@@ -65,7 +56,6 @@ document.addEventListener('DOMContentLoaded', function () {
             companyError.textContent = '';
         }
 
-        // Validando dados de endereços obrigatórios
         const streetInput = form.querySelector('input[name="street"]');
         const streetError = form.querySelector('#street-error');
         if (streetInput && streetInput.value.trim().length < 3) {
@@ -129,7 +119,6 @@ document.addEventListener('DOMContentLoaded', function () {
             countryError.textContent = '';
         }
 
-        // Validando campos da reserva
         const titleInput = form.querySelector('input[name="title"]');
         const titleError = form.querySelector('#title-error');
         if (titleInput && titleInput.value.trim().length < 3) {
@@ -198,6 +187,39 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    const button = document.getElementById('noAuth-search-button');
+
+    button.addEventListener('click', function () {
+        const email = document.querySelector('input[name="email"]').value;
+        if (email) {
+            checkUser(email);
+        }
+    });
+
+    const checkUser = async (email) => {
+        const {data} = await axios.get(`/check-user-exists/${email}`);
+
+        if (data) {
+            document.querySelector('input[name="name"]').value = data.name || '';
+            document.querySelector('input[name="phone"]').value = data.phone || '';
+            document.querySelector('input[name="cpf_cnpj"]').value = data.cpf_cnpj || '';
+            document.querySelector('input[name="company"]').value = data.company || '';
+            document.querySelector('input[name="street"]').value = data.address?.street || '';
+            document.querySelector('input[name="number"]').value = data.address?.number || '';
+            document.querySelector('input[name="complement"]').value = data.address?.complement || '';
+            document.querySelector('input[name="neighborhood"]').value = data.address?.neighborhood || '';
+            document.querySelector('input[name="city"]').value = data.address?.city || '';
+            document.querySelector('input[name="state"]').value = data.address?.state || '';
+            document.querySelector('input[name="zipcode"]').value = data.address?.zipcode || '';
+            document.querySelector('input[name="country"]').value = data.address?.country || '';
+
+            document.querySelectorAll('.hidden-fields').forEach(function (field) {
+                field.classList.remove('hidden-fields');
+            });
+        }
+    }
+
+
     const noAuthCreateReserveForm = document.getElementById('noAuth-create-reserve-form');
     if (noAuthCreateReserveForm) {
         noAuthCreateReserveForm.addEventListener('submit', validateNoAuthCreateReserveForm);
@@ -217,6 +239,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
     }
+
 
     // Função de formatação de CPF/CNPJ
     function formatCpfCnpj(value) {

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\RentalItem;
 use App\Models\Reserve;
 use App\Models\User;
+use App\Notifications\ReservationConfirmed;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
@@ -179,8 +180,6 @@ class ReserveController extends Controller
         $startDate = Carbon::createFromFormat('d/m/Y H:i', $request->start . ' ' . $request->start_time);
         $endDate   = Carbon::createFromFormat('d/m/Y H:i', $request->end . ' ' . $request->end_time);
 
-        //$price = preg_replace('/[^0-9]/', '', $request->price) / 100;
-
         if ($request->filled('price')) {
             $price = preg_replace('/[^0-9]/', '', $request->price) / 100;
         } else {
@@ -199,6 +198,10 @@ class ReserveController extends Controller
             'payment_type'   => $request->payment_type,
             'paid_at'        => $paidDate,
         ]);
+
+        if ($reserve->status == 'confirmed') {
+            $reserve->user->notify(new ReservationConfirmed($reserve));
+        }
 
         return back();
     }

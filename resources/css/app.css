@@ -3,9 +3,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 @media print {
-    /* Estilos para impressão */
+    body {
+        font-size: 12px;
+        line-height: 1.5;
+        margin: 0;
+        padding: 0;
+        box-shadow: none;
+        background-color: white !important;
+        font-family: Arial, sans-serif;
+    }
+
     #header,
     #footer,
     #nav,
@@ -14,22 +22,11 @@
         display: none !important;
     }
 
-    body {
-        margin: 0;
-        padding: 0;
-        box-shadow: none;
-        font-size: 12px; /* Ajuste o tamanho da fonte para impressão */
-        line-height: 1.5; /* Ajuste a altura da linha para melhorar a legibilidade */
-        width: 100%; /* Utilize toda a largura disponível */
-        background-color: white !important;
-        font-family: Arial, sans-serif;
-    }
-
     th, td {
         border: 1px solid #ccc;
-        padding: 10px; /* Aumente o padding para melhorar o espaçamento */
+        padding: 10px;
         text-align: left;
-        vertical-align: top; /* Assegure que o texto fique alinhado ao topo da célula */
+        vertical-align: top;
     }
 
     th {
@@ -42,101 +39,35 @@
         page-break-after: auto;
     }
 
-    .flex.justify-end.mb-4 {
-        display: none !important;
-    }
-
-    .max-w-6xl.mx-auto.sm\:px-6.lg\:px-8.mt-8 {
-        width: 100%; /* Utilize toda a largura disponível */
-        margin: 0;
-        padding: 0;
-    }
-
-    .px-6 {
-        padding-left: 10px; /* Aumente o padding para melhorar o espaçamento */
-        padding-right: 10px;
-    }
-
-    .py-4 {
-        padding-top: 10px; /* Aumente o padding para melhorar o espaçamento */
-        padding-bottom: 10px;
-    }
-
-    .m-4 {
-        margin: 0 !important;
-    }
-
-    .p-6 {
-        padding: 10px !important; /* Aumente o padding para melhorar o espaçamento */
-    }
-
-    .rounded-lg {
-        border-radius: 0 !important;
-    }
-
-    .shadow {
-        box-shadow: none !important;
-    }
-
-    .bg-white,
-    .dark\:bg-gray-800 {
-        background-color: white !important;
-    }
-
-    .border-gray-200 {
-        border-color: #ccc !important;
-    }
-
-    .text-gray-900,
-    .dark\:text-white {
-        color: black !important;
-    }
-
-    /* Garantir que a tabela esteja centralizada na página */
     table {
         width: 100%;
         border-collapse: collapse;
         margin: 0 auto;
     }
 
-    /* Ajuste de margem e padding */
     .container {
-        width: 100%; /* Utilize toda a largura disponível */
+        width: 100%;
         margin: 0;
         padding: 0;
     }
 
-    /* Remover bordas desnecessárias */
-    .border,
-    .border-t,
-    .border-b,
-    .border-l,
-    .border-r,
-    .border-gray-200,
-    .dark\:border-gray-700 {
+    .border, .border-t, .border-b, .border-l, .border-r, .border-gray-200, .dark\:border-gray-700 {
         border: none !important;
     }
 
-    /* Limpar espaços em branco e margens desnecessárias */
-    .mb-4,
-    .mt-4 {
+    .mb-4, .mt-4 {
         margin: 0 !important;
     }
 
-    .p-4,
-    .p-6,
-    .px-4,
-    .py-4 {
+    .p-4, .p-6, .px-4, .py-4 {
         padding: 0 !important;
     }
 
-    /* Garantir que o conteúdo seja centralizado e utilize toda a largura */
     .text-center {
         text-align: center !important;
     }
 
-    /* Espaçamento entre textos */
     p, h1, h2, h3, h4, h5, h6 {
-        margin: 10px 0; /* Adicione margem entre os textos */
+        margin: 10px 0;
     }
 }

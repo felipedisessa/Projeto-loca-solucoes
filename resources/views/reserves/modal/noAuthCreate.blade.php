@@ -1,6 +1,19 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Reserva</title>
+    <style>
+        .hidden-fields {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
 <div id="noAuth-create-crud-modal" tabindex="-1" aria-hidden="true"
-     class="{{ session('error') ? 'flex' : 'hidden' }} overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50
-    justify-center items-center w-full md:inset-0 h-full bg-gray-800 bg-opacity-75"
+     class="{{ session('error') ? 'flex' : 'hidden' }} overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-full bg-gray-800 bg-opacity-75"
      data-modal-target="noAuth-create-crud-modal">
     <div class="relative p-4 w-full max-w-3xl h-auto max-h-[90vh]">
         <!-- Modal content -->
@@ -37,57 +50,69 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <!-- User Fields -->
                             <div>
-                                <label for="noAuth-name"
-                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nome</label>
-                                <input type="text" name="name" id="noAuth-name" value="{{ old('name') }}"
-                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
-                                <div id="name-error" class="text-red-500 text-sm"></div>
-                            </div>
-
-                            <div>
                                 <label for="noAuth-email"
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
                                 <input type="email" name="email" id="noAuth-email" value="{{ old('email') }}"
                                        class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
-                                <div id="email-error" class="text-red-500 text-sm"></div>
+                                <div id="email-error" class="text-red-500 text-sm mb-2"></div>
+                                <div class="flex-items-center">
+                                    <button type="button" id="noAuth-search-button"
+                                            class="mt-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                                        Procurar cadastro
+                                    </button>
+                                </div>
                             </div>
 
-                            <div>
+                            <div class="hidden-fields">
+                                <label for="noAuth-name"
+                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nome</label>
+                                <input type="text" name="name" id="noAuth-name" value="{{ old('name') }}"
+                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                                />
+                                <div id="name-error" class="text-red-500 text-sm"></div>
+                            </div>
+
+                            <div class="hidden-fields">
                                 <label for="noAuth-phone"
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Telefone</label>
-                                <input type="text" name="phone" id="noAuth-phone" value="{{ old('phone') }}"
-                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
+                                <div class="relative">
+                                    <div
+                                        class="absolute inset-y-0 left-0 top-0 flex items-center pl-3.5 pointer-events-none">
+                                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                             xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 19 18">
+                                            <path
+                                                d="M18 13.446a3.02 3.02 0 0 0-.946-1.985l-1.4-1.4a3.054 3.054 0 0 0-4.218 0l-.7.7a.983.983 0 0 1-1.39 0l-2.1-2.1a.983.983 0 0 1 0-1.389l.7-.7a2.98 2.98 0 0 0 0-4.217l-1.4-1.4a2.824 2.824 0 0 0-4.218 0c-3.619 3.619-3 8.229 1.752 12.979C6.785 16.639 9.45 18 11.912 18a7.175 7.175 0 0 0 5.139-2.325A2.9 2.9 0 0 0 18 13.446Z"/>
+                                        </svg>
+                                    </div>
+                                    <input type="tel" name="phone" id="noAuth-phone" value="{{ old('phone') }}"
+                                           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                           placeholder="(99) 99999-9999"/>
+                                </div>
                                 <div id="phone-error" class="text-red-500 text-sm"></div>
                             </div>
 
-                            <div>
-                                <label for="noAuth-mobile"
-                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Celular</label>
-                                <input type="text" name="mobile" id="noAuth-mobile" value="{{ old('mobile') }}"
-                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
-                                <div id="mobile-error" class="text-red-500 text-sm"></div>
-                            </div>
-
-                            <div>
+                            <div class="hidden-fields">
                                 <label for="noAuth-cpf_cnpj"
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">CPF/CNPJ</label>
                                 <input type="text" name="cpf_cnpj" id="noAuth-cpf_cnpj" value="{{ old('cpf_cnpj') }}"
-                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
+                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                                />
                                 <div id="cpf_cnpj-error" class="text-red-500 text-sm"></div>
                             </div>
 
-                            <div>
+                            <div class="hidden-fields">
                                 <label for="noAuth-company"
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Empresa</label>
                                 <input type="text" name="company" id="noAuth-company" value="{{ old('company') }}"
-                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
+                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                                />
                                 <div id="company-error" class="text-red-500 text-sm"></div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Address Information -->
-                    <div>
+                    <div class="hidden-fields">
                         <h4 class="text-lg font-medium text-gray-900 dark:text-white mb-2">Cadastro de Endereço</h4>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <!-- Address Fields -->
@@ -95,7 +120,8 @@
                                 <label for="noAuth-street"
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Rua</label>
                                 <input type="text" name="street" id="noAuth-street" value="{{ old('street') }}"
-                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
+                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                                />
                                 <div id="street-error" class="text-red-500 text-sm"></div>
                             </div>
 
@@ -103,7 +129,8 @@
                                 <label for="noAuth-number"
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Número</label>
                                 <input type="text" name="number" id="noAuth-number" value="{{ old('number') }}"
-                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
+                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                                />
                                 <div id="number-error" class="text-red-500 text-sm"></div>
                             </div>
 
@@ -112,7 +139,8 @@
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Complemento</label>
                                 <input type="text" name="complement" id="noAuth-complement"
                                        value="{{ old('complement') }}"
-                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
+                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                                />
                                 <div id="complement-error" class="text-red-500 text-sm"></div>
                             </div>
 
@@ -121,7 +149,8 @@
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Bairro</label>
                                 <input type="text" name="neighborhood" id="noAuth-neighborhood"
                                        value="{{ old('neighborhood') }}"
-                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
+                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                                />
                                 <div id="neighborhood-error" class="text-red-500 text-sm"></div>
                             </div>
 
@@ -129,7 +158,8 @@
                                 <label for="noAuth-city"
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cidade</label>
                                 <input type="text" name="city" id="noAuth-city" value="{{ old('city') }}"
-                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
+                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                                />
                                 <div id="city-error" class="text-red-500 text-sm"></div>
                             </div>
 
@@ -137,7 +167,8 @@
                                 <label for="noAuth-state"
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Estado</label>
                                 <input type="text" name="state" id="noAuth-state" value="{{ old('state') }}"
-                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
+                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                                />
                                 <div id="state-error" class="text-red-500 text-sm"></div>
                             </div>
 
@@ -145,7 +176,8 @@
                                 <label for="noAuth-zipcode"
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">CEP</label>
                                 <input type="text" name="zipcode" id="noAuth-zipcode" value="{{ old('zipcode') }}"
-                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
+                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                                />
                                 <div id="zipcode-error" class="text-red-500 text-sm"></div>
                             </div>
 
@@ -153,14 +185,16 @@
                                 <label for="noAuth-country"
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">País</label>
                                 <input type="text" name="country" id="noAuth-country" value="{{ old('country') }}"
-                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
+                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                                />
                                 <div id="country-error" class="text-red-500 text-sm"></div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div>
-                    <h4 class="text-lg font-medium text-gray-900 dark:text-white mb-2">Solicitar Reserva</h4>
+                <div class="hidden-fields">
+                    <h4 class="hidden-fields text-lg font-medium text-gray-900 dark:text-white mb-2">Solicitar
+                        Reserva</h4>
                     <label for="noAuth-title"
                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Título da
                         Reserva</label>
@@ -169,15 +203,17 @@
                     <div id="title-error" class="text-red-500 text-sm"></div>
                 </div>
 
-                <div class="md:col-span-2">
+                <div class="md:col-span-2 hidden-fields">
                     <label for="noAuth-description"
-                           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Descrição</label>
+                           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Descreva a
+                        organização
+                        da sala</label>
                     <textarea name="description" id="noAuth-description"
                               class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">{{ old('description') }}</textarea>
                     <div id="description-error" class="text-red-500 text-sm"></div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                <div class="hidden-fields grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
                     <div>
                         <label for="noAuth-start"
                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Data

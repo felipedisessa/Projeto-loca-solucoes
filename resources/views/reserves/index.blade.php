@@ -4,8 +4,8 @@
 
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex items-center justify-between">
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight flex items-center">
+        <div class="flex flex-col md:flex-row items-center justify-between">
+            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight flex items-center mb-4 md:mb-0">
                 <svg class="w-6 h-6 mr-2 text-gray-800 dark:text-white" aria-hidden="true"
                      xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -13,48 +13,45 @@
                 </svg>
                 {{ __('Reservas') }}
             </h2>
-            <div class="max-w-lg mx-auto">
-                <form id="formSearch" method="GET" class="max-w-md mx-auto">
+            <div class="w-full max-w-lg md:mx-auto mb-4 md:mb-0">
+                <form id="formSearch" method="GET" class="flex w-full">
                     @csrf
                     @method('GET')
-                    <label for="simple-search" class="sr-only">Search</label>
-                    <div class="flex items-center w-full">
-                        <div class="relative w-full">
-                            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                                     xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                          stroke-width="2"
-                                          d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                                </svg>
-                            </div>
-                            <input type="search" id="search" name="search" value="{{ request('search') }}"
-                                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                   placeholder="Pesquisar por titulo"/>
-                        </div>
-                        <button type="submit"
-                                class="p-2.5 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                            <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                 viewBox="0 0 20 20">
+                    <div class="relative w-full max-w-md">
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                       stroke-width="2"
                                       d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                             </svg>
-                            <span class="sr-only">Search</span>
-                        </button>
-                        <a href="{{ route('reserves.index') }}"
-                           class="p-2.5 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                            Limpar
-                        </a>
-                        <button type="submit" id="pendingSearch" name="pendingSearch" value="1"
-                                class="ms-2 inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                            Pendentes
-                            <span
-                                class="inline-flex items-center justify-center w-4 h-4 ms-2 text-xs font-semibold text-blue-800 bg-blue-200 rounded-full">
-                                {{ $reserves->where('status', 'pending')->count() }}
-                            </span>
-                        </button>
+                        </div>
+                        <input type="search" id="search" name="search" value="{{ request('search') }}"
+                               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                               placeholder="Pesquisar por titulo"/>
                     </div>
+                    <button type="submit"
+                            class="ml-2 p-2.5 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                             viewBox="0 0 20 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                  stroke-width="2"
+                                  d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                        </svg>
+                        <span class="sr-only">Search</span>
+                    </button>
+                    <a href="{{ route('reserves.index') }}"
+                       class="ml-2 p-2.5 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        Limpar
+                    </a>
+                    <button type="submit" id="pendingSearch" name="pendingSearch" value="1"
+                            class="ml-2 inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        Pendentes
+                        <span
+                            class="inline-flex items-center justify-center w-4 h-4 ml-2 text-xs font-semibold text-blue-800 bg-blue-200 rounded-full">
+                            {{ $reserves->where('status', 'pending')->count() }}
+                        </span>
+                    </button>
                 </form>
             </div>
             @can('admin-or-landlord')
@@ -76,13 +73,13 @@
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
-                    <th scope="col" class="px-6 py-3 whitespace-nowrap">Responsável</th>
-                    <th scope="col" class="px-6 py-3 whitespace-nowrap">Titulo</th>
-                    <th scope="col" class="px-6 py-3 whitespace-nowrap">Status</th>
-                    <th scope="col" class="px-6 py-3 whitespace-nowrap">Preço</th>
-                    <th scope="col" class="px-6 py-3 whitespace-nowrap">Pagamento</th>
+                    <th scope="col" class="px-6 py-3">Responsável</th>
+                    <th scope="col" class="px-6 py-3">Titulo</th>
+                    <th scope="col" class="px-6 py-3">Status</th>
+                    <th scope="col" class="px-6 py-3">Preço</th>
+                    <th scope="col" class="px-6 py-3">Pagamento</th>
                     @can('admin-or-landlord')
-                        <th scope="col" class="px-6 py-3 whitespace-nowrap">Ações</th>
+                        <th scope="col" class="px-6 py-3">Ações</th>
                     @endcan
                 </tr>
                 </thead>
@@ -124,6 +121,9 @@
                 @endforeach
                 </tbody>
             </table>
+            <div class="my-4">
+                {{ $reserves->links() }}
+            </div>
         @endif
     </div>
 
@@ -186,8 +186,8 @@
             document.querySelectorAll('button[data-modal-toggle="popup-modal"]').forEach(button => {
                 button.addEventListener('click', () => {
                     const itemId = button.getAttribute('data-id');
-                    const itemName = button.getAttribute('data-name');
                     form.action = `{{route('reserves.destroy', ':id')}}`.replace(':id', itemId);
+                    modal.classList.remove('hidden');
                 });
             });
 
@@ -197,7 +197,6 @@
 
             form.addEventListener('submit', (event) => {
                 event.preventDefault();
-                modal.classList.add('hidden');
                 form.submit();
             });
         });

@@ -27,7 +27,6 @@ class UserFactory extends Factory
             'name'              => $this->faker->name(),
             'email'             => $this->faker->unique()->safeEmail(),
             'phone'             => $this->faker->phoneNumber(),
-            'mobile'            => $this->faker->phoneNumber(),
             'role'              => $this->faker->randomElement(['admin', 'landlord', 'tenant', 'visitor']),
             'cpf_cnpj'          => $this->faker->unique()->numerify('###########'),
             'user_notes'        => $this->faker->sentence(),

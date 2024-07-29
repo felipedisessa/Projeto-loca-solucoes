@@ -2,7 +2,7 @@
 <div id="create-crud-modal" tabindex="-1" aria-hidden="true"
      class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full
       md:inset-0 h-full bg-gray-800 bg-opacity-75" data-modal-target="create-crud-modal">
-    <div class="relative p-4 w-full max-w-2xl">
+    <div class="relative w-full max-w-2xl p-4 h-full md:h-auto">
         <!-- Modal content -->
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
             <!-- Modal header -->
@@ -29,12 +29,12 @@
                         <span class="font-medium">Erro:</span> {{ session('error') }}
                     </div>
                 @endif
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div>
                         <label for="user_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Responsável</label>
                         <select id="user_id" name="user_id"
                                 class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                            <option value="" selected disabled></option>
+                            <option selected disabled></option>
                             @foreach($bookUsers as $User)
                                 <option value="{{ $User->id }}">{{ $User->name }}</option>
                             @endforeach
@@ -50,8 +50,10 @@
                         <div id="title-error" class="text-red-500 text-sm"></div>
                     </div>
 
-                    <div class="md:col-span-2">
-                        <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Descrição</label>
+                    <div class="sm:col-span-2">
+                        <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Descreva
+                            a organização
+                            da sala</label>
                         <textarea name="description" id="description"
                                   class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">{{ old('description') }}</textarea>
                         <div id="description-error" class="text-red-500 text-sm"></div>
@@ -61,7 +63,7 @@
                         <label for="start" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Data de
                             início</label>
                         <div class="relative max-w-sm">
-                            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                                 <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
                                      xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                                     <path
@@ -69,7 +71,7 @@
                                 </svg>
                             </div>
                             <input id="start" datepicker type="text" name="start" autocomplete="off"
-                                   class="datepicker-custom bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                   class="datepicker-custom bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                    placeholder="Selecione uma data">
                         </div>
                         <div id="start-error" class="text-red-500 text-sm"></div>
@@ -78,7 +80,7 @@
                         <label for="end" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Data de
                             fim</label>
                         <div class="relative max-w-sm">
-                            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                                 <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
                                      xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                                     <path
@@ -86,7 +88,7 @@
                                 </svg>
                             </div>
                             <input id="end" datepicker type="text" name="end" autocomplete="off"
-                                   class="datepicker-custom bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                   class="datepicker-custom bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                    placeholder="Selecione uma data">
                         </div>
                         <div id="end-error" class="text-red-500 text-sm"></div>
@@ -96,7 +98,7 @@
                         <label for="start_time" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Hora
                             de Início</label>
                         <div class="relative">
-                            <div class="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 pointer-events-none">
+                            <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                                 <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
                                      xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                                     <path fill-rule="evenodd"
@@ -115,7 +117,7 @@
                         <label for="end_time" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Hora
                             de Fim</label>
                         <div class="relative">
-                            <div class="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 pointer-events-none">
+                            <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                                 <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
                                      xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                                     <path fill-rule="evenodd"
@@ -154,11 +156,18 @@
                     <div>
                         <label for="payment_type" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Forma
                             de pagamento</label>
-                        <input type="text" name="payment_type" id="payment_type" value="{{ old('payment_type') }}"
-                               class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
+                        <select id="payment_type" name="payment_type"
+                                class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                            <option value="Pix" {{ old('payment_type') == 'Pix' ? 'selected' : '' }}>Pix</option>
+                            <option value="Cartao" {{ old('payment_type') == 'Cartao' ? 'selected' : '' }}>Cartão
+                            </option>
+                            <option value="Boleto" {{ old('payment_type') == 'Boleto' ? 'selected' : '' }}>Boleto
+                            </option>
+                        </select>
                         <div id="payment_type-error" class="text-red-500 text-sm"></div>
                     </div>
-                    <div class="md:col-span-2">
+
+                    <div class="sm:col-span-2">
                         <label for="status"
                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status</label>
                         <select name="status" id="status"
