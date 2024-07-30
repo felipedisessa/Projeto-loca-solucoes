@@ -208,7 +208,7 @@ class ReserveController extends Controller
 
     public function getReservesJson(Request $request)
     {
-        $query = Reserve::query()->whereIn('status', ['confirmed', 'pending', 'canceled']);
+        $query = Reserve::query()->whereIn('status', ['confirmed', 'pending']);
 
         if ($request->has('rental_item_id') && !empty($request->rental_item_id)) {
             $query->where('rental_item_id', $request->rental_item_id);

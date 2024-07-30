@@ -117,6 +117,47 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <!-- Address Fields -->
                             <div>
+                                <label for="noAuth-zipcode"
+                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">CEP</label>
+                                <input type="text" name="zipcode" id="noAuth-zipcode" value="{{ old('zipcode') }}"
+                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                                />
+                                <div id="zipcode-error" class="text-red-500 text-sm"></div>
+                            </div>
+                            <div>
+                                <label for="noAuth-country"
+                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">País</label>
+                                <input type="text" name="country" id="noAuth-country" value="{{ old('country') }}"
+                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                                />
+                                <div id="country-error" class="text-red-500 text-sm"></div>
+                            </div>
+                            <div>
+                                <label for="noAuth-state"
+                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Estado</label>
+                                <input type="text" name="state" id="noAuth-state" value="{{ old('state') }}"
+                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                                />
+                                <div id="state-error" class="text-red-500 text-sm"></div>
+                            </div>
+                            <div>
+                                <label for="noAuth-city"
+                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cidade</label>
+                                <input type="text" name="city" id="noAuth-city" value="{{ old('city') }}"
+                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                                />
+                                <div id="city-error" class="text-red-500 text-sm"></div>
+                            </div>
+                            <div>
+                                <label for="noAuth-neighborhood"
+                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Bairro</label>
+                                <input type="text" name="neighborhood" id="noAuth-neighborhood"
+                                       value="{{ old('neighborhood') }}"
+                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                                />
+                                <div id="neighborhood-error" class="text-red-500 text-sm"></div>
+                            </div>
+                            <div>
                                 <label for="noAuth-street"
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Rua</label>
                                 <input type="text" name="street" id="noAuth-street" value="{{ old('street') }}"
@@ -124,7 +165,6 @@
                                 />
                                 <div id="street-error" class="text-red-500 text-sm"></div>
                             </div>
-
                             <div>
                                 <label for="noAuth-number"
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Número</label>
@@ -133,7 +173,6 @@
                                 />
                                 <div id="number-error" class="text-red-500 text-sm"></div>
                             </div>
-
                             <div>
                                 <label for="noAuth-complement"
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Complemento</label>
@@ -144,51 +183,7 @@
                                 <div id="complement-error" class="text-red-500 text-sm"></div>
                             </div>
 
-                            <div>
-                                <label for="noAuth-neighborhood"
-                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Bairro</label>
-                                <input type="text" name="neighborhood" id="noAuth-neighborhood"
-                                       value="{{ old('neighborhood') }}"
-                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                                />
-                                <div id="neighborhood-error" class="text-red-500 text-sm"></div>
-                            </div>
 
-                            <div>
-                                <label for="noAuth-city"
-                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cidade</label>
-                                <input type="text" name="city" id="noAuth-city" value="{{ old('city') }}"
-                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                                />
-                                <div id="city-error" class="text-red-500 text-sm"></div>
-                            </div>
-
-                            <div>
-                                <label for="noAuth-state"
-                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Estado</label>
-                                <input type="text" name="state" id="noAuth-state" value="{{ old('state') }}"
-                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                                />
-                                <div id="state-error" class="text-red-500 text-sm"></div>
-                            </div>
-
-                            <div>
-                                <label for="noAuth-zipcode"
-                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">CEP</label>
-                                <input type="text" name="zipcode" id="noAuth-zipcode" value="{{ old('zipcode') }}"
-                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                                />
-                                <div id="zipcode-error" class="text-red-500 text-sm"></div>
-                            </div>
-
-                            <div>
-                                <label for="noAuth-country"
-                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">País</label>
-                                <input type="text" name="country" id="noAuth-country" value="{{ old('country') }}"
-                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                                />
-                                <div id="country-error" class="text-red-500 text-sm"></div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -335,7 +330,7 @@
                     </div>
                 </div>
 
-                <div class="flex justify-end mt-4">
+                <div class="hidden-fields flex justify-end mt-4">
                     <button type="submit"
                             class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         Salvar

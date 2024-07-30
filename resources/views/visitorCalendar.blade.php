@@ -42,6 +42,8 @@
         #calendar {
             width: 100%;
             height: 80vh;
+            max-height: 700px;
+            overflow-y: auto;
         }
 
         #toast-default {
@@ -49,6 +51,30 @@
             top: 1rem;
             right: 1rem;
             z-index: 50;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            #calendar {
+                height: 70vh;
+                max-height: 400px;
+            }
+
+            .p-6 {
+                padding: 1rem;
+            }
+
+            .text-gray-900 {
+                text-align: center;
+            }
+
+            #room-filter {
+                width: 100%;
+                margin-top: 10px;
+            }
         }
 
     </style>
@@ -73,18 +99,36 @@
                     <div class="w-full sm:w-auto">
                         <select id="room-filter"
                                 class="block w-full pl-3 pr-10 py-2 border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300">
-                            <option value="">Todas as Salas</option>
+                            <option value="" data-description="">Todas as Salas</option>
                             @foreach($bookItems as $bookItem)
-                                <option value="{{ $bookItem->id }}">{{ $bookItem->name }}</option>
+                                <option value="{{ $bookItem->id }}"
+                                        data-description="{{ $bookItem->description }}">{{ $bookItem->name }}</option>
                             @endforeach
                         </select>
                     </div>
-
                 </div>
                 <div id="calendar" class="w-full"></div>
+                <div id="room-description"
+                     class="mt-4 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg text-gray-900 dark:text-gray-100">
+                    Selecione uma sala para ver a descrição.
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const roomFilter = document.getElementById('room-filter');
+        const roomDescription = document.getElementById('room-description');
+
+        roomFilter.addEventListener('change', function () {
+            const selectedOption = roomFilter.options[roomFilter.selectedIndex];
+            const description = selectedOption.getAttribute('data-description');
+            roomDescription.textContent = description || 'Selecione uma sala para ver a descrição.';
+        });
+    });
+</script>
+
 </body>
 </html>

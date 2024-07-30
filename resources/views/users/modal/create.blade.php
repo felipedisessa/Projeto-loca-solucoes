@@ -97,18 +97,18 @@
                         <h4 class="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Cadastro de Endereço</h4>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <label for="country"
-                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">País</label>
-                                <input type="text" name="country" id="country" value="{{ old('country') }}"
-                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
-                                <div id="country-error" class="text-red-600"></div>
-                            </div>
-                            <div>
                                 <label for="zipcode"
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">CEP</label>
                                 <input type="text" name="zipcode" id="zipcode" value="{{ old('zipcode') }}"
                                        class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
                                 <div id="zipcode-error" class="text-red-600"></div>
+                            </div>
+                            <div>
+                                <label for="country"
+                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">País</label>
+                                <input type="text" name="country" id="country" value="{{ old('country') }}"
+                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
+                                <div id="country-error" class="text-red-600"></div>
                             </div>
                             <div>
                                 <label for="state"
@@ -143,15 +143,17 @@
                                 <label for="number"
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Número</label>
                                 <input type="text" name="number" id="number" value="{{ old('number') }}"
-                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
-                                <div id="number-error" class="text-red-600"></div>
+                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                                />
+                                <div id="number-error" class="text-red-500 text-sm"></div>
                             </div>
-                            <div class="md:col-span-2">
+                            <div>
                                 <label for="complement"
-                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Complemento
-                                    de endereço</label>
+                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Complemento</label>
                                 <input type="text" name="complement" id="complement" value="{{ old('complement') }}"
-                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
+                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                                />
+                                <div id="complement-error" class="text-red-500 text-sm"></div>
                             </div>
                         </div>
                     </div>

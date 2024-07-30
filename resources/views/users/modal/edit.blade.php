@@ -53,16 +53,7 @@
                                 />
                                 <div id="company-error" class="text-red-600"></div>
                             </div>
-                            {{--                            <div>--}}
-                            {{--                                <label for="update-password"--}}
-                            {{--                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Senha</label>--}}
-                            {{--                                <input type="password" name="password" id="update-password"--}}
-                            {{--                                       value="{{ old('password') }}"--}}
-                            {{--                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"--}}
-                            {{--                                       placeholder=" ">--}}
-                            {{--                                <div id="password-error" class="text-red-600"></div>--}}
-                            {{--                            </div>--}}
-                            <
+
                             <div>
                                 <label for="update-phone"
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Telefone</label>
@@ -108,19 +99,23 @@
                                        class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
                                 <div id="cpf_cnpj-error" class="text-red-600"></div>
                             </div>
+
+                            <div>
+                                <label for="update-is_active" class="inline-flex items-center cursor-pointer">
+                                    <input type="hidden" name="is_active" value="0">
+                                    <input type="checkbox" value="1" name="is_active" id="update-is_active"
+                                           class="sr-only peer" {{ $user->is_active ? 'checked' : '' }}>
+                                    <div
+                                        class="relative w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                                    <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Ativo/Inativo</span>
+                                </label>
+                            </div>
+
                         </div>
                     </div>
                     <div>
                         <h4 class="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Edição de Endereço</h4>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <label for="update-country"
-                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">País</label>
-                                <input type="text" name="country" id="update-country"
-                                       value="{{ $user->address->country ?? '' }}"
-                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
-                                <div id="country-error" class="text-red-600"></div>
-                            </div>
                             <div>
                                 <label for="update-zipcode"
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">CEP</label>
@@ -128,6 +123,14 @@
                                        value="{{ $user->address->zipcode ?? '' }}"
                                        class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
                                 <div id="zipcode-error" class="text-red-600"></div>
+                            </div>
+                            <div>
+                                <label for="update-country"
+                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">País</label>
+                                <input type="text" name="country" id="update-country"
+                                       value="{{ $user->address->country ?? '' }}"
+                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
+                                <div id="country-error" class="text-red-600"></div>
                             </div>
                             <div>
                                 <label for="update-state"
@@ -160,6 +163,7 @@
                                        class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
                                 <div id="street-error" class="text-red-600"></div>
                             </div>
+
                             <div>
                                 <label for="update-number"
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Número</label>
@@ -168,14 +172,14 @@
                                        class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
                                 <div id="number-error" class="text-red-600"></div>
                             </div>
-                            <div class="md:col-span-2">
-                                <label for="update-complement"
-                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Complemento
-                                    de
-                                    endereço</label>
+                            <div>
+                                <label for="complement"
+                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Complemento</label>
                                 <input type="text" name="complement" id="update-complement"
                                        value="{{ $user->address->complement ?? '' }}"
-                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
+                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                                />
+                                <div id="complement-error" class="text-red-500 text-sm"></div>
                             </div>
                         </div>
                     </div>

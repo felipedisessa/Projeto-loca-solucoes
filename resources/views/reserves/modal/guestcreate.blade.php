@@ -154,6 +154,10 @@
                             pagamento</label>
                         <select id="guest-payment_type" name="payment_type"
                                 class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                            <option
+                                value="Não se aplica" {{ old('payment_type') == 'Não se aplica' ? 'selected' : '' }}>Não
+                                se aplica
+                            </option>
                             <option value="Pix" {{ old('payment_type') == 'Pix' ? 'selected' : '' }}>Pix</option>
                             <option value="Cartao" {{ old('payment_type') == 'Cartao' ? 'selected' : '' }}>Cartão
                             </option>

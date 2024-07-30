@@ -21,7 +21,8 @@
                             class="p-2.5 text-sm font-medium text-white bg-blue-600 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         <option value="">Todas as Salas</option>
                         @foreach($bookItems as $bookItem)
-                            <option value="{{ $bookItem->id }}">{{ $bookItem->name }}</option>
+                            <option value="{{ $bookItem->id }}"
+                                    data-description="{{ $bookItem->description }}">{{ $bookItem->name }}</option>
                         @endforeach
                     </select>
                 </form>
@@ -177,66 +178,70 @@
                                         </ul>
                                     </div>
                                 </div>
-
-                                <div
-                                    class="w-full p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700 mt-4">
-                                    <div class="flex-col items-center justify-between mb-4">
-                                        <div class="flex items-center">
-                                            <svg class="w-6 h-6 text-gray-800 dark:text-white mr-2" aria-hidden="true"
-                                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                                                 viewBox="0 0 24 24">
-                                                <path stroke="currentColor" stroke-linecap="round"
-                                                      stroke-linejoin="round" stroke-width="2"
-                                                      d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
-                                            </svg>
-                                            <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">
-                                                Reservas pendentes
-                                            </h5>
-                                        </div>
-                                        <a href="{{ route('reserves.index') }}?pendingSearch=1"
-                                           class="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">
-                                            Ver reservas pendentes
-                                        </a>
-                                    </div>
-                                    @if($reservesPending->isEmpty())
-                                        <div
-                                            class="flex items-center justify-center p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                                            <h1 class="text-lg font-medium text-gray-900 dark:text-white">
-                                                Nenhuma reserva pendente
-                                            </h1>
-                                        </div>
-                                    @endif
-
-                                    <div class="flow-root">
-                                        <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
-                                            @foreach($reservesPending as $reserve)
-                                                <li class="py-3 sm:py-4">
-                                                    <div class="flex items-center">
-                                                        <div class="flex-1 min-w-0 ms-4">
-                                                            <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                                                                {{ $reserve->user->name }}
-                                                            </p>
-                                                            <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                                                                {{ $reserve->title }}
-                                                            </p>
-                                                            <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                                                                {{ \Carbon\Carbon::parse($reserve->start)->format('d/m/Y')}}
-                                                            </p>
-                                                            <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                                                                {{ $reserve->rentalItem->name }}
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                </div>
                             @endcan
+
+                            <div
+                                class="w-full p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700 mt-4">
+                                <div class="flex-col items-center justify-between mb-4">
+                                    <div class="flex items-center">
+                                        <svg class="w-6 h-6 text-gray-800 dark:text-white mr-2" aria-hidden="true"
+                                             xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                             viewBox="0 0 24 24">
+                                            <path stroke="currentColor" stroke-linecap="round"
+                                                  stroke-linejoin="round" stroke-width="2"
+                                                  d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                                        </svg>
+                                        <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">
+                                            Reservas pendentes
+                                        </h5>
+                                    </div>
+                                    <a href="{{ route('reserves.index') }}?pendingSearch=1"
+                                       class="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">
+                                        Ver reservas pendentes
+                                    </a>
+                                </div>
+                                @if($reservesPending->isEmpty())
+                                    <div
+                                        class="flex items-center justify-center p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                                        <h1 class="text-lg font-medium text-gray-900 dark:text-white">
+                                            Nenhuma reserva pendente
+                                        </h1>
+                                    </div>
+                                @endif
+
+                                <div class="flow-root">
+                                    <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
+                                        @foreach($reservesPending as $reserve)
+                                            <li class="py-3 sm:py-4">
+                                                <div class="flex items-center">
+                                                    <div class="flex-1 min-w-0 ms-4">
+                                                        <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                                                            {{ $reserve->user->name }}
+                                                        </p>
+                                                        <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                                                            {{ $reserve->title }}
+                                                        </p>
+                                                        <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                                                            {{ \Carbon\Carbon::parse($reserve->start)->format('d/m/Y')}}
+                                                        </p>
+                                                        <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                                                            {{ $reserve->rentalItem->name }}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                     <div class="w-full md:w-2/3 lg:w-3/4 p-4">
+                        <div id="room-description"
+                             class="max-w-7xl mx-auto mt-4 m-2 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg text-gray-900 dark:text-gray-100">
+                            Selecione uma sala para ver a descrição.
+                        </div>
                         <div class="max-w-7xl mx-auto " id="calendar"></div>
                     </div>
                 </div>
@@ -254,4 +259,17 @@
 
 <script>
     window.userRole = "{{ auth()->user()->role }}";
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const roomFilter = document.getElementById('room-filter');
+        const roomDescription = document.getElementById('room-description');
+
+        roomFilter.addEventListener('change', function () {
+            const selectedOption = roomFilter.options[roomFilter.selectedIndex];
+            const description = selectedOption.getAttribute('data-description');
+            roomDescription.textContent = description || 'Selecione uma sala para ver a descrição.';
+        });
+    });
 </script>

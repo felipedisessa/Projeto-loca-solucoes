@@ -1,7 +1,7 @@
 <!-- Main modal -->
 <div id="edit-crud-modal" tabindex="-1" aria-hidden="true"
      class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full md:inset-0 h-full bg-gray-800 bg-opacity-75">
-    <div class="relative w-full max-w-2xl p-4 h-full md:h-auto">
+    <div class="relative w-full max-w-2xl p-4 h-full md:h-auto" data-modal-target="edit-crud-modal">
         <!-- Modal content -->
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
             <!-- Modal header -->
@@ -42,7 +42,8 @@
                     </div>
 
                     <div>
-                        <label for="update-title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Título</label>
+                        <label for="update-title"
+                               class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Título</label>
                         <input type="text" name="title" id="update-title" value=""
                                class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
                         <div id="title-error" class="text-red-500 text-sm"></div>
@@ -57,7 +58,8 @@
                     </div>
 
                     <div>
-                        <label for="update-start" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Data
+                        <label for="update-start"
+                               class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Data
                             de início</label>
                         <div class="relative max-w-sm">
                             <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -75,7 +77,8 @@
                     </div>
 
                     <div>
-                        <label for="update-end" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Data
+                        <label for="update-end"
+                               class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Data
                             de fim</label>
                         <div class="relative max-w-sm">
                             <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -97,7 +100,8 @@
                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Hora de
                             Início</label>
                         <div class="relative">
-                            <div class="absolute inset-y-0 right-0 top-0 flex items-center pr-3.5 pointer-events-none">
+                            <div
+                                class="absolute inset-y-0 right-0 top-0 flex items-center pr-3.5 pointer-events-none">
                                 <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
                                      xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                                     <path fill-rule="evenodd"
@@ -114,9 +118,11 @@
 
                     <div>
                         <label for="update-end_time"
-                               class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Hora de Fim</label>
+                               class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Hora de
+                            Fim</label>
                         <div class="relative">
-                            <div class="absolute inset-y-0 right-0 top-0 flex items-center pr-3.5 pointer-events-none">
+                            <div
+                                class="absolute inset-y-0 right-0 top-0 flex items-center pr-3.5 pointer-events-none">
                                 <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
                                      xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                                     <path fill-rule="evenodd"
@@ -146,7 +152,8 @@
                     </div>
 
                     <div>
-                        <label for="update-price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Preço</label>
+                        <label for="update-price"
+                               class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Preço</label>
                         <input type="text" name="price" id="update-price" value=""
                                class="mask-money block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
                     </div>
@@ -154,7 +161,7 @@
                         <label for="update-paid_at"
                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pagamento</label>
                         <input type="text" name="paid_at" id="update-paid_at"
-                               value="{{ $reserve->paid_at ?? 'Não foi efetuado' }}" readonly
+                               value="{{'Não foi efetuado' }}" readonly
                                class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
                     </div>
 
@@ -162,7 +169,8 @@
                         <input id="update-paid-checkbox" type="checkbox" value="" name="paid_checkbox"
                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                         <label for="update-paid-checkbox"
-                               class="w-full py-4 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Marcar como
+                               class="w-full py-4 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Marcar
+                            como
                             Pago</label>
                     </div>
 
@@ -172,17 +180,22 @@
                             pagamento</label>
                         <select id="update-payment_type" name="payment_type"
                                 class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                            <option value="Pix" {{ $reserve->payment_type == 'Pix' ? 'selected' : '' }}>Pix</option>
-                            <option value="Cartao" {{ $reserve->payment_type == 'Cartao' ? 'selected' : '' }}>Cartão
+                            <option
+                                value="Não se aplica" {{ 'Não se aplica' ? 'selected' : '' }}>Não
+                                se aplica
                             </option>
-                            <option value="Boleto" {{ $reserve->payment_type == 'Boleto' ? 'selected' : '' }}>Boleto
+                            <option value="Pix" {{ 'Pix' ? 'selected' : '' }}>Pix</option>
+                            <option value="Cartao" {{ 'Cartao' ? 'selected' : '' }}>Cartão
+                            </option>
+                            <option value="Boleto" {{ 'Boleto' ? 'selected' : '' }}>Boleto
                             </option>
                         </select>
                         <div id="payment_type-error" class="text-red-500 text-sm"></div>
                     </div>
 
                     <div class="sm:col-span-2">
-                        <label for="update-status" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status</label>
+                        <label for="update-status"
+                               class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status</label>
                         <select name="status" id="update-status"
                                 class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                             <option value="" disabled selected>Selecione um status</option>

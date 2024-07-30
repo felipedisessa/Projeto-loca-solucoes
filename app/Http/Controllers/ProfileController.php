@@ -55,6 +55,7 @@ class ProfileController extends Controller
     public function update(Request $request, User $user)
     {
         $this->authorize('admin-or-landlord');
+
         $updatedUser = $request->except('password');
 
         if ($request->filled('password')) {
@@ -105,7 +106,7 @@ class ProfileController extends Controller
                 $query->where('status', 'canceled');
             }, 'reserves as reserves_active_count' => function($query) {
                 $query->where('status', 'confirmed');
-            }
+            },
         ]);
 
         $user->last_reserve = $user->reserves()->latest('end')->first()->end ?? 'Não disponível';
@@ -133,14 +134,17 @@ class ProfileController extends Controller
         $this->authorize('admin-or-landlord');
 
         $validatedData = $request->validate([
-            'name'     => 'required|string|max:255',
-            'email'    => 'required|email|max:255',
-            'phone'    => 'required|string|max:255',
-            'role'     => 'required|string|max:255',
-            'cpf_cnpj' => 'required',
-            'password' => 'required|string',
-            'company'  => 'required|string|max:255',
+            'name'      => 'required|string|max:255',
+            'email'     => 'required|email|max:255',
+            'phone'     => 'required|string|max:255',
+            'role'      => 'required|string|max:255',
+            'cpf_cnpj'  => 'required',
+            'password'  => 'required|string',
+            'company'   => 'required|string|max:255',
+            'is_active' => 'nullable|boolean',
         ]);
+
+        $ActiveDefault = true;
 
         try {
             $user = User::create([
@@ -152,6 +156,7 @@ class ProfileController extends Controller
                 'user_notes' => $request->user_notes,
                 'password'   => bcrypt($request->password),
                 'company'    => $request->company,
+                'is_active'  => $ActiveDefault,
             ]);
 
             $addressData = $request->only([

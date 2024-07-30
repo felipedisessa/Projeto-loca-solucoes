@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const editForm = document.getElementById('edit-user-form');
     const phoneInput = document.getElementById('phone');
 
-    // Verifica se o modal e o formulário existem
     if (editModal && editForm) {
         document.querySelectorAll('a[data-modal-toggle="edit-crud-modal"]').forEach(button => {
             button.addEventListener('click', async () => {
@@ -20,6 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 document.getElementById('update-phone').value = userData.phone;
                 document.getElementById('update-role').value = userData.role;
                 document.getElementById('update-cpf_cnpj').value = userData.cpf_cnpj;
+                document.getElementById('update-is_active').checked = userData.is_active;
                 document.getElementById('update-street').value = userData.address.street;
                 document.getElementById('update-number').value = userData.address.number;
                 document.getElementById('update-neighborhood').value = userData.address.neighborhood;
