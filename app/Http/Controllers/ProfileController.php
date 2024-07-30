@@ -74,24 +74,30 @@ class ProfileController extends Controller
     /**
      * Exibe a lista de usuários.
      */
-    public function index()
+    public function index(Request $request)
     {
         $this->authorize('admin-or-landlord');
 
-        $search = request('search');
-        $users  = User::query()->orderBy('created_at', 'desc')->with('address')->when(
-            $search,
-            function($query) use ($search) {
-                $query->where('name', 'like', '%' . $search . '%');
-            }
-        )->paginate(20);
-
-        if ($users->isEmpty()) {
-            // Redireciona de volta ao index se não existir nenhum usuário
-            return redirect()->route('users.index');
+        if ($request->has('reactivate')) {
+            User::withTrashed()->where('id', $request->input('reactivate'))->update(['deleted_at' => null]);
         }
 
-        return view('users.index', compact('users'));
+        $search      = $request->input('search');
+        $showDeleted = $request->input('showDeleted');
+
+        $usersQuery = User::query()->orderBy('created_at', 'desc')->with('address');
+
+        if ($search) {
+            $usersQuery->where('name', 'like', '%' . $search . '%');
+        }
+
+        if ($showDeleted) {
+            $usersQuery->withTrashed();
+        }
+
+        $users = $usersQuery->paginate(20);
+
+        return view('users.index', compact('users', 'search', 'showDeleted'));
     }
 
     /**

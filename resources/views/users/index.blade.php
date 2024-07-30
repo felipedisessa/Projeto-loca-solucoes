@@ -1,7 +1,6 @@
 @php
     use App\Enum\RoleEnum;
 @endphp
-
 <x-app-layout>
     <x-slot name="header">
         <div class="flex flex-col md:flex-row items-center justify-between">
@@ -17,7 +16,6 @@
             <div class="w-full max-w-lg md:mx-auto mb-4 md:mb-0">
                 <form id="formSearch" method="GET" class="flex w-full">
                     @csrf
-                    @method('GET')
                     <div class="relative w-full max-w-md">
                         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                             <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
@@ -28,7 +26,7 @@
                         </div>
                         <input type="search" id="search" name="search"
                                value="{{ request('search') }}"
-                               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                placeholder="Pesquisar por nome"/>
                     </div>
                     <button type="submit"
@@ -45,6 +43,17 @@
                        class="ml-2 p-2.5 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         Limpar
                     </a>
+                </form>
+            </div>
+            <div class="flex items-center ml-2 m-2">
+                <form id="showDeletedForm" method="GET" action="{{ route('users.index') }}">
+                    @csrf
+                    <input id="showDeleted" name="showDeleted" type="checkbox" value="1"
+                           class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                           {{ request('showDeleted') ? 'checked' : '' }}
+                           onchange="document.getElementById('showDeletedForm').submit();">
+                    <label for="showDeleted"
+                           class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Exibir Deletados</label>
                 </form>
             </div>
             <button data-modal-target="create-crud-modal" data-modal-toggle="create-crud-modal"
@@ -69,6 +78,7 @@
                 <th scope="col" class="px-6 py-3">E-mail</th>
                 <th scope="col" class="px-6 py-3">Telefone</th>
                 <th scope="col" class="px-6 py-3">Permissão</th>
+                <th scope="col" class="px-6 py-3">Status</th>
                 <th scope="col" class="px-6 py-3">Ações</th>
             </tr>
             </thead>
@@ -81,6 +91,7 @@
                     <td class="px-6 py-4">{{ $user->email }}</td>
                     <td class="px-6 py-4 phone-display">{{ $user->phone }}</td>
                     <td class="px-6 py-4">{{ RoleEnum::from($user->role)->label() }}</td>
+                    <td class="px-6 py-4">{{ $user->deleted_at ? 'Deletado' : 'Ativo' }}</td>
                     <td class="flex items-center px-6 py-4 space-x-2">
                         <a href="{{ route('users.show', $user->id) }}" class="cursor-pointer">
                             <x-icons.eye/>
@@ -94,6 +105,22 @@
                            class="cursor-pointer font-medium text-blue-600 dark:text-blue-500 hover:underline">
                             <x-icons.edit/>
                         </a>
+                        @if ($user->deleted_at)
+                            <form id="userActiveForm-{{ $user->id }}" method="GET" action="{{ route('users.index') }}">
+                                @csrf
+                                <input type="hidden" name="reactivate" value="{{ $user->id }}">
+                                <label for="activeUser-{{ $user->id }}"
+                                       class="inline-flex items-center mb-0 cursor-pointer">
+                                    <input id="activeUser-{{ $user->id }}" type="checkbox" value="1"
+                                           class="sr-only peer"
+                                           onchange="document.getElementById('userActiveForm-{{ $user->id }}').submit();">
+                                    <div
+                                        class="relative w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                                    <span
+                                        class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">Reativar</span>
+                                </label>
+                            </form>
+                        @endif
                     </td>
                 </tr>
             @endforeach
