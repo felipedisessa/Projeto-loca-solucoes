@@ -15,7 +15,7 @@
             </h2>
             <div class="w-full max-w-lg md:mx-auto mb-4 md:mb-0">
                 <form id="formSearch" method="GET" class="flex w-full">
-                    @csrf
+                    {{--                    @csrf--}}
                     @method('GET')
                     <div class="relative w-full max-w-md">
                         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -87,10 +87,21 @@
                 @foreach($reserves as $reserve)
                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{ $reserve->user->name }}
+                            {{ $reserve->user->name ?? 'Usuário desativado' }}
                         </th>
                         <td class="px-6 py-4">{{ $reserve->title }}</td>
-                        <td class="px-6 py-4">{{ ReserveEnum::from($reserve->status)->label() }}</td>
+                        <td class="px-6 py-4">
+    <span class="px-2.5 py-0.5 rounded
+        {{
+            match (ReserveEnum::from($reserve->status)) {
+                ReserveEnum::pending, ReserveEnum::confirmed => 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300',
+                ReserveEnum::canceled => 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300',
+            }
+        }}">
+        {{ ReserveEnum::from($reserve->status)->label() }}
+    </span>
+                        </td>
+
                         <td class="px-6 py-4">{{ $reserve->formatted_price }}</td>
                         <td class="px-6 py-4">
                             {{ $reserve->paid_at ? \Carbon\Carbon::parse($reserve->paid_at)->format('d/m/Y') : 'Não foi efetuado' }}

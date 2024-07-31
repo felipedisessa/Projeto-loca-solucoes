@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const reserveId = button.getAttribute('data-id');
 
             // Fetch reserve data from the server
-            const response = await fetch(`/reservas/${reserveId}/edit`);
+            const response = await fetch(`/reservas/${reserveId}/editar`);
             const reserveData = await response.json();
 
             // Populate the form fields with the reserve data

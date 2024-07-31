@@ -3,12 +3,26 @@ document.addEventListener('DOMContentLoaded', function () {
     const editForm = document.getElementById('edit-user-form');
     const phoneInput = document.getElementById('phone');
 
+    const modalReactivate = document.getElementById('reactivate-popup-modal');
+    const formReactivate = document.getElementById('userActiveForm');
+
+    if (modalReactivate && formReactivate) {
+        document.querySelectorAll('button[data-modal-toggle="reactivate-popup-modal"]').forEach(button => {
+            button.addEventListener('click', () => {
+                document.querySelector('#reactivate').value = button.getAttribute('data-id');
+                console.log(button.getAttribute('data-id'));
+                formReactivate.action = `/usuarios`;
+
+            });
+        });
+    }
+
     if (editModal && editForm) {
         document.querySelectorAll('a[data-modal-toggle="edit-crud-modal"]').forEach(button => {
             button.addEventListener('click', async () => {
                 const userId = button.getAttribute('data-id');
 
-                const response = await fetch(`/usuarios/${userId}/edit`);
+                const response = await fetch(`/usuarios/${userId}/editar`);
                 const userData = await response.json();
 
                 editForm.action = `/usuarios/${userId}`;
@@ -44,6 +58,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+
     // formatação de telefone
     function formatPhone(value) {
         if (!value) return value;
@@ -61,19 +76,4 @@ document.addEventListener('DOMContentLoaded', function () {
             this.value = formatPhone(this.value);
         });
     }
-
-    // Descomente e ajuste os seguintes blocos se os elementos estiverem presentes no DOM
-    // const mobileInput = document.getElementById('mobile');
-    // if (mobileInput) {
-    //     mobileInput.addEventListener('input', function (e) {
-    //         this.value = formatPhone(this.value);
-    //     });
-    // }
-
-    // const cpfCnpjInput = document.getElementById('cpf_cnpj');
-    // if (cpfCnpjInput) {
-    //     cpfCnpjInput.addEventListener('input', function (e) {
-    //         this.value = formatCpfCnpj(this.value);
-    //     });
-    // }
 });

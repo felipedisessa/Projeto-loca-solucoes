@@ -91,36 +91,36 @@
                     <td class="px-6 py-4">{{ $user->email }}</td>
                     <td class="px-6 py-4 phone-display">{{ $user->phone }}</td>
                     <td class="px-6 py-4">{{ RoleEnum::from($user->role)->label() }}</td>
-                    <td class="px-6 py-4">{{ $user->deleted_at ? 'Deletado' : 'Ativo' }}</td>
+                    <td class="px-6 py-4">
+    <span class="px-2.5 py-0.5 rounded
+        {{ $user->deleted_at ? 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300' : 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300' }}">
+        {{ $user->deleted_at ? 'Deletado' : 'Ativo' }}
+    </span>
+                    </td>
+
                     <td class="flex items-center px-6 py-4 space-x-2">
                         <a href="{{ route('users.show', $user->id) }}" class="cursor-pointer">
                             <x-icons.eye/>
                         </a>
-                        <button type="button" class="cursor-pointer text-red-500" data-modal-target="popup-modal"
-                                data-modal-toggle="popup-modal" data-id="{{ $user->id }}" data-name="{{ $user->name }}">
-                            <x-icons.trash/>
-                        </button>
+                        @if ($user->deleted_at)
+                            <button type="button" class="cursor-pointer text-gray-500"
+                                    data-modal-target="reactivate-popup-modal"
+                                    data-modal-toggle="reactivate-popup-modal" data-id="{{ $user->id }}"
+                                    data-name="{{ $user->name }}">
+                                <x-icons.arrows-rounded/>
+                            </button>
+                        @else
+                            <button type="button" class="cursor-pointer text-red-500" data-modal-target="popup-modal"
+                                    data-modal-toggle="popup-modal" data-id="{{ $user->id }}"
+                                    data-name="{{ $user->name }}">
+                                <x-icons.trash/>
+                            </button>
+                        @endif
                         <a id="edit-button" data-modal-target="edit-crud-modal" data-modal-toggle="edit-crud-modal"
                            data-id="{{ $user->id }}"
                            class="cursor-pointer font-medium text-blue-600 dark:text-blue-500 hover:underline">
                             <x-icons.edit/>
                         </a>
-                        @if ($user->deleted_at)
-                            <form id="userActiveForm-{{ $user->id }}" method="GET" action="{{ route('users.index') }}">
-                                @csrf
-                                <input type="hidden" name="reactivate" value="{{ $user->id }}">
-                                <label for="activeUser-{{ $user->id }}"
-                                       class="inline-flex items-center mb-0 cursor-pointer">
-                                    <input id="activeUser-{{ $user->id }}" type="checkbox" value="1"
-                                           class="sr-only peer"
-                                           onchange="document.getElementById('userActiveForm-{{ $user->id }}').submit();">
-                                    <div
-                                        class="relative w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
-                                    <span
-                                        class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">Reativar</span>
-                                </label>
-                            </form>
-                        @endif
                     </td>
                 </tr>
             @endforeach
@@ -130,46 +130,6 @@
             {{ $users->links() }}
         </div>
     </div>
-
-    <div id="popup-modal" tabindex="-1"
-         class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-        <div class="relative p-4 w-full max-w-md max-h-full">
-            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                <button type="button"
-                        class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                        data-modal-hide="popup-modal">
-                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                         viewBox="0 0 14 14">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                              d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                    </svg>
-                    <span class="sr-only">Close modal</span>
-                </button>
-                <div class="p-4 md:p-5 text-center">
-                    <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true"
-                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                              d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
-                    </svg>
-                    <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Tem certeza que deseja excluir
-                        este usuário?</h3>
-                    <form id="formExcluirUsuario" method="POST" action="">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit"
-                                class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
-                            Sim, apagar
-                        </button>
-                        <button data-modal-hide="popup-modal" type="button"
-                                class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-                            Não, cancelar
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const modal = document.getElementById('popup-modal');
@@ -195,6 +155,8 @@
     </script>
     @include('users.modal.create')
     @include('users.modal.edit')
+    @include('users.modal.confirmation-destroy')
+    @include('users.modal.confirmation-reactivate')
     @vite('resources/js/users.js')
     @vite('resources/js/user-form-validate.js')
     @vite('resources/js/formatPhone.js')

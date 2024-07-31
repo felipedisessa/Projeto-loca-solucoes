@@ -19,17 +19,26 @@
     <div
         class="m-4 max-w-4xl mx-auto p-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <dl class="grid grid-cols-1 md:grid-cols-2 gap-6 text-gray-900 dark:text-white">
-            <div>
-                <h3 class="text-lg font-semibold mb-4">Responsável</h3>
-                <div class="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg shadow">
-                    @foreach(['Nome' => $reserve->user->name, 'Email' => $reserve->user->email, 'Empresa' => $reserve->user->company, 'Telefone' => $reserve->user->phone, 'Rua' => $reserve->user->address->street, 'Número' => $reserve->user->address->number, 'Bairro' => $reserve->user->address->neighborhood, 'Cidade' => $reserve->user->address->city, 'Estado' => $reserve->user->address->state, 'CEP' => $reserve->user->address->zipcode] as $label => $value)
-                        <div class="mb-4">
-                            <dt class="text-gray-500 md:text-lg dark:text-gray-400">{{ $label }}</dt>
-                            <dd class="text-lg font-semibold">{{ $value }}</dd>
-                        </div>
-                    @endforeach
+            @if ($reserve->user)
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Responsável</h3>
+                    <div class="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg shadow">
+                        @foreach(['Nome' => $reserve->user->name, 'Email' => $reserve->user->email, 'Empresa' => $reserve->user->company, 'Telefone' => $reserve->user->phone, 'Rua' => $reserve->user->address->street, 'Número' => $reserve->user->address->number, 'Bairro' => $reserve->user->address->neighborhood, 'Cidade' => $reserve->user->address->city, 'Estado' => $reserve->user->address->state, 'CEP' => $reserve->user->address->zipcode] as $label => $value)
+                            <div class="mb-4">
+                                <dt class="text-gray-500 md:text-lg dark:text-gray-400">{{ $label }}</dt>
+                                <dd class="text-lg font-semibold">{{ $value }}</dd>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
-            </div>
+            @else
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Responsável</h3>
+                    <div class="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg shadow">
+                        <p>Esta reserva não tem responsável ativo.</p>
+                    </div>
+                </div>
+            @endif
 
             <div>
                 <h3 class="text-lg font-semibold mb-4">Detalhes da Reserva</h3>

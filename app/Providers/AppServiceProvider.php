@@ -6,6 +6,7 @@ use App\Enum\RoleEnum;
 use App\Policies\RolePolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Route;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -49,5 +50,10 @@ class AppServiceProvider extends ServiceProvider
                 return $user->role === $role['value'];
             });
         }
+
+        Route::resourceVerbs([
+            'create' => 'novo',
+            'edit'   => 'editar',
+        ]);
     }
 }

@@ -18,12 +18,13 @@
                 </button>
             </div>
             <!-- Modal body -->
-            <form id="create-rental-item-form" action="{{ route('rental-items.store') }}" method="post"
+            <form id="create-rental-item-form" action="{{ route('rental-items.store') }}" enctype="multipart/form-data"
+                  method="post"
                   class="p-4 space-y-4">
                 @csrf
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
+                    <div class="border-r border-gray-300 dark:border-gray-600 pr-6">
                         <h4 class="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Cadastro do Item de
                             Locação</h4>
                         <div class="grid grid-cols-1 gap-6">
@@ -57,8 +58,7 @@
                                 <div>
                                     <label for="price_per_hour"
                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Valor
-                                        por
-                                        hora</label>
+                                        por hora</label>
                                     <input type="text" name="price_per_hour" id="price_per_hour"
                                            value="{{ old('price_per_hour') }}"
                                            class="mask-money block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
@@ -78,8 +78,7 @@
                                 <div>
                                     <label for="price_per_month"
                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Valor
-                                        por
-                                        mês</label>
+                                        por mês</label>
                                     <input type="text" name="price_per_month" id="price_per_month"
                                            value="{{ old('price_per_month') }}"
                                            class="mask-money block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
@@ -90,7 +89,6 @@
                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status</label>
                                     <select id="status" name="status"
                                             class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                                        {{--                                        <option value="" selected disabled></option>--}}
                                         <option value="1">Disponível</option>
                                         <option value="2">Reservado</option>
                                         <option value="3">Manutenção</option>
@@ -166,6 +164,13 @@
                                     de endereço</label>
                                 <input type="text" name="complement" id="complement" value="{{ old('complement') }}"
                                        class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
+                            </div>
+                            <div class="md:col-span-2">
+                                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                       for="file_input">Imagem</label>
+                                <input
+                                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                    id="file_input" type="file" name="rental_item_image">
                             </div>
                         </div>
                     </div>

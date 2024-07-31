@@ -21,13 +21,14 @@
                 </button>
             </div>
             <!-- Modal body -->
-            <form id="edit-rental-item-form" action="{{ route('rental-items.update', $rentalItem->id) }}" method="post"
+            <form id="edit-rental-item-form" action="{{ route('rental-items.update', $rentalItem->id) }}"
+                  enctype="multipart/form-data" method="post"
                   class="p-4 space-y-4">
                 @csrf
                 @method('patch')
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
+                    <div class="border-r border-gray-300 dark:border-gray-600 pr-6">
                         <h4 class="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Cadastro do Item de
                             Locação</h4>
                         <div class="grid grid-cols-1 gap-6">
@@ -66,8 +67,7 @@
                                 <div>
                                     <label for="update-price_per_hour"
                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Valor
-                                        por
-                                        hora</label>
+                                        por hora</label>
                                     <input type="text" name="price_per_hour" id="update-price_per_hour"
                                            value="{{ $rentalItem->formatted_price_per_hour }}"
                                            class="mask-money block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
@@ -78,8 +78,7 @@
                                 <div>
                                     <label for="update-price_per_day"
                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Valor
-                                        por
-                                        dia</label>
+                                        por dia</label>
                                     <input type="text" name="price_per_day" id="update-price_per_day"
                                            value="{{ $rentalItem->formatted_price_per_day }}"
                                            class="mask-money block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
@@ -92,25 +91,24 @@
                                 <div>
                                     <label for="update-price_per_month"
                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Valor
-                                        por
-                                        mês</label>
+                                        por mês</label>
                                     <input type="text" name="price_per_month" id="update-price_per_month"
                                            value="{{ $rentalItem->formatted_price_per_month }}"
                                            class="mask-money block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                                     />
                                     <div id="price_per_month-error" class="text-red-500 text-sm"></div>
                                 </div>
-
                                 <div>
                                     <label for="update-status"
                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status</label>
                                     <select id="update-status" name="status"
                                             class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                                        <option value="{{ $rentalItem->status }}"
-                                                selected>{{ $rentalItem->status }}</option>
-                                        <option value="available">Disponível</option>
-                                        <option value="reserved">Reservado</option>
-                                        <option value="maintenance">Manutenção</option>
+                                        @foreach ($statusOptions as $option)
+                                            <option value="{{ $option['value'] }}"
+                                                    @if ($rentalItem->status === $option['value']) selected @endif>
+                                                {{ $option['label'] }}
+                                            </option>
+                                        @endforeach
                                     </select>
                                     <div id="status-error" class="text-red-500 text-sm"></div>
                                 </div>
@@ -124,11 +122,10 @@
                             </div>
                         </div>
                     </div>
-                    <div>
+                    <div class="">
                         <h4 class="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Cadastro de Endereço do
                             Item</h4>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-
                             <div>
                                 <label for="update-country"
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">País</label>
@@ -161,7 +158,6 @@
                                        class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
                                 <div id="city-error" class="text-red-500 text-sm"></div>
                             </div>
-
                             <div>
                                 <label for="update-neighborhood"
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Bairro</label>
@@ -170,7 +166,6 @@
                                        class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
                                 <div id="neighborhood-error" class="text-red-500 text-sm"></div>
                             </div>
-
                             <div>
                                 <label for="update-street"
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Rua</label>
@@ -179,7 +174,6 @@
                                        class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
                                 <div id="street-error" class="text-red-500 text-sm"></div>
                             </div>
-
                             <div>
                                 <label for="update-number"
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Número</label>
@@ -191,11 +185,17 @@
                             <div class="md:col-span-2">
                                 <label for="update-complement"
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Complemento
-                                    de
-                                    endereço</label>
+                                    de endereço</label>
                                 <input type="text" name="complement" id="update-complement"
                                        value="{{ $rentalItem->address->complement ?? '' }}"
                                        class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
+                            </div>
+                            <div class="md:col-span-2">
+                                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                       for="update-file_input">Imagem</label>
+                                <input
+                                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                    id="update-file_input" type="file" name="rental_item_image">
                             </div>
                         </div>
                     </div>

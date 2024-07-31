@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
         button.addEventListener('click', async () => {
             const rentalItemId = button.getAttribute('data-id');
 
-            const response = await fetch(`/salas/${rentalItemId}/edit`);
+            const response = await fetch(`/salas/${rentalItemId}/editar`);
             const rentalItemData = await response.json();
 
             editForm.action = `/salas/${rentalItemId}`;

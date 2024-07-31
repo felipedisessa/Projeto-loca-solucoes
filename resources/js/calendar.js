@@ -128,7 +128,7 @@ document.addEventListener('DOMContentLoaded', function () {
             },
 
             eventClick: async function (info) {
-                const response = await axios.get('/reservas/' + info.event.id + '/edit');
+                const response = await axios.get('/reservas/' + info.event.id + '/editar');
                 const reserve = response.data;
 
                 document.getElementById('reserve_id').value = reserve.id;

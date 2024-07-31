@@ -45,7 +45,7 @@
                 @endif
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <!-- User Information -->
-                    <div>
+                    <div class="border-r border-gray-300 dark:border-gray-600 pr-6">
                         <h4 class="text-lg font-medium text-gray-900 dark:text-white mb-2">Cadastro do Usuário</h4>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <!-- User Fields -->

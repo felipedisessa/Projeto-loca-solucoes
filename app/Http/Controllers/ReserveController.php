@@ -34,8 +34,8 @@ class ReserveController extends Controller
 
         $reserves = $reservesQuery->paginate(20);
 
-        $bookUsers = User::query()->whereIn('role', ['tenant', 'visitor'])->get();
-        $bookItems = RentalItem::query()->get();
+        $bookUsers = User::whereIn('role', ['tenant', 'visitor'])->get();
+        $bookItems = RentalItem::query()->where('status', 'available')->get();
 
         $reservesPending = Reserve::query()
             ->where('status', 'pending')

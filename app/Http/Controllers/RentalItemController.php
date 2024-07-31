@@ -17,7 +17,7 @@ class RentalItemController extends Controller
     public function index()
     {
         $this->authorize('admin-or-landlord');
-
+        $statusOptions    = RentalItemEnum::options();
         $rentalItemsQuery = RentalItem::query()->orderBy('created_at', 'desc')->paginate(20);
         $search           = request('search');
 
@@ -29,7 +29,7 @@ class RentalItemController extends Controller
 
         $landLordUsers = User::query()->where('role', 'landlord')->get();
 
-        return view('rental-items.index', compact('rentalItems', 'landLordUsers'));
+        return view('rental-items.index', compact('rentalItems', 'landLordUsers', 'statusOptions', 'search'));
     }
 
     public function create()
@@ -43,6 +43,7 @@ class RentalItemController extends Controller
     public function store(Request $request)
     {
         $this->authorize('admin-or-landlord');
+
         $validatedData = $request->validate([
             'user_id'      => 'required',
             'name'         => 'required',
@@ -55,9 +56,9 @@ class RentalItemController extends Controller
             'state'        => 'required',
             'zipcode'      => 'required|numeric',
             'country'      => 'required',
+            'image'        => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validação do arquivo de imagem
         ]);
 
-        // Formatar os preços removendo vírgulas e o símbolo "R$"
         $pricePerHour  = str_replace(['R$', ','], '', $request->price_per_hour);
         $pricePerDay   = str_replace(['R$', ','], '', $request->price_per_day);
         $pricePerMonth = str_replace(['R$', ','], '', $request->price_per_month);
@@ -85,6 +86,17 @@ class RentalItemController extends Controller
             'country'        => $request->country,
         ]);
 
+        if ($request->hasFile('rental_item_image')) {
+            $image     = $request->file('rental_item_image');
+            $path      = $image->store('uploads');
+            $imageName = $image->getClientOriginalName();
+
+            $rentalItem->uploads()->create([
+                'file_name' => $imageName,
+                'file_path' => $path,
+            ]);
+        }
+
         return redirect()->route('rental-items.index')->with('success', 'Item de locação criado com sucesso!');
     }
 
@@ -109,6 +121,8 @@ class RentalItemController extends Controller
 
         // Obter o label do status em português
         $statusLabel = RentalItemEnum::from($rentalItem->status)->label();
+
+        $rentalItem->load('uploads');
 
         return view(
             'rental-items.show',
@@ -135,27 +149,28 @@ class RentalItemController extends Controller
     public function update(Request $request, RentalItem $rentalItem)
     {
         $this->authorize('admin-or-landlord');
+        //
+        //        $validatedData = $request->validate([
+        //            'user_id'         => 'required',
+        //            'name'            => 'required',
+        //            'description'     => 'required',
+        //            'status'          => 'required',
+        //            'street'          => 'required',
+        //            'number'          => 'required|numeric',
+        //            'neighborhood'    => 'required',
+        //            'city'            => 'required',
+        //            'state'           => 'required',
+        //            'zipcode'         => 'required|numeric',
+        //            'country'         => 'required',
+        //            'price_per_hour'  => 'required',
+        //            'price_per_day'   => 'required',
+        //            'price_per_month' => 'required',
+        //            'image'           => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validação do arquivo de imagem
+        //        ]);
 
-        $validatedData = $request->validate([
-            'user_id'         => 'required',
-            'name'            => 'required',
-            'description'     => 'required',
-            'status'          => 'required',
-            'street'          => 'required',
-            'number'          => 'required|numeric',
-            'neighborhood'    => 'required',
-            'city'            => 'required',
-            'state'           => 'required',
-            'zipcode'         => 'required|numeric',
-            'country'         => 'required',
-            'price_per_hour'  => 'required',
-            'price_per_day'   => 'required',
-            'price_per_month' => 'required',
-        ]);
-
-        $pricePerHour  = preg_replace('/[^0-9]/', '', $request->price_per_hour)  / 100;
-        $pricePerDay   = preg_replace('/[^0-9]/', '', $request->price_per_day)   / 100;
-        $pricePerMonth = preg_replace('/[^0-9]/', '', $request->price_per_month) / 100;
+        $pricePerHour  = (float) str_replace(['R$', ','], '', $request->price_per_hour)  / 100;
+        $pricePerDay   = (float) str_replace(['R$', ','], '', $request->price_per_day)   / 100;
+        $pricePerMonth = (float) str_replace(['R$', ','], '', $request->price_per_month) / 100;
 
         $rentalItem->update([
             'user_id'           => $request->user_id,
@@ -172,6 +187,17 @@ class RentalItemController extends Controller
             'country', 'zipcode', 'state', 'city', 'neighborhood', 'street', 'number', 'complement',
         ]);
         $rentalItem->address()->updateOrCreate(['rental_item_id' => $rentalItem->id], $addressData);
+
+        if ($request->hasFile('rental_item_image')) {
+            $image     = $request->file('rental_item_image');
+            $path      = $image->store('uploads');
+            $imageName = $image->getClientOriginalName();
+
+            $rentalItem->uploads()->create([
+                'file_name' => $imageName,
+                'file_path' => $path,
+            ]);
+        }
 
         return redirect()->route('rental-items.index');
     }

@@ -28,7 +28,7 @@
                 <input type="hidden" id="reserve_id" name="reserve_id" value="">
 
                 <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
-                    <div>
+                    <div class="border-r border-gray-300 dark:border-gray-600 pr-6">
                         <label for="update-user_id"
                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Responsável</label>
                         <select id="update-user_id" name="user_id"

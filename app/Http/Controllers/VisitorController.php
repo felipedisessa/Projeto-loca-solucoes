@@ -16,7 +16,7 @@ class VisitorController extends Controller
 {
     public function showVisitorCalendar()
     {
-        $bookItems = RentalItem::query()->get();
+        $bookItems = RentalItem::query()->where('status', 'available')->get();
 
         return view('visitorCalendar', compact('bookItems'));
     }
@@ -25,7 +25,7 @@ class VisitorController extends Controller
     {
         $query = Reserve::query()->where('status', 'confirmed');
 
-        if ($request->has('rental_item_id') && ! empty($request->rental_item_id)) {
+        if ($request->has('rental_item_id') && !empty($request->rental_item_id)) {
             $query->where('rental_item_id', $request->rental_item_id);
         }
 
@@ -69,7 +69,7 @@ class VisitorController extends Controller
         try {
             $user = User::where('email', $request->input('email'))->first();
 
-            if (! $user) {
+            if (!$user) {
                 $user = User::create([
                     'name'     => $request->input('name'),
                     'email'    => $request->input('email'),

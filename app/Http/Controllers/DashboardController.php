@@ -17,7 +17,7 @@ class DashboardController extends Controller
         $this->authorize('except-visitor');
 
         $bookUsers = User::query()->whereIn('role', ['visitor', 'tenant'])->get();
-        $bookItems = RentalItem::query()->get();
+        $bookItems = RentalItem::query()->where('status', 'available')->get();
         $user      = auth()->user();
 
         $reservesPending = Reserve::query()

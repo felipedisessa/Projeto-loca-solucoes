@@ -26,7 +26,7 @@
                 @method('patch')
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
+                    <div class="border-r border-gray-300 dark:border-gray-600 pr-6">
                         <h4 class="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Edição do Usuário</h4>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
