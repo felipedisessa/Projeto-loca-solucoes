@@ -23,6 +23,7 @@ Route::middleware('auth')->group(function() {
     // Profile Routes
     Route::get('/profile', [ProfileController::class, 'editProfile'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'updateProfile'])->name('profile.update');
+    Route::put('/profile/image', [ProfileController::class, 'updateProfileImage'])->name('profile.updateImage');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/calendario', [DashboardController::class, 'index'])->name('dashboard');
 

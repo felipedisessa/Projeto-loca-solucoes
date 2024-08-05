@@ -7,6 +7,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -18,7 +19,7 @@ class ProfileController extends Controller
     public function edit($id)
     {
         $this->authorize('admin-or-landlord');
-        $user = User::with('address')->findOrFail($id);
+        $user = User::with(['address', 'uploads'])->findOrFail($id);
 
         return response()->json($user);
     }
@@ -30,6 +31,36 @@ class ProfileController extends Controller
         $user->save();
 
         return redirect()->route('profile.edit');
+    }
+
+    public function updateProfileImage(Request $request)
+    {
+        $request->validate([
+            'profile_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+        ]);
+
+        $user = Auth::user();
+
+        if ($request->hasFile('profile_image')) {
+            // Deletar a imagem antiga, se existir
+            if ($user->uploads()->exists()) {
+                $oldImage = $user->uploads()->first();
+                Storage::delete($oldImage->file_path);
+                $oldImage->delete();
+            }
+
+            // Adicionar a nova imagem
+            $image     = $request->file('profile_image');
+            $path      = $image->store('uploads');
+            $imageName = $image->getClientOriginalName();
+
+            $user->uploads()->create([
+                'file_name' => $imageName,
+                'file_path' => $path,
+            ]);
+        }
+
+        return redirect()->route('profile.edit')->with('success', 'Imagem de perfil atualizada com sucesso.');
     }
 
     public function editProfile()
@@ -67,6 +98,23 @@ class ProfileController extends Controller
         $addressData = $request->all();
 
         $user->address()->updateOrCreate(['user_id' => $user->id], $addressData);
+
+        if ($request->hasFile('profile_image')) {
+            if ($user->uploads()->exists()) {
+                $oldImage = $user->uploads()->first();
+                Storage::delete($oldImage->file_path);
+                $oldImage->delete();
+            }
+
+            $image     = $request->file('profile_image');
+            $path      = $image->store('uploads');
+            $imageName = $image->getClientOriginalName();
+
+            $user->uploads()->create([
+                'file_name' => $imageName,
+                'file_path' => $path,
+            ]);
+        }
 
         return redirect()->route('users.index');
     }
@@ -114,7 +162,7 @@ class ProfileController extends Controller
                 $query->where('status', 'confirmed');
             },
         ]);
-
+        $user->load('uploads');
         $user->last_reserve = $user->reserves()->latest('end')->first()->end ?? 'Não disponível';
         $user->total_spent  = $user->reserves()->sum('price')                ?? 0;
 
@@ -140,14 +188,14 @@ class ProfileController extends Controller
         $this->authorize('admin-or-landlord');
 
         $validatedData = $request->validate([
-            'name'      => 'required|string|max:255',
-            'email'     => 'required|email|max:255',
-            'phone'     => 'required|string|max:255',
-            'role'      => 'required|string|max:255',
-            'cpf_cnpj'  => 'required',
-            'password'  => 'required|string',
-            'company'   => 'required|string|max:255',
-            'is_active' => 'nullable|boolean',
+            'name'          => 'required|string|max:255',
+            'email'         => 'required|email|max:255',
+            'phone'         => 'required|string|max:255',
+            'role'          => 'required|string|max:255',
+            'cpf_cnpj'      => 'required',
+            'password'      => 'required|string',
+            'company'       => 'required|string|max:255',
+            'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
         ]);
 
         $ActiveDefault = true;
@@ -162,7 +210,6 @@ class ProfileController extends Controller
                 'user_notes' => $request->user_notes,
                 'password'   => bcrypt($request->password),
                 'company'    => $request->company,
-                'is_active'  => $ActiveDefault,
             ]);
 
             $addressData = $request->only([
@@ -183,6 +230,17 @@ class ProfileController extends Controller
             }
 
             throw $e;
+        }
+
+        if ($request->hasFile('profile_image')) {
+            $image     = $request->file('profile_image');
+            $path      = $image->store('uploads');
+            $imageName = $image->getClientOriginalName();
+
+            $user->uploads()->create([
+                'file_name' => $imageName,
+                'file_path' => $path,
+            ]);
         }
 
         return back()->with('success', 'Usuário criado com sucesso.');

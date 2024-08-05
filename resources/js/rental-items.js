@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
     const editModal = document.getElementById('edit-crud-modal');
     const editForm = document.getElementById('edit-rental-item-form');
+    const uploadModal = document.getElementById('upload-popup-modal');
+    const deleteForm = document.getElementById('formExcluirUpload');
 
     document.querySelectorAll('a[data-modal-toggle="edit-crud-modal"]').forEach(button => {
         button.addEventListener('click', async () => {
@@ -26,6 +28,15 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('update-zipcode').value = rentalItemData.address.zipcode;
             document.getElementById('update-country').value = rentalItemData.address.country;
             document.getElementById('update-neighborhood').value = rentalItemData.address.neighborhood;
+
+            if (rentalItemData.uploads && rentalItemData.uploads.length > 0) {
+                document.getElementById('update-image-preview').src = `/storage/${rentalItemData.uploads[0].file_path}`;
+                document.getElementById('update-placeholder-image').style.display = 'none';
+                document.getElementById('update-image-preview').style.display = 'block';
+            } else {
+                document.getElementById('update-placeholder-image').style.display = 'block';
+                document.getElementById('update-image-preview').style.display = 'none';
+            }
 
             editModal.classList.remove('hidden');
         });

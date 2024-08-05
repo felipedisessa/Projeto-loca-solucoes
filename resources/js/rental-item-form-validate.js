@@ -2,6 +2,8 @@ document.addEventListener('DOMContentLoaded', function () {
     function validateForm(event, form) {
         let isValid = true;
 
+        const allowedImageTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif', 'image/svg+xml'];
+        const maxImageSize = 2048 * 1024; // 2048KB
 
         const ownerInput = form.querySelector('select[name="user_id"]');
         const ownerError = form.querySelector('#owner-error');
@@ -61,7 +63,6 @@ document.addEventListener('DOMContentLoaded', function () {
         } else {
             neighborhoodError.textContent = '';
         }
-
 
         const cityInput = form.querySelector('input[name="city"]');
         const cityError = form.querySelector('#city-error');
@@ -148,6 +149,24 @@ document.addEventListener('DOMContentLoaded', function () {
             isValid = false;
         } else {
             numberError.textContent = '';
+        }
+
+        // Validando o campo de imagem
+        const imageInput = form.querySelector('input[name="rental_item_image"]');
+        const imageError = form.querySelector('#rental_item_image-error');
+        if (imageInput.files.length > 0) {
+            const imageFile = imageInput.files[0];
+            if (!allowedImageTypes.includes(imageFile.type)) {
+                imageError.textContent = 'Apenas arquivos JPEG, PNG, JPG, GIF e SVG são permitidos.';
+                isValid = false;
+            } else if (imageFile.size > maxImageSize) {
+                imageError.textContent = 'O tamanho do arquivo não deve exceder 2048KB.';
+                isValid = false;
+            } else {
+                imageError.textContent = '';
+            }
+        } else {
+            imageError.textContent = '';
         }
 
         if (!isValid) {

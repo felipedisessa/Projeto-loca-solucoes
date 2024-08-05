@@ -46,12 +46,14 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <!-- User Information -->
                     <div class="border-r border-gray-300 dark:border-gray-600 pr-6">
-                        <h4 class="text-lg font-medium text-gray-900 dark:text-white mb-2">Cadastro do Usuário</h4>
+                        <h4 class="text-lg font-medium text-gray-900 dark:text-white mb-2">Cadastro do
+                            Usuário</h4>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <!-- User Fields -->
                             <div>
                                 <label for="noAuth-email"
-                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Digite seu
+                                    E-mail</label>
                                 <input type="email" name="email" id="noAuth-email" value="{{ old('email') }}"
                                        class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
                                 <div id="email-error" class="text-red-500 text-sm mb-2"></div>

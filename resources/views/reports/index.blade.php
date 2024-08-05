@@ -1,3 +1,4 @@
+@php use App\Enum\ReserveEnum;use Carbon\Carbon; @endphp
 <x-app-layout>
     <div id="toast-default"
          class="hidden fixed top-4 right-4 z-50 flex items-center w-full max-w-xs p-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800"
@@ -196,12 +197,12 @@
                                         <td class="px-6 py-4">{{ $reservation->title }}</td>
                                         <td class="px-6 py-4 print:hidden">{{ $reservation->description }}</td>
                                         <td class="px-6 py-4">{{ $reservation->rentalItem->name }}</td>
-                                        <td class="px-6 py-4">{{ \App\Enum\ReserveEnum::from($reservation->status)->label() }}</td>
+                                        <td class="px-6 py-4">{{ ReserveEnum::from($reservation->status)->label() }}</td>
                                         <td class="px-6 py-4">{{ $reservation->user->name }}</td>
                                         <td class="px-6 py-4">
-                                            {{ $reservation->paid_at ? \Carbon\Carbon::parse($reservation->paid_at)->format('d/m/Y') : 'Não pago' }}
+                                            {{ $reservation->paid_at ? Carbon::parse($reservation->paid_at)->format('d/m/Y') : 'Não pago' }}
                                         </td>
-                                        <td class="px-6 py-4">{{ \Carbon\Carbon::parse($reservation->start)->format('d/m/Y') }}
+                                        <td class="px-6 py-4">{{ Carbon::parse($reservation->start)->format('d/m/Y') }}
                                         {{--                                            até {{ \Carbon\Carbon::parse($reservation->end)->format('d/m/Y') }}</td>--}}
                                         <td class="px-6 py-4 print:hidden">{{  $reservation->deleted_at ? $reservation->deleted_at->format('d/m/Y') : '' }}</td>
                                     </tr>

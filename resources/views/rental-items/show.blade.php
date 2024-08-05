@@ -10,61 +10,37 @@
                 {{ __('Item de Locação :: ') . $rentalItem->name }}
             </h2>
             <a href="{{ route('rental-items.index') }}"
-               class="flex items-center p-2.5 text-sm font-medium text-white bg-blue-600 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                <svg class="w-4 h-4 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                     stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
-                </svg>
+               class="p-2.5 text-sm font-medium text-white bg-blue-600 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                 Voltar
             </a>
         </div>
     </x-slot>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 m-4 mx-auto">
-        <!-- Galeria -->
-        <div id="gallery" class="relative w-full md:col-span-1" data-carousel="slide">
-            <div class="relative h-56 overflow-hidden rounded-lg md:h-full">
-                @foreach($rentalItem->uploads as $upload)
-                    <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                        <img src="{{ asset($upload->file_path) }}"
-                             class="absolute block max-w-full h-auto -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-                             alt="{{ $rentalItem->name }}">
-                    </div>
-                @endforeach
+    <div
+        class="m-4 max-w-7xl mx-auto p-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        @if($rentalItem->uploads->isNotEmpty())
+            <!-- Carousel Section -->
+            <div id="gallery" class="relative mb-8" data-carousel="slide">
+                <!-- Carousel wrapper -->
+                <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
+                    <!-- Item 1 -->
+                    @foreach($rentalItem->uploads as $upload)
+                        <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                            <img src="{{ asset($upload->file_path) }}"
+                                 class="absolute block max-w-full h-auto -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                                 alt="{{ $rentalItem->name }}">
+                        </div>
+                    @endforeach
+                </div>
             </div>
-            <button type="button"
-                    class="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
-                    data-carousel-prev>
-                <span
-                    class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                    <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true"
-                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                              d="M5 1 1 5l4 4"/>
-                    </svg>
-                    <span class="sr-only">Previous</span>
-                </span>
-            </button>
-            <button type="button"
-                    class="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
-                    data-carousel-next>
-                <span
-                    class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                    <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true"
-                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                              d="m1 9 4-4-4-4"/>
-                    </svg>
-                    <span class="sr-only">Next</span>
-                </span>
-            </button>
-        </div>
+        @endif
 
-        <!-- Dados do Item e Endereço -->
-        <div class="md:col-span-2">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
-                    <h3 class="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Dados do Item</h3>
+        <!-- Info Section -->
+        <dl class="grid grid-cols-1 md:grid-cols-3 gap-6 text-gray-900 dark:text-white">
+            <!-- Dados do Item -->
+            <div>
+                <h3 class="text-lg font-semibold mb-4">Dados do Item</h3>
+                <div class="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg shadow">
                     @foreach([
                         'Nome' => $rentalItem->name,
                         'Proprietário' => $rentalItem->user->name,
@@ -77,13 +53,16 @@
                     ] as $label => $value)
                         <div class="mb-4">
                             <dt class="text-gray-500 md:text-lg dark:text-gray-400">{{ $label }}</dt>
-                            <dd class="text-lg font-semibold text-gray-900 dark:text-white">{{ $value }}</dd>
+                            <dd class="text-lg font-semibold">{{ $value }}</dd>
                         </div>
                     @endforeach
                 </div>
+            </div>
 
-                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
-                    <h3 class="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Endereço</h3>
+            <!-- Endereço -->
+            <div>
+                <h3 class="text-lg font-semibold mb-4">Endereço</h3>
+                <div class="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg shadow">
                     @foreach([
                         'Rua' => $rentalItem->address->street ?? 'Não informado',
                         'Número' => $rentalItem->address->number ?? 'Não informado',
@@ -96,18 +75,16 @@
                     ] as $label => $value)
                         <div class="mb-4">
                             <dt class="text-gray-500 md:text-lg dark:text-gray-400">{{ $label }}</dt>
-                            <dd class="text-lg font-semibold text-gray-900 dark:text-white">{{ $value }}</dd>
+                            <dd class="text-lg font-semibold">{{ $value }}</dd>
                         </div>
                     @endforeach
                 </div>
             </div>
-        </div>
 
-        <!-- Estatísticas -->
-        <div class="md:col-span-3">
-            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
-                <h3 class="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Estatísticas</h3>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Estatísticas -->
+            <div>
+                <h3 class="text-lg font-semibold mb-4">Estatísticas</h3>
+                <div class="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg shadow">
                     <div class="flex items-center space-x-4 mb-4">
                         <div class="flex-shrink-0">
                             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
@@ -122,7 +99,7 @@
                             <dt class="text-lg font-semibold text-gray-500 md:text-lg dark:text-gray-400">Média de
                                 Reservas por Mês
                             </dt>
-                            <dd class="text-lg font-semibold text-gray-900 dark:text-white">{{ number_format($averageReservesPerMonth, 2, ',', '.') }}</dd>
+                            <dd class="text-lg font-semibold">{{ number_format($averageReservesPerMonth, 2, ',', '.') }}</dd>
                         </div>
                     </div>
                     <div class="flex items-center space-x-4 mb-4">
@@ -139,7 +116,7 @@
                             <dt class="text-lg font-semibold text-gray-500 md:text-lg dark:text-gray-400">Total de
                                 Receita Gerada
                             </dt>
-                            <dd class="text-lg font-semibold text-gray-900 dark:text-white">
+                            <dd class="text-lg font-semibold">
                                 R$ {{ number_format($totalRevenue, 2, ',', '.') }}</dd>
                         </div>
                     </div>
@@ -156,11 +133,11 @@
                             <dt class="text-lg font-semibold text-gray-500 md:text-lg dark:text-gray-400">Total de
                                 Reservas
                             </dt>
-                            <dd class="text-lg font-semibold text-gray-900 dark:text-white">{{ $totalReserves }}</dd>
+                            <dd class="text-lg font-semibold">{{ $totalReserves }}</dd>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </dl>
     </div>
 </x-app-layout>

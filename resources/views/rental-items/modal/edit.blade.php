@@ -193,9 +193,28 @@
                             <div class="md:col-span-2">
                                 <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                                        for="update-file_input">Imagem</label>
+                                <figure
+                                    class="m-2 relative w-full max-w-[8rem] h-[5rem] transition-all duration-300 cursor-pointer ">
+                                    <img id="update-image-preview"
+                                         class="hidden rounded-lg h-[5rem] w-full max-w-[8rem]" src=""
+                                         alt="image description">
+                                    <div id="update-placeholder-image" role="status"
+                                         class="w-32 max-w-[8rem] max-h-full h-[5rem] space-y-8 animate-pulse md:space-y-0 md:space-x-8 rtl:space-x-reverse md:flex md:items-center">
+                                        <div
+                                            class="flex items-center justify-center max-w-[8rem] w-full max-h-full h-[5rem] bg-slate-300 rounded dark:bg-slate-800">
+                                            <svg class="w-10 h-10 text-slate-200 dark:text-slate-600" aria-hidden="true"
+                                                 xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                                 viewBox="0 0 20 18">
+                                                <path
+                                                    d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z"/>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </figure>
                                 <input
                                     class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                                     id="update-file_input" type="file" name="rental_item_image">
+                                <div id="rental_item_image-error" class="text-red-600"></div>
                             </div>
                         </div>
                     </div>

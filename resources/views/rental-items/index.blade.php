@@ -79,7 +79,20 @@
                         </th>
                         <td class="px-6 py-4">{{ $rentalItem->user?->name ?? 'N/A' }}</td>
                         <td class="px-6 py-4">{{ $rentalItem->formatted_price_per_hour }}</td>
-                        <td class="px-6 py-4">{{ RentalItemEnum::from($rentalItem->status)->label() }}</td>
+                        {{--                        <td class="px-6 py-4">{{ RentalItemEnum::from($rentalItem->status)->label() }}</td>--}}
+                        <td class="px-6 py-4">
+    <span class="px-2.5 py-0.5 rounded
+        {{
+            match (RentalItemEnum::from($rentalItem->status)) {
+                RentalItemEnum::available => 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300',
+                RentalItemEnum::reserved => 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300',
+                RentalItemEnum::maintenance => 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300',
+            }
+        }}">
+        {{ RentalItemEnum::from($rentalItem->status)->label() }}
+    </span>
+                        </td>
+
                         <td class="flex items-center px-6 py-4 space-x-2">
                             <a href="{{route('rental-items.show', $rentalItem->id ) }}" class="cursor-pointer">
                                 <x-icons.eye/>

@@ -1,3 +1,4 @@
+@php use Carbon\Carbon; @endphp
 <x-app-layout>
     <x-slot name="header">
         <div class="flex items-center justify-between">
@@ -15,14 +16,19 @@
             </a>
         </div>
     </x-slot>
-
     <div
         class="m-4 max-w-4xl mx-auto p-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <dl class="grid grid-cols-1 md:grid-cols-3 gap-6 text-gray-900 dark:text-white">
-
             <div>
                 <h3 class="text-lg font-semibold mb-4">Dados Pessoais</h3>
                 <div class="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg shadow">
+                    @if ($user->uploads->isNotEmpty())
+                        <div class="flex justify-center mb-4">
+                            <img src="{{ asset($user->uploads->first()->file_path) }}"
+                                 class="w-32 h-32 rounded-full object-cover"
+                                 alt="{{ $user->name }}">
+                        </div>
+                    @endif
                     @foreach([
                         'Nome' => $user->name,
                         'E-mail' => $user->email,
@@ -97,7 +103,13 @@
                             <dt class="text-lg font-semibold text-gray-500 md:text-lg dark:text-gray-400">Última
                                 Reserva
                             </dt>
-                            <dd class="text-lg font-semibold">{{ $user->last_reserve }}</dd>
+                            <dd class="text-lg font-semibold">
+                                @if($user->last_reserve && strtotime($user->last_reserve))
+                                    {{ Carbon::parse($user->last_reserve)->format('d/m/Y') }}
+                                @else
+                                    Não disponível
+                                @endif
+                            </dd>
                         </div>
                     </div>
                     <div class="flex items-center space-x-4 mb-4">

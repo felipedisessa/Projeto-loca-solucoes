@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 document.getElementById('update-phone').value = userData.phone;
                 document.getElementById('update-role').value = userData.role;
                 document.getElementById('update-cpf_cnpj').value = userData.cpf_cnpj;
-                document.getElementById('update-is_active').checked = userData.is_active;
+                // document.getElementById('update-is_active').checked = userData.is_active;
                 document.getElementById('update-street').value = userData.address.street;
                 document.getElementById('update-number').value = userData.address.number;
                 document.getElementById('update-neighborhood').value = userData.address.neighborhood;
@@ -43,6 +43,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 document.getElementById('update-country').value = userData.address.country;
                 document.getElementById('update-complement').value = userData.address.complement;
                 document.getElementById('update-user_notes').value = userData.user_notes;
+
+                if (userData.uploads && userData.uploads.length > 0) {
+                    document.getElementById('update-image-preview').src = `/storage/${userData.uploads[0].file_path}`;
+                    document.getElementById('update-placeholder-image').style.display = 'none';
+                    document.getElementById('update-image-preview').style.display = 'block';
+                } else {
+                    document.getElementById('update-placeholder-image').style.display = 'block';
+                    document.getElementById('update-image-preview').style.display = 'none';
+                }
+
 
                 // Show the modal
                 editModal.classList.remove('hidden');

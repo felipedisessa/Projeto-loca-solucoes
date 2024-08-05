@@ -48,7 +48,14 @@ class DashboardController extends Controller
 
         return view(
             'dashboard',
-            compact('bookUsers', 'bookItems', 'user', 'reservesPending', 'reservesToday', 'reservesNextWeek')
+            compact(
+                'bookUsers',
+                'bookItems',
+                'user',
+                'reservesPending',
+                'reservesToday',
+                'reservesNextWeek',
+            )
         );
     }
 }

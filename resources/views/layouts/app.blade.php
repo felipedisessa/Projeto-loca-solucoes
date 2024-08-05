@@ -7,21 +7,40 @@
 
     <title>{{ ('Digisonic') }}</title>
     <link rel="icon" href="{{ asset('images/icon.png') }}" type="image/png">
-    {{--    <title>{{ config('app.name', 'Laravel') }}</title>--}}
-
+    {{-- <title>{{ config('app.name', 'Laravel') }}</title>--}}
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet"/>
 
     <!-- Scripts -->
-
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        .min-h-dvh {
+            min-height: 100vh;
+        }
+
+        .full-height {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        main {
+            flex: 1;
+        }
+    </style>
 </head>
 <body class="font-sans antialiased">
-<div class="min-h-dvh h-full bg-gray-100 dark:bg-gray-900">
+<div class="full-height bg-gray-100 dark:bg-gray-900">
     @include('layouts.navigation')
-
 
     <!-- Page Heading -->
     @isset($header)
@@ -33,7 +52,6 @@
     @endisset
 
     <!-- Page Content -->
-
     <main class="min-h-dvh">
         {{ $slot }}
     </main>
