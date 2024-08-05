@@ -211,6 +211,15 @@
                                         </div>
                                     </div>
                                 </figure>
+                                <form id="delete-image-form" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button id="delete-image-button" type="submit" data-id="{{$rentalItem->id}}"
+                                            class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
+                                        Deletar foto
+                                    </button>
+                                </form>
+
                                 <input
                                     class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                                     id="update-file_input" type="file" name="rental_item_image">

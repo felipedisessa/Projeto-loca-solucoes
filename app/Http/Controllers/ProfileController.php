@@ -245,4 +245,17 @@ class ProfileController extends Controller
 
         return back()->with('success', 'Usuário criado com sucesso.');
     }
+
+    public function deleteProfileImage()
+    {
+        $user = Auth::user();
+
+        if ($user->uploads()->exists()) {
+            $oldImage = $user->uploads()->first();
+            Storage::delete($oldImage->file_path);
+            $oldImage->delete();
+        }
+
+        return redirect()->route('profile.edit')->with('success', 'Imagem de perfil excluída com sucesso.');
+    }
 }

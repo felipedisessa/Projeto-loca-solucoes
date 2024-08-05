@@ -26,6 +26,10 @@ Route::middleware('auth')->group(function() {
     Route::put('/profile/image', [ProfileController::class, 'updateProfileImage'])->name('profile.updateImage');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/calendario', [DashboardController::class, 'index'])->name('dashboard');
+    Route::delete(
+        '/profile/delete-image',
+        [ProfileController::class, 'deleteProfileImage']
+    )->name('profile.deleteImage');
 
     // Additional Routes
     Route::match(
@@ -34,6 +38,10 @@ Route::middleware('auth')->group(function() {
         [ReserveController::class, 'getReservesJson']
     )->name('reserves.json');
     Route::resource('relatorios', ReportController::class)->names('reports')->parameter('relatorios', 'report');
+    Route::delete(
+        '/rental-items/{id}/delete-image',
+        [RentalItemController::class, 'destroyImage']
+    )->name('rental-items.deleteImage');
     Route::resource('salas', RentalItemController::class)->names('rental-items')->parameter('salas', 'rentalItem');
     Route::resource('usuarios', ProfileController::class)->names('users')->parameter('usuarios', 'user');
     Route::resource('reservas', ReserveController::class)->names('reserves')->parameter('reservas', 'reserve');

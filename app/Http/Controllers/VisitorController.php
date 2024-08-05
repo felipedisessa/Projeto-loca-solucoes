@@ -116,6 +116,10 @@ class VisitorController extends Controller
     {
         $user = User::query()->where('email', $email)->with('address')->first();
 
+        if ($user && in_array($user->role, ['admin', 'landlord', 'tenant'])) {
+            return response()->json(['error' => 'Este email não pode ser usado'], 403);
+        }
+
         return response()->json($user);
     }
 }

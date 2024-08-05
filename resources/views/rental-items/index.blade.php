@@ -16,7 +16,6 @@
             </h2>
             <div class="w-full max-w-lg md:mx-auto mb-4 md:mb-0">
                 <form id="formSearch" method="GET" class="flex w-full">
-                    @csrf
                     @method('GET')
                     <div class="relative w-full">
                         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">

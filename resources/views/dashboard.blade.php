@@ -67,15 +67,15 @@
                     <div class="w-full md:w-1/3 lg:w-1/4 p-4">
                         <div class="m-4 w-max-md max-auto">
                             <div class="p-6 text-gray-900 dark:text-gray-100 flex justify-center items-center flex-col">
-                                {{--                                @if(auth()->user()->uploads->isNotEmpty())--}}
-                                {{--                                    <img src="{{ asset(auth()->user()->uploads->first()->file_path) }}"--}}
-                                {{--                                         class="w-16 h-16 rounded-full mb-4 object-cover"--}}
-                                {{--                                         alt="{{ auth()->user()->name }}">--}}
-                                {{--                                @else--}}
-                                {{--                                    <img src="{!! asset('images/avatar.jpg') !!}"--}}
-                                {{--                                         class="w-16 h-16 rounded-full mb-4 object-cover"--}}
-                                {{--                                         alt="default avatar">--}}
-                                {{--                                @endif--}}
+                                @if(auth()->user()->uploads->isNotEmpty())
+                                    <img src="{{ asset(auth()->user()->uploads->first()->file_path) }}"
+                                         class="w-16 h-16 rounded-full mb-4 object-cover"
+                                         alt="{{ auth()->user()->name }}">
+                                @else
+                                    <img src="{!! asset('images/avatar.jpg') !!}"
+                                         class="w-16 h-16 rounded-full mb-4 object-cover"
+                                         alt="default avatar">
+                                @endif
                                 <p class="text-2xl font-semibold text-center">{{ __("Olá, ") . auth()->user()->name . "! Bem-vindo de volta! Que bom te ver por aqui." }}</p>
                             </div>
 

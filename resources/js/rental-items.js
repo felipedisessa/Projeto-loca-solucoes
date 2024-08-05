@@ -1,8 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     const editModal = document.getElementById('edit-crud-modal');
     const editForm = document.getElementById('edit-rental-item-form');
-    const uploadModal = document.getElementById('upload-popup-modal');
-    const deleteForm = document.getElementById('formExcluirUpload');
 
     document.querySelectorAll('a[data-modal-toggle="edit-crud-modal"]').forEach(button => {
         button.addEventListener('click', async () => {
@@ -41,6 +39,18 @@ document.addEventListener('DOMContentLoaded', function () {
             editModal.classList.remove('hidden');
         });
     });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const formImage = document.getElementById('delete-image-form');
+        formImage.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const button = document.getElementById('delete-image-button');
+            const itemId = button.getAttribute('data-id');
+            formImage.action = `/rental-items/${itemId}/delete-image`;
+            formImage.submit();
+        });
+    });
+
 
     editModal.querySelector('button[data-modal-toggle="edit-crud-modal"]').addEventListener('click', () => {
         editModal.classList.add('hidden');

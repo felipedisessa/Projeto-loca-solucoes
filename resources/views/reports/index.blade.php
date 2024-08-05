@@ -16,33 +16,6 @@
         </h2>
     </x-slot>
 
-    @if(session('error'))
-        <div
-            class="fixed top-4 right-4 z-50 p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800 flex items-center"
-            role="alert">
-            <svg class="w-5 h-5 mr-2 text-red-700 dark:text-red-800" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd"
-                      d="M18 8a1 1 0 01.117 1.993L18 10h-2v3a1 1 0 01-1 1h-3v2a1 1 0 01-.883.993L11 17H9a1 1 0 01-.993-.883L8 16v-2H5a1 1 0 01-.993-.883L4 13V10H2a1 1 0 01-.117-1.993L2 8h16zm-3 1h-2V6a1 1 0 011-1h1a1 1 0 01.993.883L17 6v3zm-9 1V7a1 1 0 00-1-1H6a1 1 0 00-.993.883L5 7v3H3V9a1 1 0 00-.883-.993L2 8h1v2h3v3H4a1 1 0 00-.993.883L3 14v2a1 1 0 00.883.993L4 17h2a1 1 0 00.993-.883L7 16v-2h2a1 1 0 00.993-.883L10 13v-2H9V9z"
-                      clip-rule="evenodd"/>
-            </svg>
-            <span class="font-medium">Erro:</span> {{ session('error') }}
-        </div>
-    @endif
-
-    @if(session('success'))
-        <div
-            class="fixed top-4 right-4 z-50 p-4 mb-4 text-sm text-blue-800 bg-blue-50 rounded-lg dark:bg-gray-800 dark:text-blue-400 flex items-center"
-            role="alert">
-            <svg class="w-5 h-5 mr-2 text-blue-800 dark:text-blue-400" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd"
-                      d="M2 10a8 8 0 1116 0 8 8 0 01-16 0zm8 5a1 1 0 000-2 1 1 0 000 2zm-1-4V7a1 1 0 012 0v4a1 1 0 01-2 0z"
-                      clip-rule="evenodd"/>
-            </svg>
-            <span class="font-medium">Sucesso:</span> Solicitação feita com sucesso, aguarde a confirmação em seu
-            celular.
-        </div>
-    @endif
-
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-4">
         <div class="w-full mx-auto">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">

@@ -209,4 +209,19 @@ class RentalItemController extends Controller
 
         return redirect()->route('rental-items.index');
     }
+
+    public function destroyImage(RentalItem $rentalItem)
+    {
+        $this->authorize('admin-or-landlord');
+
+        $image = $rentalItem->uploads()->first();
+
+        if ($image) {
+            $image->delete();
+
+            return response()->json(['success' => true]);
+        }
+
+        return response()->json(['success' => false]);
+    }
 }

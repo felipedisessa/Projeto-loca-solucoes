@@ -15,7 +15,6 @@
             </h2>
             <div class="w-full max-w-lg md:mx-auto mb-4 md:mb-0">
                 <form id="formSearch" method="GET" class="flex w-full">
-                    @csrf
                     <div class="relative w-full max-w-md">
                         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                             <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
