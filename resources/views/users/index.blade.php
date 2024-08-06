@@ -96,11 +96,12 @@
         {{ $user->deleted_at ? 'Deletado' : 'Ativo' }}
     </span>
                     </td>
-
                     <td class="flex items-center px-6 py-4 space-x-2">
-                        <a href="{{ route('users.show', $user->id) }}" class="cursor-pointer">
-                            <x-icons.eye/>
-                        </a>
+                        @if(!$user->deleted_at)
+                            <a href="{{ route('users.show', $user->id) }}" class="cursor-pointer">
+                                <x-icons.eye/>
+                            </a>
+                        @endif
                         @if ($user->deleted_at)
                             <button type="button" class="cursor-pointer text-gray-500"
                                     data-modal-target="reactivate-popup-modal"
@@ -109,17 +110,20 @@
                                 <x-icons.arrows-rounded/>
                             </button>
                         @else
-                            <button type="button" class="cursor-pointer text-red-500" data-modal-target="popup-modal"
+                            <button type="button" class="cursor-pointer text-red-500"
+                                    data-modal-target="popup-modal"
                                     data-modal-toggle="popup-modal" data-id="{{ $user->id }}"
                                     data-name="{{ $user->name }}">
                                 <x-icons.trash/>
                             </button>
                         @endif
-                        <a id="edit-button" data-modal-target="edit-crud-modal" data-modal-toggle="edit-crud-modal"
-                           data-id="{{ $user->id }}"
-                           class="cursor-pointer font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                            <x-icons.edit/>
-                        </a>
+                        @if(!$user->deleted_at)
+                            <a id="edit-button" data-modal-target="edit-crud-modal" data-modal-toggle="edit-crud-modal"
+                               data-id="{{ $user->id }}"
+                               class="cursor-pointer font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                                <x-icons.edit/>
+                            </a>
+                        @endif
                     </td>
                 </tr>
             @endforeach

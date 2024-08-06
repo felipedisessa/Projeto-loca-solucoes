@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CalendarIcsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
@@ -8,6 +9,8 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ReserveController;
 use App\Http\Controllers\VisitorController;
 use Illuminate\Support\Facades\Route;
+
+Route::get('/download-ics/{id}', [CalendarIcsController::class, 'downloadICS'])->name('download-ics');
 
 Route::get('/', function() {
     return redirect()->route('login');
@@ -39,8 +42,8 @@ Route::middleware('auth')->group(function() {
     )->name('reserves.json');
     Route::resource('relatorios', ReportController::class)->names('reports')->parameter('relatorios', 'report');
     Route::delete(
-        '/rental-items/{id}/delete-image',
-        [RentalItemController::class, 'destroyImage']
+        '/rental-items/{rentalItem}/delete-image',
+        [RentalItemController::class, 'deleteImage']
     )->name('rental-items.deleteImage');
     Route::resource('salas', RentalItemController::class)->names('rental-items')->parameter('salas', 'rentalItem');
     Route::resource('usuarios', ProfileController::class)->names('users')->parameter('usuarios', 'user');

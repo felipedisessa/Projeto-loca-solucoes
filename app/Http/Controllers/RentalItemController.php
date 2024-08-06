@@ -210,18 +210,16 @@ class RentalItemController extends Controller
         return redirect()->route('rental-items.index');
     }
 
-    public function destroyImage(RentalItem $rentalItem)
+    public function deleteImage(RentalItem $rentalItem)
     {
         $this->authorize('admin-or-landlord');
 
-        $image = $rentalItem->uploads()->first();
-
-        if ($image) {
+        if ($rentalItem->uploads()->exists()) {
+            $image = $rentalItem->uploads()->first();
+            Storage::delete($image->file_path);
             $image->delete();
-
-            return response()->json(['success' => true]);
         }
 
-        return response()->json(['success' => false]);
+        return response()->json(['success' => 'Imagem excluída com sucesso!']);
     }
 }

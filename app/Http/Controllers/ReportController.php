@@ -21,13 +21,43 @@ class ReportController extends Controller
         $rental_items = RentalItem::withTrashed()->get();
         $reservations = collect();
 
-        if ($request->has(['start', 'end'])) {
+        if ($request->has('filter')) {
+            $filter = $request->input('filter');
+            $query  = Reserve::with([
+                'user' => function($query) {
+                    $query->withTrashed();
+                },
+                'rentalItem' => function($query) {
+                    $query->withTrashed();
+                },
+            ]);
+
+            if ($filter === 'today') {
+                $startDate = Carbon::today();
+                $endDate   = Carbon::today()->endOfDay();
+            } elseif ($filter === 'week') {
+                $startDate = Carbon::now()->startOfWeek();
+                $endDate   = Carbon::now()->endOfWeek();
+            } elseif ($filter === 'month') {
+                $startDate = Carbon::now()->startOfMonth();
+                $endDate   = Carbon::now()->endOfMonth();
+            }
+
+            $query->whereBetween('start', [$startDate, $endDate]);
+
+            if ($request->has('showDeleted')) {
+                $query->withTrashed();
+            }
+
+            $reservations = $query->get();
+        } elseif ($request->has(['start', 'end'])) {
             $start         = $request->input('start');
             $end           = $request->input('end');
             $status        = $request->input('status');
             $userId        = $request->input('user_id');
             $rentalItemId  = $request->input('rental_item_id');
             $paymentStatus = $request->input('payment_status');
+            $paymentType   = $request->input('payment_type');
 
             $startDate = null;
             $endDate   = null;
@@ -72,6 +102,10 @@ class ReportController extends Controller
                             $query->whereNull('paid_at');
                         }
                     }
+                }
+
+                if ($paymentType) {
+                    $query->where('payment_type', $paymentType);
                 }
 
                 $reservations = $query->get();

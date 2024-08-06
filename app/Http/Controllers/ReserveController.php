@@ -5,11 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\RentalItem;
 use App\Models\Reserve;
 use App\Models\User;
+use App\Notifications\reserveConfirm;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
-
-//use App\Notifications\ReservationConfirmed;
 
 class ReserveController extends Controller
 {
@@ -200,9 +199,9 @@ class ReserveController extends Controller
             'paid_at'        => $paidDate,
         ]);
 
-        //        if ($reserve->status == 'confirmed') {
-        //            $reserve->user->notify(new ReservationConfirmed($reserve));
-        //        }
+        if ($reserve->status == 'confirmed') {
+            $reserve->user->notify(new reserveConfirm($reserve));
+        }
 
         return back();
     }

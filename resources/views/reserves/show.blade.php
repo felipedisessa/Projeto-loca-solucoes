@@ -1,3 +1,4 @@
+@php use App\Enum\ReserveEnum; @endphp
 <x-app-layout>
     <x-slot name="header">
         <div class="flex items-center justify-between">
@@ -52,8 +53,8 @@
                         'Preço' => 'R$ ' . number_format($reserve->price, 2, ',', '.'),
                         'Forma de pagamento' => $reserve->payment_type,
                         'Pagamento efetuado' => $reserve->paid_at ? \Carbon\Carbon::parse($reserve->paid_at)->format('d/m/Y') : 'Não foi efetuado',
-                        'Status' => $reserve->status
-                    ] as $label => $value)
+'Status' => ReserveEnum::from($reserve->status)->label()
+            ] as $label => $value)
                         <div class="mb-4">
                             <dt class="text-gray-500 md:text-lg dark:text-gray-400">{{ $label }}</dt>
                             <dd class="text-lg font-semibold">{{ $value }}</dd>

@@ -18,7 +18,7 @@ class RolePolicy
 
     public function JustTenant(User $user)
     {
-        return in_array($user->role, ['tenant']);
+        return $user->role == 'tenant';
     }
 
     public function tenant(User $user)

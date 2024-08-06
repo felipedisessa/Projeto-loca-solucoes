@@ -1,4 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
+    const allowedImageTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif', 'image/svg+xml'];
+    const maxImageSize = 2048 * 1024; // 2048KB
+
     function validateForm(form) {
         let isValid = true;
 
@@ -131,6 +134,24 @@ document.addEventListener('DOMContentLoaded', function () {
             isValid = false;
         } else if (countryError) {
             countryError.textContent = '';
+        }
+
+        // Validando o campo de imagem
+        const imageInput = form.querySelector('input[name="profile_image"]');
+        const imageError = form.querySelector('#profile_image-error');
+        if (imageInput && imageInput.files.length > 0) {
+            const imageFile = imageInput.files[0];
+            if (!allowedImageTypes.includes(imageFile.type)) {
+                imageError.textContent = 'Apenas arquivos JPEG, PNG, JPG, GIF e SVG são permitidos.';
+                isValid = false;
+            } else if (imageFile.size > maxImageSize) {
+                imageError.textContent = 'O tamanho do arquivo não deve exceder 2048KB.';
+                isValid = false;
+            } else {
+                imageError.textContent = '';
+            }
+        } else if (imageError) {
+            imageError.textContent = '';
         }
 
         if (!isValid) {

@@ -48,6 +48,7 @@
                             <input
                                 class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                                 id="profile_image" name="profile_image" type="file">
+                            <div id="profile_image-error" class="text-red-600"></div>
                         </div>
 
                         <div class="flex items-center justify-end space-x-2">
@@ -92,3 +93,42 @@
         </div>
     </div>
 </x-app-layout>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const allowedImageTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif', 'image/svg+xml'];
+        const maxImageSize = 2048 * 1024; // 2048KB
+
+        function validateImage(input) {
+            const file = input.files[0];
+            const errorDiv = document.getElementById('profile_image-error');
+
+            if (!allowedImageTypes.includes(file.type)) {
+                errorDiv.textContent = 'Apenas arquivos JPEG, PNG, JPG, GIF e SVG são permitidos.';
+                return false;
+            } else if (file.size > maxImageSize) {
+                errorDiv.textContent = 'O tamanho do arquivo não deve exceder 2048KB.';
+                return false;
+            } else {
+                errorDiv.textContent = '';
+                return true;
+            }
+        }
+
+        const profileImageInput = document.getElementById('profile_image');
+        if (profileImageInput) {
+            profileImageInput.addEventListener('change', function () {
+                validateImage(this);
+            });
+        }
+
+        const form = document.querySelector('form');
+        if (form) {
+            form.addEventListener('submit', function (event) {
+                if (!validateImage(profileImageInput)) {
+                    event.preventDefault();
+                }
+            });
+        }
+    });
+</script>

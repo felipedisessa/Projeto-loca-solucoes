@@ -37,20 +37,26 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             editModal.classList.remove('hidden');
+
+
+            const deleteImageButton = document.getElementById('delete-image-button');
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            deleteImageButton.addEventListener('click', async () => {
+                const deleteResponse = await fetch(`/rental-items/${rentalItemId}/delete-image`, {
+                    method: 'DELETE',
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken,
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                if (deleteResponse.ok) {
+                    document.getElementById('update-placeholder-image').style.display = 'block';
+                    document.getElementById('update-image-preview').style.display = 'none';
+                }
+            });
         });
     });
-
-    document.addEventListener('DOMContentLoaded', function () {
-        const formImage = document.getElementById('delete-image-form');
-        formImage.addEventListener('submit', (event) => {
-            event.preventDefault();
-            const button = document.getElementById('delete-image-button');
-            const itemId = button.getAttribute('data-id');
-            formImage.action = `/rental-items/${itemId}/delete-image`;
-            formImage.submit();
-        });
-    });
-
 
     editModal.querySelector('button[data-modal-toggle="edit-crud-modal"]').addEventListener('click', () => {
         editModal.classList.add('hidden');

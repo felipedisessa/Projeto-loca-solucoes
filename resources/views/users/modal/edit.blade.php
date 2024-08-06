@@ -182,7 +182,7 @@
                             </div>
                             <div class="md:col-span-2">
                                 <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                       for="update-file_input">Imagem</label>
+                                       for="update-file_input">Foto de perfil</label>
                                 <figure
                                     class="m-2 relative w-full max-w-[8rem] h-[5rem] transition-all duration-300 cursor-pointer ">
                                     <img id="update-image-preview"

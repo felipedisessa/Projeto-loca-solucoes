@@ -81,22 +81,24 @@
 
                             <div id="gallery" class="relative w-full"
                                  data-carousel="slide">
-                                <!-- Carousel wrapper -->
                                 <div class="relative h-48 overflow-hidden rounded-lg md:h-64">
                                     @foreach($bookItems as $bookItem)
-                                        @foreach($bookItem->uploads as $upload)
-                                            <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                                                <img src="{{ asset($upload->file_path) }}"
-                                                     class="absolute block max-w-full h-auto -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-                                                     alt="{{ $upload->file_name }}">
-                                                <div
-                                                    class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white text-center py-2">
-                                                    {{ $bookItem->name }}
+                                        @if($bookItem->uploads->isNotEmpty())
+                                            @foreach($bookItem->uploads as $upload)
+                                                <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                                                    <img src="{{ asset($upload->file_path) }}"
+                                                         class="absolute block max-w-full h-auto -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                                                         alt="{{ $upload->file_name }}">
+                                                    <div
+                                                        class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white text-center py-2">
+                                                        {{ $bookItem->name }}
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        @endforeach
+                                            @endforeach
+                                        @endif
                                     @endforeach
                                 </div>
+
                                 <!-- Slider controls -->
                                 <button type="button"
                                         class="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"

@@ -186,7 +186,7 @@
                         <select id="update-payment_type" name="payment_type"
                                 class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                             <option
-                                value="Não se aplica" {{ $reserve->payment_type == 'Não se aplica' ? 'selected' : '' }}>
+                                value="Nao se aplica" {{ $reserve->payment_type == 'Nao se aplica' ? 'selected' : '' }}>
                                 Não
                                 se aplica
                             </option>

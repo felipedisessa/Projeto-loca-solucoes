@@ -26,6 +26,11 @@ class DashboardController extends Controller
                 return $query->where('user_id', $user->id);
             })
             ->orderBy('created_at', 'desc')
+            ->with([
+                'user' => function($query) {
+                    $query->withTrashed();
+                }
+            ])
             ->get();
 
         $reservesToday = Reserve::query()
@@ -35,6 +40,11 @@ class DashboardController extends Controller
                 return $query->where('user_id', $user->id);
             })
             ->orderBy('start', 'asc')
+            ->with([
+                'user' => function($query) {
+                    $query->withTrashed();
+                }
+            ])
             ->get();
 
         $reservesNextWeek = Reserve::query()
@@ -44,6 +54,11 @@ class DashboardController extends Controller
                 return $query->where('user_id', $user->id);
             })
             ->orderBy('start', 'asc')
+            ->with([
+                'user' => function($query) {
+                    $query->withTrashed();
+                }
+            ])
             ->get();
 
         return view(
