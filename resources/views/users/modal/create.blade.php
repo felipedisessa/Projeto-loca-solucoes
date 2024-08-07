@@ -55,7 +55,8 @@
                                 <label for="password"
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Senha</label>
                                 <input type="password" name="password" id="password" value="{{ old('password') }}"
-                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
+                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                                       placeholder="Senha"/>
                                 <div id="password-error" class="text-red-600"></div>
                             </div>
                             <div>
