@@ -1,4 +1,7 @@
-@php use Carbon\Carbon; @endphp
+@php
+    use Carbon\Carbon;
+    use App\Enum\RoleEnum;
+@endphp
 <x-app-layout>
     <x-slot name="header">
         <div class="flex items-center justify-between">
@@ -33,7 +36,7 @@
                         'Nome' => $user->name,
                         'E-mail' => $user->email,
                         'Telefone' => $user->phone,
-                        'Permissão' => $user->role,
+                        'Permissão' => RoleEnum::from($user->role)->label(),
                         'Documento' => $user->cpf_cnpj,
                         'Empresa' => $user->company ?? 'Não informado',
                         'Observações' => $user->user_notes ?? 'Não informado',

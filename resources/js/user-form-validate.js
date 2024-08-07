@@ -49,8 +49,8 @@ document.addEventListener('DOMContentLoaded', function () {
         // Validando o campo telefone
         const phoneInput = form.querySelector('input[name="phone"]');
         const phoneError = form.querySelector('#phone-error');
-        if (phoneInput && phoneInput.value.trim() === '') {
-            phoneError.textContent = 'O campo de telefone deve ser preenchido.';
+        if (phoneInput && phoneInput.value.trim().length < 10) {
+            phoneError.textContent = 'O telefone deve ter pelo menos 10 dígitos.';
             isValid = false;
         } else if (phoneError) {
             phoneError.textContent = '';

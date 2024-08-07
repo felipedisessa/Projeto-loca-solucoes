@@ -39,7 +39,7 @@ class reserveConfirm extends Notification
         $startDate = Carbon::parse($this->reserve->start)->format('d/m/Y H:i');
         $endDate   = Carbon::parse($this->reserve->end)->format('d/m/Y H:i');
 
-        return (new MailMessage())
+        $mailMessage = (new MailMessage())
             ->subject('Reserva confirmada')
             ->greeting('Olá!')
             ->line('Sua reserva foi confirmada.')
@@ -47,10 +47,16 @@ class reserveConfirm extends Notification
             ->line('Descrição: ' . $this->reserve->description)
             ->line('Local: ' . $this->reserve->rentalItem->name)
             ->line('Início: ' . $startDate)
-            ->line('Fim: ' . $endDate)
-            ->action('Ver reserva', route('reserves.index'))
-            ->line('Obrigado por usar nosso sistema!')
+            ->line('Fim: ' . $endDate);
+
+        if ($notifiable->role == 'tenant') {
+            $mailMessage->action('Ver reserva', route('reserves.index'));
+        }
+
+        $mailMessage->line('Obrigado por usar nosso sistema!')
             ->salutation('Atenciosamente, Digiplace.');
+
+        return $mailMessage;
     }
 
     /**

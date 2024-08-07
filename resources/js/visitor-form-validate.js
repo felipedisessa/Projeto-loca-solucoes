@@ -196,10 +196,13 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    const checkUser = async (email) => {
-        const {data} = await axios.get(`/check-user-exists/${email}`);
 
-        if (data) {
+    const checkUser = async (email) => {
+        try {
+            const {data} = await axios.get(`/check-user-exists/${email}`);
+            const emailError = document.querySelector('#email-error');
+            emailError.textContent = '';
+
             document.querySelector('input[name="name"]').value = data.name || '';
             document.querySelector('input[name="phone"]').value = data.phone || '';
             document.querySelector('input[name="cpf_cnpj"]').value = data.cpf_cnpj || '';
@@ -216,6 +219,16 @@ document.addEventListener('DOMContentLoaded', function () {
             document.querySelectorAll('.hidden-fields').forEach(function (field) {
                 field.classList.remove('hidden-fields');
             });
+        } catch (error) {
+            if (error.response && error.response.status === 403) {
+                const emailError = document.querySelector('#email-error');
+                if (emailError) {
+                    emailError.textContent = 'O email informado não está disponível.';
+                }
+                // document.querySelectorAll('.hidden-fields').forEach(function (field) {
+                //     field.classList.add('hidden-fields');
+                // });
+            }
         }
     }
 

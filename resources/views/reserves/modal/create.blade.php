@@ -2,7 +2,7 @@
 <div id="create-crud-modal" tabindex="-1" aria-hidden="true"
      class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full
       md:inset-0 h-full bg-gray-800 bg-opacity-75" data-modal-target="create-crud-modal">
-    <div class="relative w-full max-w-2xl p-4 h-full md:h-auto">
+    <div class="relative w-full max-w-2xl p-4 h-full md:h-auto max-h-[100vh]">
         <!-- Modal content -->
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
             <!-- Modal header -->
@@ -47,7 +47,8 @@
                         <label for="title"
                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Título</label>
                         <input type="text" name="title" id="title" value="{{ old('title') }}"
-                               class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
+                               class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                               placeholder="Título do evento"/>
                         <div id="title-error" class="text-red-500 text-sm"></div>
                     </div>
 
@@ -56,7 +57,8 @@
                             a organização
                             da sala</label>
                         <textarea name="description" id="description"
-                                  class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">{{ old('description') }}</textarea>
+                                  class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                                  placeholder="Ex: sem cadeiras">{{ old('description') }}</textarea>
                         <div id="description-error" class="text-red-500 text-sm"></div>
                     </div>
 

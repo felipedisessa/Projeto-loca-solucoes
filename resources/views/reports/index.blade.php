@@ -208,9 +208,9 @@
                                     <th scope="col" class="px-6 py-3">Titulo</th>
                                     <th scope="col" class="px-6 py-3 print:hidden">Descricão</th>
                                     <th scope="col" class="px-6 py-3">Sala</th>
-                                    <th scope="col" class="px-6 py-3">Status</th>
+                                    <th scope="col" class="px-6 py-3 ">Status</th>
                                     <th scope="col" class="px-6 py-3">Responsável</th>
-                                    <th scope="col" class="px-6 py-3">Pagamento</th>
+                                    <th scope="col" class="px-6 py-3 print:hidden">Pagamento</th>
                                     <th scope="col" class="px-6 py-3">Forma de pagamento</th>
                                     <th scope="col" class="px-6 py-3">Data</th>
                                     <th scope="col" class="px-6 py-3 print:hidden">Data de exclusão</th>
@@ -224,7 +224,7 @@
                                         <td class="px-6 py-4">{{ $reservation->rentalItem->name }}</td>
                                         <td class="px-6 py-4">{{ ReserveEnum::from($reservation->status)->label() }}</td>
                                         <td class="px-6 py-4">{{ $reservation->user->name }}</td>
-                                        <td class="px-6 py-4">
+                                        <td class="px-6 py-4 print:hidden">
                                             {{ $reservation->paid_at ? Carbon::parse($reservation->paid_at)->format('d/m/Y') : 'Não pago' }}
                                         </td>
                                         <td class="px-6 py-4">{{ $reservation->payment_type }}</td>

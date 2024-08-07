@@ -55,7 +55,8 @@
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Digite seu
                                     E-mail</label>
                                 <input type="email" name="email" id="noAuth-email" value="{{ old('email') }}"
-                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
+                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                                       placeholder="email@exemplo.com"/>
                                 <div id="email-error" class="text-red-500 text-sm mb-2"></div>
                                 <div class="flex-items-center">
                                     <button type="button" id="noAuth-search-button"
@@ -70,7 +71,7 @@
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nome</label>
                                 <input type="text" name="name" id="noAuth-name" value="{{ old('name') }}"
                                        class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                                />
+                                       placeholder="Nome completo"/>
                                 <div id="name-error" class="text-red-500 text-sm"></div>
                             </div>
 
@@ -98,7 +99,7 @@
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">CPF/CNPJ</label>
                                 <input type="text" name="cpf_cnpj" id="noAuth-cpf_cnpj" value="{{ old('cpf_cnpj') }}"
                                        class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                                />
+                                       placeholder="000.000.000-00 / 00.000.000/0000-00"/>
                                 <div id="cpf_cnpj-error" class="text-red-500 text-sm"></div>
                             </div>
 
@@ -107,7 +108,7 @@
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Empresa</label>
                                 <input type="text" name="company" id="noAuth-company" value="{{ old('company') }}"
                                        class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                                />
+                                       placeholder="Nome da empresa"/>
                                 <div id="company-error" class="text-red-500 text-sm"></div>
                             </div>
                         </div>
@@ -123,7 +124,7 @@
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">CEP</label>
                                 <input type="text" name="zipcode" id="noAuth-zipcode" value="{{ old('zipcode') }}"
                                        class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                                />
+                                       placeholder="00000-000"/>
                                 <div id="zipcode-error" class="text-red-500 text-sm"></div>
                             </div>
                             <div>
@@ -131,7 +132,7 @@
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">País</label>
                                 <input type="text" name="country" id="noAuth-country" value="{{ old('country') }}"
                                        class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                                />
+                                       placeholder="Brasil"/>
                                 <div id="country-error" class="text-red-500 text-sm"></div>
                             </div>
                             <div>
@@ -139,7 +140,7 @@
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Estado</label>
                                 <input type="text" name="state" id="noAuth-state" value="{{ old('state') }}"
                                        class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                                />
+                                       placeholder="SP"/>
                                 <div id="state-error" class="text-red-500 text-sm"></div>
                             </div>
                             <div>
@@ -147,7 +148,7 @@
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cidade</label>
                                 <input type="text" name="city" id="noAuth-city" value="{{ old('city') }}"
                                        class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                                />
+                                       placeholder="Nome da cidade"/>
                                 <div id="city-error" class="text-red-500 text-sm"></div>
                             </div>
                             <div>
@@ -156,7 +157,7 @@
                                 <input type="text" name="neighborhood" id="noAuth-neighborhood"
                                        value="{{ old('neighborhood') }}"
                                        class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                                />
+                                       placeholder="Nome do bairro"/>
                                 <div id="neighborhood-error" class="text-red-500 text-sm"></div>
                             </div>
                             <div>
@@ -164,7 +165,7 @@
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Rua</label>
                                 <input type="text" name="street" id="noAuth-street" value="{{ old('street') }}"
                                        class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                                />
+                                       placeholder="Nome da rua"/>
                                 <div id="street-error" class="text-red-500 text-sm"></div>
                             </div>
                             <div>
@@ -172,7 +173,7 @@
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Número</label>
                                 <input type="text" name="number" id="noAuth-number" value="{{ old('number') }}"
                                        class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                                />
+                                       placeholder="Número do local"/>
                                 <div id="number-error" class="text-red-500 text-sm"></div>
                             </div>
                             <div>
@@ -181,7 +182,7 @@
                                 <input type="text" name="complement" id="noAuth-complement"
                                        value="{{ old('complement') }}"
                                        class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                                />
+                                       placeholder="Apto, Bloco, etc."/>
                                 <div id="complement-error" class="text-red-500 text-sm"></div>
                             </div>
 
@@ -196,7 +197,8 @@
                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Título da
                         Reserva</label>
                     <input type="text" name="title" id="noAuth-title" value="{{ old('title') }}"
-                           class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
+                           class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                           placeholder="Título do evento"/>
                     <div id="title-error" class="text-red-500 text-sm"></div>
                 </div>
 
@@ -206,7 +208,8 @@
                         organização
                         da sala</label>
                     <textarea name="description" id="noAuth-description"
-                              class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">{{ old('description') }}</textarea>
+                              class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                              placeholder="Descreva a organização da sala">{{ old('description') }}</textarea>
                     <div id="description-error" class="text-red-500 text-sm"></div>
                 </div>
 

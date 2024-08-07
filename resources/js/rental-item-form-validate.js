@@ -189,4 +189,19 @@ document.addEventListener('DOMContentLoaded', function () {
             validateForm(event, editRentalItemForm);
         });
     }
+
+    // Validando e formatando os campos número e CEP para aceitar apenas números
+    const numberInputs = document.querySelectorAll('input[name="number"]');
+    numberInputs.forEach(input => {
+        input.addEventListener('input', function (e) {
+            this.value = this.value.replace(/[^\d]/g, '');
+        });
+    });
+
+    const zipcodeInputs = document.querySelectorAll('input[name="zipcode"]');
+    zipcodeInputs.forEach(input => {
+        input.addEventListener('input', function (e) {
+            this.value = this.value.replace(/[^\d]/g, '');
+        });
+    });
 });
