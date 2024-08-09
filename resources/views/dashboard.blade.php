@@ -19,14 +19,20 @@
                     <label for="room-filter" class="sr-only">Filtrar por Sala</label>
                     <select id="room-filter" name="room-filter"
                             class="p-2.5 text-sm font-medium text-white bg-blue-600 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        <option value="">Todas as Salas</option>
+                        <option value="" selected>Todas as Salas</option>
                         @foreach($bookItems as $bookItem)
-                            <option value="{{ $bookItem->id }}" data-description="{{ $bookItem->description }}"
-                                    data-carousel-id="carousel-{{ $bookItem->id }}">
+                            @php
+                                $firstUpload = $bookItem->uploads->first();
+                                $imgPath = $firstUpload ? asset($firstUpload->file_path) : null;
+                            @endphp
+                            <option value="{{ $bookItem->id }}"
+                                    data-description="{{ $bookItem->description }}"
+                                    data-img-path="{{ $imgPath }}">
                                 {{ $bookItem->name }}
                             </option>
                         @endforeach
                     </select>
+
                 </form>
             </div>
         </div>
@@ -81,57 +87,20 @@
                                 <p class="text-2xl font-semibold text-center">{{ __("Olá, ") . auth()->user()->name . "! Bem-vindo de volta! Que bom te ver por aqui." }}</p>
                             </div>
 
-                            <div id="gallery" class="relative w-full"
-                                 data-carousel="static">
-                                <div class="relative h-48 overflow-hidden rounded-lg md:h-64">
-                                    @foreach($rentalItems as $rentalItem)
-                                        @if($rentalItem->uploads->isNotEmpty())
-                                            @foreach($rentalItem->uploads as $upload)
-                                                <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                                                    <img src="{{ asset($upload->file_path) }}"
-                                                         class="absolute block max-w-full h-auto -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-                                                         alt="{{ $upload->file_name }}">
-                                                    <div
-                                                        class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white text-center py-2">
-                                                        {{ $rentalItem->name }}
-                                                    </div>
-                                                </div>
-                                            @endforeach
-                                        @endif
-                                    @endforeach
+                            <!-- Imagem da sala selecionada -->
+                            <div id="room-image-container" class="relative h-48 overflow-hidden rounded-lg md:h-64"
+                                 style="display: none;">
+                                <img id="room-image"
+                                     class="absolute block max-w-full h-auto -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                                     src="" alt="Imagem da Sala">
+                                <div id="room-name-overlay"
+                                     class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white text-center py-2">
+                                    Nome da Sala
                                 </div>
-
-                                <!-- Slider controls -->
-                                <button type="button"
-                                        class="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
-                                        data-carousel-prev>
-        <span
-            class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-            <svg class="w-4 h-4 text-white dark:text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                 fill="none" viewBox="0 0 6 10">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M5 1 1 5l4 4"/>
-            </svg>
-            <span class="sr-only">Previous</span>
-        </span>
-                                </button>
-                                <button type="button"
-                                        class="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
-                                        data-carousel-next>
-        <span
-            class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-            <svg class="w-4 h-4 text-white dark:text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                 fill="none" viewBox="0 0 6 10">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="m1 9 4-4-4-4"/>
-            </svg>
-            <span class="sr-only">Next</span>
-        </span></button>
                             </div>
-                            {{--                            fim galeria--}}
 
                             <div
-                                class="w-full p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+                                class="w-full p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700 mt-4">
                                 <div class="flex-col items-center justify-between mb-4">
                                     <div class="flex items-center">
                                         <svg class="w-6 h-6 text-gray-800 dark:text-white mr-2" aria-hidden="true"
@@ -361,12 +330,27 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const roomFilter = document.getElementById('room-filter');
+        const roomImageContainer = document.getElementById('room-image-container');
+        const roomImage = document.getElementById('room-image');
+        const roomNameOverlay = document.getElementById('room-name-overlay');
         const roomDescription = document.getElementById('room-description');
 
         roomFilter.addEventListener('change', function () {
             const selectedOption = roomFilter.options[roomFilter.selectedIndex];
             const description = selectedOption.getAttribute('data-description');
+            const imgPath = selectedOption.getAttribute('data-img-path');
+            const roomName = selectedOption.textContent.trim();
+
             roomDescription.textContent = description || 'Selecione uma sala para ver a descrição.';
+
+            if (imgPath) {
+                roomImage.src = imgPath;
+                roomImageContainer.style.display = 'block';
+                roomNameOverlay.textContent = roomName;
+            } else {
+                roomImageContainer.style.display = 'none';
+            }
         });
     });
+
 </script>

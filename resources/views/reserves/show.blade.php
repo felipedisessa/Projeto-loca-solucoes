@@ -1,4 +1,8 @@
-@php use App\Enum\ReserveEnum; use App\Enum\RoleEnum; @endphp
+@php
+    use App\Enum\ReserveEnum;
+    use App\Enum\RoleEnum;
+@endphp
+
 <x-app-layout>
     <x-slot name="header">
         <div class="flex items-center justify-between">
@@ -17,52 +21,69 @@
         </div>
     </x-slot>
 
-    <div
-        class="m-4 max-w-4xl mx-auto p-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-        <dl class="grid grid-cols-1 md:grid-cols-2 gap-6 text-gray-900 dark:text-white">
-            @if ($reserve->user)
-                <div>
-                    <h3 class="text-lg font-semibold mb-4">Responsável</h3>
-                    <div class="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg shadow">
-                        @foreach(['Nome' => $reserve->user->name, 'Email' => $reserve->user->email, 'Empresa' =>
- $reserve->user->company, 'Permissão' => RoleEnum::from($reserve->user->role)->label(), 'Telefone' => $reserve->user->phone, 'Rua' => $reserve->user->address->street, 'Número' => $reserve->user->address->number, 'Bairro' => $reserve->user->address->neighborhood, 'Cidade' => $reserve->user->address->city, 'Estado' => $reserve->user->address->state, 'CEP' => $reserve->user->address->zipcode] as $label => $value)
-                            <div class="mb-4">
-                                <dt class="text-gray-500 md:text-lg dark:text-gray-400">{{ $label }}</dt>
-                                <dd class="text-lg font-semibold">{{ $value }}</dd>
+    <div class="w-full max-auto">
+        <div class="flex flex-wrap md:flex-nowrap">
+            <div class="w-full mx-auto p-4">
+                <div
+                    class="p-4 sm:p-6 lg:p-8 bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg flex flex-col md:flex-row">
+                    <dl class="grid grid-cols-1 md:grid-cols-2 gap-6 text-gray-900 dark:text-white">
+                        @if ($reserve->user)
+                            <div>
+                                <h3 class="text-lg font-semibold mb-4">Responsável</h3>
+                                <div class="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg shadow">
+                                    @foreach([
+                                        'Nome' => $reserve->user->name,
+                                        'Email' => $reserve->user->email,
+                                        'Empresa' => $reserve->user->company,
+                                        'Permissão' => RoleEnum::from($reserve->user->role)->label(),
+                                        'Telefone' => $reserve->user->phone,
+                                        'Rua' => $reserve->user->address->street,
+                                        'Número' => $reserve->user->address->number,
+                                        'Bairro' => $reserve->user->address->neighborhood,
+                                        'Cidade' => $reserve->user->address->city,
+                                        'Estado' => $reserve->user->address->state,
+                                        'CEP' => $reserve->user->address->zipcode
+                                    ] as $label => $value)
+                                        <div class="mb-4">
+                                            <dt class="text-gray-500 md:text-lg dark:text-gray-400">{{ $label }}</dt>
+                                            <dd class="text-lg font-semibold">{{ $value }}</dd>
+                                        </div>
+                                    @endforeach
+                                </div>
                             </div>
-                        @endforeach
-                    </div>
-                </div>
-            @else
-                <div>
-                    <h3 class="text-lg font-semibold mb-4">Responsável</h3>
-                    <div class="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg shadow">
-                        <p>Esta reserva não tem responsável ativo.</p>
-                    </div>
-                </div>
-            @endif
+                        @else
+                            <div>
+                                <h3 class="text-lg font-semibold mb-4">Responsável</h3>
+                                <div class="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg shadow">
+                                    <p>Esta reserva não tem responsável ativo.</p>
+                                </div>
+                            </div>
+                        @endif
 
-            <div>
-                <h3 class="text-lg font-semibold mb-4">Detalhes da Reserva</h3>
-                <div class="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg shadow">
-                    @foreach([
-                        'Nome' => $reserve->title,
-                        'Organização da sala' => $reserve->description,
-                        'Hora de início' => \Carbon\Carbon::parse($reserve->start)->format('d/m/Y H:i'),
-                        'Hora de fim' => \Carbon\Carbon::parse($reserve->end)->format('d/m/Y H:i'),
-                        'Sala' => $reserve->rentalItem->name,
-                        'Preço' => 'R$ ' . number_format($reserve->price, 2, ',', '.'),
-                        'Forma de pagamento' => $reserve->payment_type,
-                        'Pagamento efetuado' => $reserve->paid_at ? \Carbon\Carbon::parse($reserve->paid_at)->format('d/m/Y') : 'Não foi efetuado',
-'Status' => ReserveEnum::from($reserve->status)->label()
-            ] as $label => $value)
-                        <div class="mb-4">
-                            <dt class="text-gray-500 md:text-lg dark:text-gray-400">{{ $label }}</dt>
-                            <dd class="text-lg font-semibold">{{ $value }}</dd>
+                        <div>
+                            <h3 class="text-lg font-semibold mb-4">Detalhes da Reserva</h3>
+                            <div class="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg shadow">
+                                @foreach([
+                                    'Nome' => $reserve->title,
+                                    'Organização da sala' => $reserve->description,
+                                    'Hora de início' => \Carbon\Carbon::parse($reserve->start)->format('d/m/Y H:i'),
+                                    'Hora de fim' => \Carbon\Carbon::parse($reserve->end)->format('d/m/Y H:i'),
+                                    'Sala' => $reserve->rentalItem->name,
+                                    'Preço' => 'R$ ' . number_format($reserve->price, 2, ',', '.'),
+                                    'Forma de pagamento' => $reserve->payment_type,
+                                    'Pagamento efetuado' => $reserve->paid_at ? \Carbon\Carbon::parse($reserve->paid_at)->format('d/m/Y') : 'Não foi efetuado',
+                                    'Status' => ReserveEnum::from($reserve->status)->label()
+                                ] as $label => $value)
+                                    <div class="mb-4">
+                                        <dt class="text-gray-500 md:text-lg dark:text-gray-400">{{ $label }}</dt>
+                                        <dd class="text-lg font-semibold">{{ $value }}</dd>
+                                    </div>
+                                @endforeach
+                            </div>
                         </div>
-                    @endforeach
+                    </dl>
                 </div>
             </div>
-        </dl>
+        </div>
     </div>
 </x-app-layout>

@@ -1,11 +1,11 @@
 <!-- Main modal -->
 <div id="edit-crud-modal" tabindex="-1" aria-hidden="true"
-     class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full md:inset-0 h-full bg-gray-800 bg-opacity-75">
-    <div class="relative w-full max-w-2xl p-4 h-full md:h-auto max-h-[100vh]">
+     class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative p-4 w-full max-w-7xl max-h-full">
         <!-- Modal content -->
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
             <!-- Modal header -->
-            <div class="flex items-center justify-between p-4 border-b rounded-t dark:border-gray-600">
+            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-slate-600">
                 <h3 class="text-lg font-medium text-gray-900 dark:text-white">Editar Usuário</h3>
                 <button type="button"
                         class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
@@ -100,18 +100,31 @@
                                        class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
                                 <div id="cpf_cnpj-error" class="text-red-600"></div>
                             </div>
-
-                            {{--                            <div>--}}
-                            {{--                                <label for="update-is_active" class="inline-flex items-center cursor-pointer">--}}
-                            {{--                                    <input type="hidden" name="is_active" value="0">--}}
-                            {{--                                    <input type="checkbox" value="1" name="is_active" id="update-is_active"--}}
-                            {{--                                           class="sr-only peer" {{ $user->is_active ? 'checked' : '' }}>--}}
-                            {{--                                    <div--}}
-                            {{--                                        class="relative w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>--}}
-                            {{--                                    <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Ativo/Inativo</span>--}}
-                            {{--                                </label>--}}
-                            {{--                            </div>--}}
-
+                            <div class="md:col-span-2">
+                                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                       for="update-file_input">Foto de perfil</label>
+                                <figure
+                                    class="m-2 relative w-full max-w-[8rem] h-[5rem] transition-all duration-300 cursor-pointer ">
+                                    <img id="update-image-preview"
+                                         class="hidden rounded-lg h-[5rem] w-full max-w-[8rem]" src=""
+                                         alt="image description">
+                                    <div id="update-placeholder-image" role="status"
+                                         class="w-32 max-w-[8rem] max-h-full h-[5rem] space-y-8 animate-pulse md:space-y-0 md:space-x-8 rtl:space-x-reverse md:flex md:items-center">
+                                        <div
+                                            class="flex items-center justify-center max-w-[8rem] w-full max-h-full h-[5rem] bg-slate-300 rounded dark:bg-slate-800">
+                                            <svg class="w-10 h-10 text-slate-200 dark:text-slate-600" aria-hidden="true"
+                                                 xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                                 viewBox="0 0 20 18">
+                                                <path
+                                                    d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z"/>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </figure>
+                                <input
+                                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                    id="update-file_input" type="file" name="profile_image">
+                            </div>
                         </div>
                     </div>
                     <div>
@@ -180,31 +193,7 @@
                                 />
                                 <div id="complement-error" class="text-red-500 text-sm"></div>
                             </div>
-                            <div class="md:col-span-2">
-                                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                       for="update-file_input">Foto de perfil</label>
-                                <figure
-                                    class="m-2 relative w-full max-w-[8rem] h-[5rem] transition-all duration-300 cursor-pointer ">
-                                    <img id="update-image-preview"
-                                         class="hidden rounded-lg h-[5rem] w-full max-w-[8rem]" src=""
-                                         alt="image description">
-                                    <div id="update-placeholder-image" role="status"
-                                         class="w-32 max-w-[8rem] max-h-full h-[5rem] space-y-8 animate-pulse md:space-y-0 md:space-x-8 rtl:space-x-reverse md:flex md:items-center">
-                                        <div
-                                            class="flex items-center justify-center max-w-[8rem] w-full max-h-full h-[5rem] bg-slate-300 rounded dark:bg-slate-800">
-                                            <svg class="w-10 h-10 text-slate-200 dark:text-slate-600" aria-hidden="true"
-                                                 xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                                 viewBox="0 0 20 18">
-                                                <path
-                                                    d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z"/>
-                                            </svg>
-                                        </div>
-                                    </div>
-                                </figure>
-                                <input
-                                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                                    id="update-file_input" type="file" name="profile_image">
-                            </div>
+
                         </div>
                     </div>
                 </div>

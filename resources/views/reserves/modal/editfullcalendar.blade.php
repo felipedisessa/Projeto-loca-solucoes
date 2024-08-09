@@ -1,11 +1,11 @@
 <!-- Main modal -->
 <div id="edit-crud-modal" tabindex="-1" aria-hidden="true"
      class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full md:inset-0 h-full bg-gray-800 bg-opacity-75">
-    <div class="relative w-full max-w-2xl p-4 h-full md:h-auto max-h-[100vh]" data-modal-target="edit-crud-modal">
+    <div class="relative w-full max-w-4xl p-4 h-full md:h-auto max-h-[100vh]" data-modal-target="edit-crud-modal">
         <!-- Modal content -->
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
             <!-- Modal header -->
-            <div class="flex items-center justify-between p-4 border-b rounded-t dark:border-gray-600">
+            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-slate-600">
                 <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
                     Editar Reserva
                 </h3>

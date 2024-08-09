@@ -52,7 +52,7 @@
     @endisset
 
     <!-- Page Content -->
-    <main class="min-h-dvh">
+    <main class="min-h-dvh ">
         {{ $slot }}
     </main>
 </div>
