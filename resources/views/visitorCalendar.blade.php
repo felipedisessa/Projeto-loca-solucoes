@@ -12,7 +12,7 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css','resources/css/calendar.css', 'resources/js/visitor-calendar.js',
- 'resources/js/datepicker-config.js', 'resources/js/visitor-form-validate.js', 'resources/js/formatPhone.js', 'resources/js/noAuth-cep-validator.js'])
+ 'resources/js/datepicker-config.js', 'resources/js/visitor-form-validate.js', 'resources/js/formatPhone.js', 'resources/js/cep-validator.js'])
 
     @include('reserves.modal.noAuthCreate')
 

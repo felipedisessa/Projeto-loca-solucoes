@@ -278,4 +278,18 @@ class ReserveController extends Controller
 
         return response()->json();
     }
+
+    public function confirm($id)
+    {
+        $this->authorize('admin-or-landlord');
+
+        $reserve = Reserve::findOrFail($id);
+        $reserve->update(['status' => 'confirmed']);
+
+        if ($reserve->status == 'confirmed') {
+            $reserve->user->notify(new reserveConfirm($reserve));
+        }
+
+        return redirect()->route('reserves.index')->with('success', 'Reserva confirmada com sucesso.');
+    }
 }

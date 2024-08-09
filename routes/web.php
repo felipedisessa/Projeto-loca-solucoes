@@ -10,12 +10,10 @@ use App\Http\Controllers\ReserveController;
 use App\Http\Controllers\VisitorController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/download-ics/{id}', [CalendarIcsController::class, 'downloadICS'])->name('download-ics');
-
 Route::get('/', function() {
     return redirect()->route('login');
 });
-// routes/web.php
+// rotas publicas
 Route::get('/check-user-exists/{email}', [VisitorController::class, 'checkIfUserExists'])->name('check-user-exist');
 Route::get('dev-Login', LoginController::class)->name('dev-login');
 Route::post('/visitorCalendar/store', [VisitorController::class, 'store'])->name('visitorCalendar.store');
@@ -24,6 +22,7 @@ Route::get('/visitorCalendar/json', [VisitorController::class, 'getVisitorReserv
 
 Route::middleware('auth')->group(function() {
     // Profile Routes
+    Route::get('/download-ics/{id}', [CalendarIcsController::class, 'downloadICS'])->name('download-ics');
     Route::get('/profile', [ProfileController::class, 'editProfile'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'updateProfile'])->name('profile.update');
     Route::put('/profile/image', [ProfileController::class, 'updateProfileImage'])->name('profile.updateImage');
@@ -33,7 +32,6 @@ Route::middleware('auth')->group(function() {
         '/profile/delete-image',
         [ProfileController::class, 'deleteProfileImage']
     )->name('profile.deleteImage');
-
     // Additional Routes
     Route::match(
         ['get', 'put'],
@@ -42,11 +40,12 @@ Route::middleware('auth')->group(function() {
     )->name('reserves.json');
     Route::resource('relatorios', ReportController::class)->names('reports')->parameter('relatorios', 'report');
     Route::delete(
-        '/rental-items/{rentalItem}/delete-image',
+        '/rental-items/{id}/delete-image',
         [RentalItemController::class, 'deleteImage']
     )->name('rental-items.deleteImage');
     Route::resource('salas', RentalItemController::class)->names('rental-items')->parameter('salas', 'rentalItem');
     Route::resource('usuarios', ProfileController::class)->names('users')->parameter('usuarios', 'user');
+    Route::patch('/reserves/{id}/confirm', [ReserveController::class, 'confirm'])->name('reserves.confirm');
     Route::resource('reservas', ReserveController::class)->names('reserves')->parameter('reservas', 'reserve');
     Route::put('/reserves/{id}/update-date', [ReserveController::class, 'updateDate'])->name('reserves.update-date');
 });

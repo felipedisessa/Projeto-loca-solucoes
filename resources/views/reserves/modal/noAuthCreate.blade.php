@@ -123,7 +123,7 @@
                                 <label for="noAuth-zipcode"
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">CEP</label>
                                 <input type="text" name="zipcode" id="noAuth-zipcode" value="{{ old('zipcode') }}"
-                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                                       class="zipcode-input block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                                        placeholder="00000-000"/>
                                 <div id="zipcode-error" class="text-red-500 text-sm"></div>
                             </div>
@@ -131,7 +131,7 @@
                                 <label for="noAuth-country"
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">País</label>
                                 <input type="text" name="country" id="noAuth-country" value="{{ old('country') }}"
-                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                                       class="country-input block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                                        placeholder="Brasil"/>
                                 <div id="country-error" class="text-red-500 text-sm"></div>
                             </div>
@@ -139,7 +139,7 @@
                                 <label for="noAuth-state"
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Estado</label>
                                 <input type="text" name="state" id="noAuth-state" value="{{ old('state') }}"
-                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                                       class="state-input block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                                        placeholder="SP"/>
                                 <div id="state-error" class="text-red-500 text-sm"></div>
                             </div>
@@ -147,7 +147,7 @@
                                 <label for="noAuth-city"
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cidade</label>
                                 <input type="text" name="city" id="noAuth-city" value="{{ old('city') }}"
-                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                                       class="city-input block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                                        placeholder="Nome da cidade"/>
                                 <div id="city-error" class="text-red-500 text-sm"></div>
                             </div>
@@ -156,7 +156,7 @@
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Bairro</label>
                                 <input type="text" name="neighborhood" id="noAuth-neighborhood"
                                        value="{{ old('neighborhood') }}"
-                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                                       class="neighborhood-input block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                                        placeholder="Nome do bairro"/>
                                 <div id="neighborhood-error" class="text-red-500 text-sm"></div>
                             </div>
@@ -164,7 +164,7 @@
                                 <label for="noAuth-street"
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Rua</label>
                                 <input type="text" name="street" id="noAuth-street" value="{{ old('street') }}"
-                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                                       class="street-input block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                                        placeholder="Nome da rua"/>
                                 <div id="street-error" class="text-red-500 text-sm"></div>
                             </div>
@@ -172,7 +172,7 @@
                                 <label for="noAuth-number"
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Número</label>
                                 <input type="text" name="number" id="noAuth-number" value="{{ old('number') }}"
-                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                                       class="number-input block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                                        placeholder="Número do local"/>
                                 <div id="number-error" class="text-red-500 text-sm"></div>
                             </div>
@@ -181,7 +181,7 @@
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Complemento</label>
                                 <input type="text" name="complement" id="noAuth-complement"
                                        value="{{ old('complement') }}"
-                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                                       class="complement-input block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                                        placeholder="Apto, Bloco, etc."/>
                                 <div id="complement-error" class="text-red-500 text-sm"></div>
                             </div>

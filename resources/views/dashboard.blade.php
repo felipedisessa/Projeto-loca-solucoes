@@ -21,8 +21,10 @@
                             class="p-2.5 text-sm font-medium text-white bg-blue-600 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         <option value="">Todas as Salas</option>
                         @foreach($bookItems as $bookItem)
-                            <option value="{{ $bookItem->id }}"
-                                    data-description="{{ $bookItem->description }}">{{ $bookItem->name }}</option>
+                            <option value="{{ $bookItem->id }}" data-description="{{ $bookItem->description }}"
+                                    data-carousel-id="carousel-{{ $bookItem->id }}">
+                                {{ $bookItem->name }}
+                            </option>
                         @endforeach
                     </select>
                 </form>
@@ -66,7 +68,7 @@
                     class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg flex flex-col md:flex-row">
                     <div class="w-full md:w-1/3 lg:w-1/4 p-4">
                         <div class="m-4 w-max-md max-auto">
-                            <div class="p-6 text-gray-900 dark:text-gray-100 flex justify-center items-center flex-col">
+                            <div class="p-6 text-gray-900 dark:text-gray-100 flex justify-start items-center flex-col">
                                 @if(auth()->user()->uploads->isNotEmpty())
                                     <img src="{{ asset(auth()->user()->uploads->first()->file_path) }}"
                                          class="w-16 h-16 rounded-full mb-4 object-cover"
@@ -80,18 +82,18 @@
                             </div>
 
                             <div id="gallery" class="relative w-full"
-                                 data-carousel="slide">
+                                 data-carousel="static">
                                 <div class="relative h-48 overflow-hidden rounded-lg md:h-64">
-                                    @foreach($bookItems as $bookItem)
-                                        @if($bookItem->uploads->isNotEmpty())
-                                            @foreach($bookItem->uploads as $upload)
+                                    @foreach($rentalItems as $rentalItem)
+                                        @if($rentalItem->uploads->isNotEmpty())
+                                            @foreach($rentalItem->uploads as $upload)
                                                 <div class="hidden duration-700 ease-in-out" data-carousel-item>
                                                     <img src="{{ asset($upload->file_path) }}"
                                                          class="absolute block max-w-full h-auto -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
                                                          alt="{{ $upload->file_name }}">
                                                     <div
                                                         class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white text-center py-2">
-                                                        {{ $bookItem->name }}
+                                                        {{ $rentalItem->name }}
                                                     </div>
                                                 </div>
                                             @endforeach
@@ -161,7 +163,7 @@
                                     <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
                                         @foreach($reservesToday as $reserve)
                                             <li class="py-3 sm:py-4">
-                                                <div class="flex items-center">
+                                                <div class="flex items-start">
                                                     <div class="flex-shrink-0">
                                                         @if($reserve->user->uploads->isNotEmpty())
                                                             <img
@@ -226,7 +228,7 @@
                                     <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
                                         @foreach($reservesNextWeek as $reserve)
                                             <li class="py-3 sm:py-4">
-                                                <div class="flex items-center">
+                                                <div class="flex items-start">
                                                     <div class="flex-shrink-0">
                                                         @if($reserve->user->uploads->isNotEmpty())
                                                             <img
@@ -260,7 +262,6 @@
                                     </ul>
                                 </div>
                             </div>
-                            {{--                            @endcan--}}
 
                             <div
                                 class="w-full p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700 mt-4">
@@ -295,7 +296,7 @@
                                     <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
                                         @foreach($reservesPending as $reserve)
                                             <li class="py-3 sm:py-4">
-                                                <div class="flex items-center">
+                                                <div class="flex items-start">
                                                     <div class="flex-shrink-0">
                                                         @if($reserve->user->uploads->isNotEmpty())
                                                             <img

@@ -199,7 +199,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // Validando e formatando os campos número e CEP para aceitar apenas números
     const numberInputs = document.querySelectorAll('input[name="number"]');
     numberInputs.forEach(input => {
         input.addEventListener('input', function (e) {

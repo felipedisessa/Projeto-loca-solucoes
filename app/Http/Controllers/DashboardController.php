@@ -16,9 +16,10 @@ class DashboardController extends Controller
     {
         $this->authorize('except-visitor');
 
-        $bookUsers = User::query()->whereIn('role', ['visitor', 'tenant'])->get();
-        $bookItems = RentalItem::query()->where('status', 'available')->get();
-        $user      = auth()->user();
+        $bookUsers   = User::query()->whereIn('role', ['visitor', 'tenant'])->get();
+        $bookItems   = RentalItem::query()->where('status', 'available')->get();
+        $user        = auth()->user();
+        $rentalItems = RentalItem::withTrashed()->get();
 
         $reservesPending = Reserve::query()
             ->where('status', 'pending')
@@ -29,7 +30,7 @@ class DashboardController extends Controller
             ->with([
                 'user' => function($query) {
                     $query->withTrashed();
-                }
+                },
             ])
             ->get();
 
@@ -43,7 +44,7 @@ class DashboardController extends Controller
             ->with([
                 'user' => function($query) {
                     $query->withTrashed();
-                }
+                },
             ])
             ->get();
 
@@ -57,7 +58,7 @@ class DashboardController extends Controller
             ->with([
                 'user' => function($query) {
                     $query->withTrashed();
-                }
+                },
             ])
             ->get();
 
@@ -70,6 +71,7 @@ class DashboardController extends Controller
                 'reservesPending',
                 'reservesToday',
                 'reservesNextWeek',
+                'rentalItems'
             )
         );
     }

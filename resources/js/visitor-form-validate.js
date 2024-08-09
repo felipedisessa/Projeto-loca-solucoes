@@ -197,24 +197,31 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 
+    function truncateValue(value) {
+        if (value && value.length > 3) {
+            return value.substring(0, 4) + '...';
+        }
+        return value;
+    }
+
     const checkUser = async (email) => {
         try {
             const {data} = await axios.get(`/check-user-exists/${email}`);
             const emailError = document.querySelector('#email-error');
             emailError.textContent = '';
 
-            document.querySelector('input[name="name"]').value = data.name || '';
-            document.querySelector('input[name="phone"]').value = data.phone || '';
-            document.querySelector('input[name="cpf_cnpj"]').value = data.cpf_cnpj || '';
-            document.querySelector('input[name="company"]').value = data.company || '';
-            document.querySelector('input[name="street"]').value = data.address?.street || '';
-            document.querySelector('input[name="number"]').value = data.address?.number || '';
-            document.querySelector('input[name="complement"]').value = data.address?.complement || '';
-            document.querySelector('input[name="neighborhood"]').value = data.address?.neighborhood || '';
-            document.querySelector('input[name="city"]').value = data.address?.city || '';
-            document.querySelector('input[name="state"]').value = data.address?.state || '';
-            document.querySelector('input[name="zipcode"]').value = data.address?.zipcode || '';
-            document.querySelector('input[name="country"]').value = data.address?.country || '';
+            document.querySelector('input[name="name"]').value = truncateValue(data.name) || '';
+            document.querySelector('input[name="phone"]').value = truncateValue(data.phone) || '';
+            document.querySelector('input[name="cpf_cnpj"]').value = truncateValue(data.cpf_cnpj) || '';
+            document.querySelector('input[name="company"]').value = truncateValue(data.company) || '';
+            document.querySelector('input[name="street"]').value = truncateValue(data.address?.street) || '';
+            document.querySelector('input[name="number"]').value = truncateValue(data.address?.number) || '';
+            document.querySelector('input[name="complement"]').value = truncateValue(data.address?.complement) || '';
+            document.querySelector('input[name="neighborhood"]').value = truncateValue(data.address?.neighborhood) || '';
+            document.querySelector('input[name="city"]').value = truncateValue(data.address?.city) || '';
+            document.querySelector('input[name="state"]').value = truncateValue(data.address?.state) || '';
+            document.querySelector('input[name="zipcode"]').value = truncateValue(data.address?.zipcode) || '';
+            document.querySelector('input[name="country"]').value = truncateValue(data.address?.country) || '';
 
             document.querySelectorAll('.hidden-fields').forEach(function (field) {
                 field.classList.remove('hidden-fields');
@@ -225,9 +232,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (emailError) {
                     emailError.textContent = 'O email informado não está disponível.';
                 }
-                // document.querySelectorAll('.hidden-fields').forEach(function (field) {
-                //     field.classList.add('hidden-fields');
-                // });
             }
         }
     }

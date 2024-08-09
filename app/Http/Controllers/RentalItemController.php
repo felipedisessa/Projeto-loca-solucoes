@@ -210,9 +210,11 @@ class RentalItemController extends Controller
         return redirect()->route('rental-items.index');
     }
 
-    public function deleteImage(RentalItem $rentalItem)
+    public function deleteImage($id)
     {
         $this->authorize('admin-or-landlord');
+
+        $rentalItem = RentalItem::findOrFail($id);
 
         if ($rentalItem->uploads()->exists()) {
             $image = $rentalItem->uploads()->first();

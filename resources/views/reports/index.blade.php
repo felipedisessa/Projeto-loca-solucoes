@@ -19,31 +19,58 @@
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-4">
         <div class="w-full mx-auto">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
-                    <div class="print:hidden bg-white dark:bg-gray-700 p-6 shadow-md rounded-lg space-y-6">
+                <div class="mx-auto p-4 sm:p-6 lg:p-8 grid grid-cols-12 gap-4">
+                    <div
+                        class="print:hidden col-span-12 lg:col-span-6 bg-white dark:bg-gray-700 p-6 shadow-md rounded-lg space-y-6">
                         <!-- Botões Predefinidos -->
-                        <div class="flex flex-wrap gap-4 mb-4">
-                            <form method="GET" action="{{ route('reports.index') }}">
-                                <input type="hidden" name="filter" value="today">
-                                <button type="submit"
-                                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                                    Reservas de Hoje
-                                </button>
-                            </form>
-                            <form method="GET" action="{{ route('reports.index') }}">
-                                <input type="hidden" name="filter" value="week">
-                                <button type="submit"
-                                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                                    Reservas da Semana
-                                </button>
-                            </form>
-                            <form method="GET" action="{{ route('reports.index') }}">
-                                <input type="hidden" name="filter" value="month">
-                                <button type="submit"
-                                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                                    Reservas do Mês
-                                </button>
-                            </form>
+                        <div class="flex flex-col sm:justify-between sm:flex-row sm:items-center gap-4 mb-4">
+                            <div class="text-lg font-semibold text-gray-900 dark:text-white sm:mb-2">Filtros
+                                Predefinidos
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                <form class="w-full" method="GET" action="{{ route('reports.index') }}">
+                                    <input type="hidden" name="filter" value="today">
+                                    <button type="submit"
+                                            class="w-full justify-center sm:max-w-max text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 flex items-center">
+                                        <svg class="w-4 h-4 text-white mr-2" aria-hidden="true"
+                                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                  stroke-width="2" d="M12 4v16m8-8H4"/>
+                                        </svg>
+                                        Reservas de Hoje
+                                    </button>
+                                </form>
+                                <form class="w-full" method="GET" action="{{ route('reports.index') }}">
+                                    <input type="hidden" name="filter" value="week">
+                                    <button type="submit"
+                                            class="w-full justify-center sm:max-w-max sm:min-w-max text-white bg-blue-700 hover:bg-blue-800
+                                             focus:ring-4 focus:ring-blue-300 font-medium rounded-lg
+                                             text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700
+                                             focus:outline-none dark:focus:ring-blue-800 flex items-center">
+                                        <svg class="w-4 h-4 text-white mr-2" aria-hidden="true"
+                                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                  stroke-width="2" d="M12 4v16m8-8H4"/>
+                                        </svg>
+                                        Reservas da Semana
+                                    </button>
+                                </form>
+                                <form class="w-full" method="GET" action="{{ route('reports.index') }}">
+                                    <input type="hidden" name="filter" value="month">
+                                    <button type="submit"
+                                            class="w-full sm:max-w-max flex items-center text-white justify-center bg-blue-700 hover:bg-blue-800 focus:ring-4
+                                         focus:ring-blue-300 font-medium rounded-lg
+                                         text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none
+                                         dark:focus:ring-blue-800">
+                                        <svg class="w-4 h-4 text-white mr-2" aria-hidden="true"
+                                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                  stroke-width="2" d="M12 4v16m8-8H4"/>
+                                        </svg>
+                                        Reservas do Mês
+                                    </button>
+                                </form>
+                            </div>
                         </div>
 
                         <!-- Formulário de Filtro Personalizado -->
@@ -168,9 +195,9 @@
                                 </div>
                             </div>
 
-                            <div class="flex justify-center mt-4">
+                            <div class="flex justify-end mt-4">
                                 <button type="submit"
-                                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 flex items-center">
+                                        class="justify-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 flex items-center">
                                     <svg class="w-6 h-6 text-gray-800 dark:text-white mr-2" aria-hidden="true"
                                          xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                          viewBox="0 0 24 24">
@@ -183,12 +210,13 @@
                         </form>
                     </div>
 
-                    @if($reservations->isNotEmpty())
-                        <div
-                            class="relative overflow-x-auto shadow-md sm:rounded-lg p-8 bg-gray-100 dark:bg-gray-700 mt-6">
+
+                    <div
+                        class="col-span-12 lg:col-span-6 relative overflow-x-auto shadow-md sm:rounded-lg p-6 bg-gray-100 dark:bg-gray-700">
+                        @if($reservations->isNotEmpty())
                             <div class="flex justify-end mb-4">
                                 <button type="button"
-                                        class="print:hidden ml-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 flex items-center"
+                                        class="justify-center print:hidden text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 flex items-center"
                                         onclick="window.print()">
                                     <svg class="w-6 h-6 text-gray-800 dark:text-white mr-2" aria-hidden="true"
                                          xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
@@ -228,22 +256,27 @@
                                             {{ $reservation->paid_at ? Carbon::parse($reservation->paid_at)->format('d/m/Y') : 'Não pago' }}
                                         </td>
                                         <td class="px-6 py-4">{{ $reservation->payment_type }}</td>
-                                        <td class="px-6 py-4">{{ Carbon::parse($reservation->start)->format('d/m/Y') }}
-                                        {{-- até {{ \Carbon\Carbon::parse($reservation->end)->format('d/m/Y') }}</td>--}}
+                                        <td class="px-6 py-4">{{ Carbon::parse($reservation->start)->format('d/m/Y') }}</td>
                                         <td class="px-6 py-4 print:hidden">{{  $reservation->deleted_at ? $reservation->deleted_at->format('d/m/Y') : '' }}</td>
                                     </tr>
                                 @empty
+                                    <tr>
+                                        <td colspan="9" class="px-6 py-4 text-center">Nenhuma reserva encontrada para o
+                                            período selecionado.
+                                        </td>
+                                    </tr>
                                 @endforelse
                                 </tbody>
                             </table>
-                        </div>
-                    @else
-                        <div
-                            class="relative overflow-x-auto shadow-md sm:rounded-lg p-8 bg-gray-100 dark:bg-gray-700 mt-6">
-                            <p class="text-gray-500 dark:text-gray-400">Selecione um período válido para gerar o
-                                relatório</p>
-                        </div>
-                    @endif
+
+                        @else
+                            <div
+                                class="relative overflow-x-auto shadow-md sm:rounded-lg p-8 bg-gray-100 dark:bg-gray-800 mt-6">
+                                <p class="text-gray-500 dark:text-gray-400">Selecione um período válido para gerar o
+                                    relatório</p>
+                            </div>
+                        @endif
+                    </div>
                 </div>
             </div>
         </div>

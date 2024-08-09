@@ -53,7 +53,7 @@ class reserveConfirm extends Notification
             $mailMessage->action('Ver reserva', route('reserves.index'));
         }
 
-        $mailMessage->line('Obrigado por usar nosso sistema!')
+        $mailMessage->line('Em caso de dúvidas, entre em contato: (17) 3343-5355 ')
             ->salutation('Atenciosamente, Digiplace.');
 
         return $mailMessage;

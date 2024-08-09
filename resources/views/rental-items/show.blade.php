@@ -20,7 +20,7 @@
         class="m-4 max-w-7xl mx-auto p-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         @if($rentalItem->uploads->isNotEmpty())
             <!-- Carousel Section -->
-            <div id="gallery" class="relative mb-8" data-carousel="slide">
+            <div id="gallery" class="relative mb-8" data-carousel="static">
                 <!-- Carousel wrapper -->
                 <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
                     <!-- Item 1 -->

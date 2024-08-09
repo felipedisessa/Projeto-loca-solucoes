@@ -96,7 +96,6 @@
                         </div>
                         <div id="end-error" class="text-red-500 text-sm"></div>
                     </div>
-
                     <div>
                         <label for="start_time" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Hora
                             de Início</label>
@@ -115,7 +114,6 @@
                             <div id="start_time-error" class="text-red-500 text-sm"></div>
                         </div>
                     </div>
-
                     <div>
                         <label for="end_time" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Hora
                             de Fim</label>
@@ -134,7 +132,6 @@
                             <div id="end_time-error" class="text-red-500 text-sm"></div>
                         </div>
                     </div>
-
                     <div>
                         <label for="rental_item_id"
                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sala</label>

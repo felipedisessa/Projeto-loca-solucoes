@@ -127,27 +127,27 @@
                             Item</h4>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <label for="update-country"
-                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">País</label>
-                                <input type="text" name="country" id="update-country"
-                                       value="{{ $rentalItem->address->country ?? '' }}"
-                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
-                                <div id="country-error" class="text-red-500 text-sm"></div>
-                            </div>
-                            <div>
                                 <label for="update-zipcode"
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">CEP</label>
                                 <input type="text" name="zipcode" id="update-zipcode"
                                        value="{{ $rentalItem->address->zipcode ?? '' }}"
-                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
+                                       class="zipcode-input block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
                                 <div id="zipcode-error" class="text-red-500 text-sm"></div>
+                            </div>
+                            <div>
+                                <label for="update-country"
+                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">País</label>
+                                <input type="text" name="country" id="update-country"
+                                       value="{{ $rentalItem->address->country ?? '' }}"
+                                       class="country-input block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
+                                <div id="country-error" class="text-red-500 text-sm"></div>
                             </div>
                             <div>
                                 <label for="update-state"
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Estado</label>
                                 <input type="text" name="state" id="update-state"
                                        value="{{ $rentalItem->address->state ?? '' }}"
-                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
+                                       class="state-input block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
                                 <div id="state-error" class="text-red-500 text-sm"></div>
                             </div>
                             <div>
@@ -155,7 +155,7 @@
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cidade</label>
                                 <input type="text" name="city" id="update-city"
                                        value="{{ $rentalItem->address->city ?? '' }}"
-                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
+                                       class="city-input block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
                                 <div id="city-error" class="text-red-500 text-sm"></div>
                             </div>
                             <div>
@@ -163,7 +163,7 @@
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Bairro</label>
                                 <input type="text" name="neighborhood" id="update-neighborhood"
                                        value="{{ $rentalItem->address->neighborhood ?? '' }}"
-                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
+                                       class="neighborhood-input block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
                                 <div id="neighborhood-error" class="text-red-500 text-sm"></div>
                             </div>
                             <div>
@@ -171,7 +171,7 @@
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Rua</label>
                                 <input type="text" name="street" id="update-street"
                                        value="{{ $rentalItem->address->street ?? '' }}"
-                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
+                                       class="street-input block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
                                 <div id="street-error" class="text-red-500 text-sm"></div>
                             </div>
                             <div>
@@ -179,7 +179,7 @@
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Número</label>
                                 <input type="text" name="number" id="update-number"
                                        value="{{ $rentalItem->address->number ?? '' }}"
-                                       class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
+                                       class="number-input block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
                                 <div id="number-error" class="text-red-500 text-sm"></div>
                             </div>
                             <div class="md:col-span-2">
@@ -218,7 +218,8 @@
                                 <meta name="csrf-token" content="{{ csrf_token() }}">
                                 <button type="button" id="delete-image-button"
                                         class="mt-2 focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg
-                                         text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
+                                         text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+                                        data-id="{{ $rentalItem->id }}">
                                     Excluir foto
                                 </button>
                             </div>

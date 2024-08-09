@@ -1,16 +1,28 @@
 document.addEventListener('DOMContentLoaded', function () {
     const editModal = document.getElementById('edit-crud-modal');
     const editForm = document.getElementById('edit-reserve-form');
+    const confirmModal = document.getElementById('confirm-popup-modal');
+    const confirmForm = document.getElementById('reserveConfirmForm');
+
+    document.querySelectorAll('a[data-modal-toggle="confirm-popup-modal"]').forEach(button => {
+        button.addEventListener('click', () => {
+            const reserveId = button.getAttribute('data-id');
+            confirmForm.action = `/reserves/${reserveId}/confirm`;
+            confirmModal.classList.remove('hidden');
+        });
+    });
+
+    confirmModal.querySelector('button[data-modal-hide="reactivate-popup-modal"]').addEventListener('click', () => {
+        confirmModal.classList.add('hidden');
+    });
 
     document.querySelectorAll('a[data-modal-toggle="edit-crud-modal"]').forEach(button => {
         button.addEventListener('click', async () => {
             const reserveId = button.getAttribute('data-id');
 
-            // Fetch reserve data from the server
             const response = await fetch(`/reservas/${reserveId}/editar`);
             const reserveData = await response.json();
 
-            // Populate the form fields with the reserve data
             editForm.action = `/reservas/${reserveId}`;
             document.getElementById('update-user_id').value = reserveData.user_id;
             document.getElementById('update-title').value = reserveData.title;
@@ -36,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-
+    // Fechar modal de edição
     editModal.querySelector('button[data-modal-toggle="edit-crud-modal"]').addEventListener('click', () => {
         editModal.classList.add('hidden');
     });
@@ -52,6 +64,4 @@ document.addEventListener('DOMContentLoaded', function () {
             paidAtField.value = null;
         }
     });
-
-
 });
