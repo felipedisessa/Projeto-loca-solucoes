@@ -22,14 +22,6 @@
             <!-- Modal body -->
             <form id="create-reserve-form" action="{{ route('reserves.store') }}" method="post" class="p-4 space-y-4">
                 @csrf
-                @if(session('error'))
-                    <div class="border-r border-gray-300 dark:border-gray-600 pr-6">
-                        class="error-message p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200
-                        dark:text-red-800"
-                        role="alert">
-                        <span class="font-medium">Erro:</span> {{ session('error') }}
-                    </div>
-                @endif
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div>
                         <label for="user_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Responsável</label>

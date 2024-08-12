@@ -68,7 +68,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-
     // formatação de telefone
     function formatPhone(value) {
         if (!value) return value;

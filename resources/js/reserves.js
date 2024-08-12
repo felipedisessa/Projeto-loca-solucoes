@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    confirmModal.querySelector('button[data-modal-hide="reactivate-popup-modal"]').addEventListener('click', () => {
+    confirmModal.querySelector('button[data-modal-hide="confirm-popup-modal"]').addEventListener('click', () => {
         confirmModal.classList.add('hidden');
     });
 

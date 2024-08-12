@@ -39,24 +39,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 separator: ' - '
             },
 
-            // eventClick: function (info) {
-            //     const startDateTime = info.event.start.toLocaleString('pt-BR').slice(0, -3);
-            //     const endDateTime = info.event.end ? info.event.end.toLocaleString('pt-BR').slice(0, -3) : 'Indefinido';
-            //     const toastMessage = `Periodo: ${startDateTime}\n\naté: ${endDateTime}`;
-            //
-            //     const toast = document.getElementById('toast-default');
-            //     const toastMessageEl = document.getElementById('toast-message');
-            //     toastMessageEl.textContent = toastMessage;
-            //
-            //     toast.classList.remove('hidden');
-            //     toast.classList.add('flex');
-            //
-            //     setTimeout(() => {
-            //         toast.classList.remove('flex');
-            //         toast.classList.add('hidden');
-            //     }, 5000);
-            // },
-
             dateClick: function (info) {
                 const modalElement = document.getElementById('noAuth-create-crud-modal');
                 modalElement.classList.remove('hidden');

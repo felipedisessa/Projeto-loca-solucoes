@@ -187,8 +187,7 @@
                                 class="block w-full p-2.5 text-sm bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                             <option
                                 value="Nao se aplica" {{ $reserve->payment_type == 'Nao se aplica' ? 'selected' : '' }}>
-                                Não
-                                se aplica
+                                Não se aplica
                             </option>
                             <option value="Pix" {{ $reserve->payment_type == 'Pix' ? 'selected' : '' }}>Pix</option>
                             <option value="Cartao" {{ $reserve->payment_type == 'Cartao' ? 'selected' : '' }}>Cartão
