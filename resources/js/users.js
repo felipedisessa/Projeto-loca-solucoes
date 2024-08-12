@@ -68,21 +68,21 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // formatação de telefone
-    function formatPhone(value) {
-        if (!value) return value;
-        const phoneNumber = value.replace(/[^\d]/g, '');
-        const phoneNumberLength = phoneNumber.length;
-        if (phoneNumberLength <= 10) {
-            return phoneNumber.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3');
-        }
-        return phoneNumber.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
-    }
-
-    // Adiciona event listener para formatação de telefone
-    if (phoneInput) {
-        phoneInput.addEventListener('input', function (e) {
-            this.value = formatPhone(this.value);
-        });
-    }
+    // // formatação de telefone
+    // function formatPhone(value) {
+    //     if (!value) return value;
+    //     const phoneNumber = value.replace(/[^\d]/g, '');
+    //     const phoneNumberLength = phoneNumber.length;
+    //     if (phoneNumberLength <= 10) {
+    //         return phoneNumber.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3');
+    //     }
+    //     return phoneNumber.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+    // }
+    //
+    // // Adiciona event listener para formatação de telefone
+    // if (phoneInput) {
+    //     phoneInput.addEventListener('input', function (e) {
+    //         this.value = formatPhone(this.value);
+    //     });
+    // }
 });

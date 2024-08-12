@@ -1,5 +1,5 @@
 @php
-    use App\Enum\ReserveEnum;
+    use App\Enum\ReserveEnum;use Carbon\Carbon;
 @endphp
 
 <x-app-layout>
@@ -113,7 +113,7 @@
 
                         <td class="px-6 py-4">{{ $reserve->formatted_price }}</td>
                         <td class="px-6 py-4">
-                            {{ $reserve->paid_at ? \Carbon\Carbon::parse($reserve->paid_at)->format('d/m/Y') : 'Não foi efetuado' }}
+                            {{ $reserve->paid_at ? Carbon::parse($reserve->paid_at)->format('d/m/Y') : 'Não foi efetuado' }}
                         </td>
                         <td class="flex items-center px-6 py-4 space-x-2">
                             @can('tenant')

@@ -1,6 +1,6 @@
 @php
     use App\Enum\ReserveEnum;
-    use App\Enum\RoleEnum;
+    use App\Enum\RoleEnum;use Carbon\Carbon;
 @endphp
 
 <x-app-layout>
@@ -66,12 +66,12 @@
                                 @foreach([
                                     'Nome' => $reserve->title,
                                     'Organização da sala' => $reserve->description,
-                                    'Hora de início' => \Carbon\Carbon::parse($reserve->start)->format('d/m/Y H:i'),
-                                    'Hora de fim' => \Carbon\Carbon::parse($reserve->end)->format('d/m/Y H:i'),
+                                    'Hora de início' => Carbon::parse($reserve->start)->format('d/m/Y H:i'),
+                                    'Hora de fim' => Carbon::parse($reserve->end)->format('d/m/Y H:i'),
                                     'Sala' => $reserve->rentalItem->name,
                                     'Preço' => 'R$ ' . number_format($reserve->price, 2, ',', '.'),
                                     'Forma de pagamento' => $reserve->payment_type,
-                                    'Pagamento efetuado' => $reserve->paid_at ? \Carbon\Carbon::parse($reserve->paid_at)->format('d/m/Y') : 'Não foi efetuado',
+                                    'Pagamento efetuado' => $reserve->paid_at ? Carbon::parse($reserve->paid_at)->format('d/m/Y') : 'Não foi efetuado',
                                     'Status' => ReserveEnum::from($reserve->status)->label()
                                 ] as $label => $value)
                                     <div class="mb-4">

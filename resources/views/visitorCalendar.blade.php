@@ -46,12 +46,12 @@
             overflow-y: auto;
         }
 
-        #toast-default {
-            position: fixed;
-            top: 1rem;
-            right: 1rem;
-            z-index: 50;
-        }
+        /*#toast-default {*/
+        /*    position: fixed;*/
+        /*    top: 1rem;*/
+        /*    right: 1rem;*/
+        /*    z-index: 50;*/
+        /*}*/
 
         @media (max-width: 768px) {
             .container {

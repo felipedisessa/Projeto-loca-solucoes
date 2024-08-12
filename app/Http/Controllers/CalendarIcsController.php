@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Reserve;
+use Carbon\Carbon;
 
 class CalendarIcsController extends Controller
 {
@@ -18,8 +19,8 @@ class CalendarIcsController extends Controller
 
     private function generateICS($event)
     {
-        $start = \Carbon\Carbon::parse($event->start)->format('Ymd\THis\Z');
-        $end   = \Carbon\Carbon::parse($event->end)->format('Ymd\THis\Z');
+        $start = Carbon::parse($event->start)->format('Ymd\THis\Z');
+        $end   = Carbon::parse($event->end)->format('Ymd\THis\Z');
 
         $ics = "BEGIN:VCALENDAR\r\n";
         $ics .= "VERSION:2.0\r\n";
