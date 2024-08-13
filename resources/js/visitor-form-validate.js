@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const form = document.getElementById('noAuth-create-reserve-form');
 
         function isTruncated(value) {
-            return value.endsWith('...');
+            return value.startsWith('...');
         }
 
         const nameInput = form.querySelector('input[name="name"]');
@@ -44,11 +44,17 @@ document.addEventListener('DOMContentLoaded', function () {
         const cpfCnpjError = form.querySelector('#cpf_cnpj-error');
         const cpfCnpjPattern = /^[0-9]+$/;
         const cpfCnpjValue = cpfCnpjInput.value.replace(/[^\d]/g, '');
-        if (cpfCnpjInput && !isTruncated(cpfCnpjInput.value) && (!cpfCnpjPattern.test(cpfCnpjValue) || (cpfCnpjValue.length !== 11 && cpfCnpjValue.length !== 14))) {
-            cpfCnpjError.textContent = 'O CPF deve ter 11 números ou o CNPJ deve ter 14 números.';
-            isValid = false;
+        const isTruncatedValue = isTruncated(cpfCnpjInput.value);
+
+        if (cpfCnpjInput && !isTruncatedValue) {
+            if (!cpfCnpjPattern.test(cpfCnpjValue) || (cpfCnpjValue.length !== 11 && cpfCnpjValue.length !== 14)) {
+                cpfCnpjError.textContent = 'O CPF deve ter 11 números ou o CNPJ deve ter 14 números.';
+                isValid = false;
+            } else {
+                cpfCnpjError.textContent = '';
+            }
         } else {
-            cpfCnpjError.textContent = '';
+            cpfCnpjError.textContent = ''; // Limpa o erro se o valor estiver truncado
         }
 
         const companyInput = form.querySelector('input[name="company"]');
@@ -202,8 +208,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     function truncateValue(value) {
-        if (value && value.length > 3) {
-            return value.substring(0, 4) + '...';
+        if (value && value.length > 4) {
+            return '...' + value.slice(-4);
         }
         return value;
     }
