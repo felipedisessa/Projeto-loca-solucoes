@@ -84,12 +84,18 @@
             <tbody>
             @foreach($users as $user)
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        {{--                        @if ($user->uploads->isNotEmpty())--}}
-                        {{--                            <img class="w-10 h-10 rounded-full" src="{{ asset($user->uploads->first()->file_path) }}"--}}
-                        {{--                                 alt="{{ $user->name }}">--}}
-                        {{--                        @endif--}}
-                        {{ $user->name }}
+                    <th scope="row"
+                        class="relative px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        @if ($user->uploads->isNotEmpty())
+                            <img class="w-10 h-10 rounded-full absolute left-0 top-1/2 transform -translate-y-1/2"
+                                 src="{{ asset($user->uploads->first()->file_path) }}"
+                                 alt="{{ $user->name }}">
+                        @else
+                            <img class="w-10 h-10 rounded-full absolute left-0 top-1/2 transform -translate-y-1/2"
+                                 src="{{ asset('images/avatar.jpg') }}"
+                                 alt="{{ $user->name }}">
+                        @endif
+                        <span class="ml-12">{{ $user->name }}</span>
                     </th>
                     <td class="px-6 py-4">{{ $user->email }}</td>
                     <td class="px-6 py-4 phone-display">{{ $user->phone }}</td>
