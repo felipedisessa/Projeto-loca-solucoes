@@ -58,7 +58,7 @@ class VisitorController extends Controller
                             ->where('end', '>=', $endDate);
                     });
             })
-            ->first()->toSql();
+            ->first();
 
         if ($reserve) {
             return redirect()->back()->with('error', 'A sala está ocupada no período selecionado.');
