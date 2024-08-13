@@ -236,28 +236,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-
-    const noAuthCreateReserveForm = document.getElementById('noAuth-create-reserve-form');
-    if (noAuthCreateReserveForm) {
-        noAuthCreateReserveForm.addEventListener('submit', validateNoAuthCreateReserveForm);
-    }
-
-    const errorMessage = document.querySelector('.error-message');
-    if (errorMessage) {
-        const modalElement = document.getElementById('noAuth-create-crud-modal');
-        if (modalElement) {
-            modalElement.classList.remove('hidden');
-            modalElement.classList.add('flex');
-
-            const closeButton = document.getElementById('noAuth-close-modal-button');
-            closeButton.addEventListener('click', function () {
-                modalElement.classList.remove('flex');
-                modalElement.classList.add('hidden');
-            });
-        }
-    }
-
-
     // Função de formatação de CPF/CNPJ
     function formatCpfCnpj(value) {
         if (!value) return value;
@@ -289,4 +267,26 @@ document.addEventListener('DOMContentLoaded', function () {
             this.value = this.value.replace(/[^\d]/g, '');
         });
     });
+
+    // Adicionando o evento de validação ao formulário
+    const noAuthCreateReserveForm = document.getElementById('noAuth-create-reserve-form');
+    if (noAuthCreateReserveForm) {
+        noAuthCreateReserveForm.addEventListener('submit', validateNoAuthCreateReserveForm);
+    }
+
+
+    const errorMessage = document.querySelector('.error-message');
+    if (errorMessage) {
+        const modalElement = document.getElementById('noAuth-create-crud-modal');
+        if (modalElement) {
+            modalElement.classList.remove('hidden');
+            modalElement.classList.add('flex');
+
+            const closeButton = document.getElementById('noAuth-close-modal-button');
+            closeButton.addEventListener('click', function () {
+                modalElement.classList.remove('flex');
+                modalElement.classList.add('hidden');
+            });
+        }
+    }
 });

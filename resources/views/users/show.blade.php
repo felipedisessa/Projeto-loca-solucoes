@@ -93,8 +93,7 @@
                                     </div>
                                     <div>
                                         <dt class="text-lg font-semibold text-gray-500 md:text-lg dark:text-gray-400">
-                                            Quantidade de
-                                            Reservas
+                                            Total de reservas solicitadas
                                         </dt>
                                         <dd class="text-lg font-semibold">{{ $user->reserves_count }}</dd>
                                     </div>

@@ -59,7 +59,6 @@ class VisitorController extends Controller
                     });
             })
             ->first()->toSql();
-        dump($reserve);
 
         if ($reserve) {
             return redirect()->back()->with('error', 'A sala está ocupada no período selecionado.');
