@@ -113,7 +113,6 @@
                                     <div id="status-error" class="text-red-500 text-sm"></div>
                                 </div>
                             </div>
-
                             <div>
                                 <label for="update-rental_item_notes"
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Observações</label>
