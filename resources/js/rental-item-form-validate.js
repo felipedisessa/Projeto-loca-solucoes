@@ -3,8 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
         let isValid = true;
 
         const allowedImageTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif', 'image/svg+xml'];
-        const maxImageSize = 2048 * 1024; // 2048KB
-
+        const maxImageSize = 2048 * 1024;
         const ownerInput = form.querySelector('select[name="user_id"]');
         const ownerError = form.querySelector('#owner-error');
         if (!ownerInput.value) {
@@ -14,7 +13,6 @@ document.addEventListener('DOMContentLoaded', function () {
             ownerError.textContent = '';
         }
 
-        // Validando o campo nome
         const nameInput = form.querySelector('input[name="name"]');
         const nameError = form.querySelector('#name-error');
         if (nameInput.value.trim().length < 3) {
@@ -24,7 +22,6 @@ document.addEventListener('DOMContentLoaded', function () {
             nameError.textContent = '';
         }
 
-        // Validando o campo descrição
         const descriptionInput = form.querySelector('textarea[name="description"]');
         const descriptionError = form.querySelector('#description-error');
         if (!descriptionInput.value) {
@@ -34,7 +31,6 @@ document.addEventListener('DOMContentLoaded', function () {
             descriptionError.textContent = '';
         }
 
-        // Validando o campo status
         const statusInput = form.querySelector('select[name="status"]');
         const statusError = form.querySelector('#status-error');
         if (!statusInput.value) {
@@ -54,7 +50,6 @@ document.addEventListener('DOMContentLoaded', function () {
             streetError.textContent = '';
         }
 
-        //validando bairro para ter pelo menos 3 letras
         const neighborhoodInput = form.querySelector('input[name="neighborhood"]');
         const neighborhoodError = form.querySelector('#neighborhood-error');
         if (neighborhoodInput.value.trim().length < 3) {
@@ -90,8 +85,6 @@ document.addEventListener('DOMContentLoaded', function () {
         } else {
             countryError.textContent = '';
         }
-
-        // Validando campos de preço para que pelo menos um deles esteja preenchido
         const pricePerHourInput = form.querySelector('input[name="price_per_hour"]');
         const pricePerHourError = form.querySelector('#price_per_hour-error');
         const pricePerDayInput = form.querySelector('input[name="price_per_day"]');
@@ -129,7 +122,6 @@ document.addEventListener('DOMContentLoaded', function () {
             isValid = false;
         }
 
-        // Validando o campo de CEP
         const zipcodeInput = form.querySelector('input[name="zipcode"]');
         const zipcodeError = form.querySelector('#zipcode-error');
         const zipcodePattern = /^[0-9]+$/;
@@ -140,7 +132,6 @@ document.addEventListener('DOMContentLoaded', function () {
             zipcodeError.textContent = '';
         }
 
-        // Validando o campo de número
         const numberInput = form.querySelector('input[name="number"]');
         const numberError = form.querySelector('#number-error');
         const numberPattern = /^[0-9]+$/;
@@ -174,7 +165,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // Adiciona evento de escuta para o formulário de criação de item de locação
     const createRentalItemForm = document.getElementById('create-rental-item-form');
     if (createRentalItemForm) {
         createRentalItemForm.addEventListener('submit', function (event) {
@@ -182,15 +172,12 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Adiciona evento de escuta para o formulário de edição de item de locação
     const editRentalItemForm = document.getElementById('edit-rental-item-form');
     if (editRentalItemForm) {
         editRentalItemForm.addEventListener('submit', function (event) {
             validateForm(event, editRentalItemForm);
         });
     }
-
-    // Validando e formatando os campos número e CEP para aceitar apenas números
     const numberInputs = document.querySelectorAll('input[name="number"]');
     numberInputs.forEach(input => {
         input.addEventListener('input', function (e) {

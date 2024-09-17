@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function formatPhoneNumber(event) {
         let input = event.target;
-        let value = input.value.replace(/\D/g, ''); // Remove todos os caracteres não numéricos
+        let value = input.value.replace(/\D/g, '');
 
 
         if (value.length > 11) {
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function formatToBrazilianPhone(value) {
-        value = value.replace(/\D/g, ''); // Remove todos os caracteres não numéricos
+        value = value.replace(/\D/g, '');
 
         let isMobile = value.length === 11 && value[2] === '9';
 

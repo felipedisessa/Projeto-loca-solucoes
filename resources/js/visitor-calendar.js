@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
             timeZone: 'local',
             plugins: [dayGridPlugin, interactionPlugin],
             initialView: 'dayGridMonth',
-            events: fetchEvents, // Função para buscar eventos
+            events: fetchEvents,
 
             headerToolbar: {
                 left: 'prev,next today',
@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     modalElement.classList.remove('flex');
                     modalElement.classList.add('hidden');
                 });
-                //faz o campo de sala vir preenchido caso o filtro esteja em uma especifica
+
                 if (filteredRoom) {
                     const rentalItemIdInput = modalElement.querySelector('select[name="rental_item_id"]');
                     rentalItemIdInput.value = filteredRoom;
@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         document.getElementById('room-filter').addEventListener('change', function () {
             filteredRoom = this.value;
-            calendar.refetchEvents(); // Recarrega os eventos ao mudar o filtro
+            calendar.refetchEvents();
         });
 
     }

@@ -30,7 +30,6 @@ document.addEventListener('DOMContentLoaded', function () {
             emailError.textContent = '';
         }
 
-        // Validando o campo telefone
         const phoneInput = form.querySelector('input[name="phone"]');
         const phoneError = form.querySelector('#phone-error');
         if (phoneInput && phoneInput.value.trim() === '') {
@@ -54,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 cpfCnpjError.textContent = '';
             }
         } else {
-            cpfCnpjError.textContent = ''; // Limpa o erro se o valor estiver truncado
+            cpfCnpjError.textContent = '';
         }
 
         const companyInput = form.querySelector('input[name="company"]');
@@ -246,7 +245,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // Função de formatação de CPF/CNPJ
     function formatCpfCnpj(value) {
         if (!value) return value;
         const cpfCnpj = value.replace(/[^\d]/g, '').slice(0, 14); // Limita o valor a 14 dígitos
@@ -256,7 +254,6 @@ document.addEventListener('DOMContentLoaded', function () {
         return cpfCnpj.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, '$1.$2.$3/$4-$5');
     }
 
-    // Formatação de CPF/CNPJ
     const cpfCnpjInputs = document.querySelectorAll('input[name="cpf_cnpj"]');
     cpfCnpjInputs.forEach(input => {
         input.addEventListener('input', function (e) {
@@ -264,7 +261,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // Validando e formatando os campos número e CEP para aceitar apenas números
     const numberInputs = document.querySelectorAll('input[name="number"]');
     numberInputs.forEach(input => {
         input.addEventListener('input', function (e) {
@@ -278,7 +274,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // Adicionando o evento de validação ao formulário
     const noAuthCreateReserveForm = document.getElementById('noAuth-create-reserve-form');
     if (noAuthCreateReserveForm) {
         noAuthCreateReserveForm.addEventListener('submit', validateNoAuthCreateReserveForm);

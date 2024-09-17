@@ -197,7 +197,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
             },
 
-            datesSet: fetchEvents // Adiciona a função de buscar eventos quando a visualização muda
+            datesSet: fetchEvents
         });
 
         calendar.render();

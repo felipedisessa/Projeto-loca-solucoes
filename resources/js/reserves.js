@@ -48,7 +48,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // Fechar modal de edição
     editModal.querySelector('button[data-modal-toggle="edit-crud-modal"]').addEventListener('click', () => {
         editModal.classList.add('hidden');
     });

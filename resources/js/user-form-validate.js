@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', function () {
     function validateForm(form) {
         let isValid = true;
 
-        // Validando o campo nome
         const nameInput = form.querySelector('input[name="name"]');
         const nameError = form.querySelector('#name-error');
         if (nameInput && nameInput.value.trim().length < 3) {
@@ -15,7 +14,6 @@ document.addEventListener('DOMContentLoaded', function () {
             nameError.textContent = '';
         }
 
-        // Validando o campo email
         const emailInput = form.querySelector('input[name="email"]');
         const emailError = form.querySelector('#email-error');
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -26,7 +24,6 @@ document.addEventListener('DOMContentLoaded', function () {
             emailError.textContent = '';
         }
 
-        // Validando o campo senha para que tenha pelo menos 8 dígitos
         const passwordInput = form.querySelector('input[name="password"]');
         const passwordError = form.querySelector('#password-error');
         if (passwordInput && passwordInput.value.trim().length < 8) {
@@ -36,7 +33,6 @@ document.addEventListener('DOMContentLoaded', function () {
             passwordError.textContent = '';
         }
 
-        // Validando o campo empresa (company)
         const companyInput = form.querySelector('input[name="company"]');
         const companyError = form.querySelector('#company-error');
         if (companyInput && companyInput.value.trim().length < 3) {
@@ -46,7 +42,6 @@ document.addEventListener('DOMContentLoaded', function () {
             companyError.textContent = '';
         }
 
-        // Validando o campo telefone
         const phoneInput = form.querySelector('input[name="phone"]');
         const phoneError = form.querySelector('#phone-error');
         if (phoneInput && phoneInput.value.trim().length < 10) {
@@ -56,7 +51,6 @@ document.addEventListener('DOMContentLoaded', function () {
             phoneError.textContent = '';
         }
 
-        // Validando o campo cpf_cnpj
         const cpfCnpjInput = form.querySelector('input[name="cpf_cnpj"]');
         const cpfCnpjError = form.querySelector('#cpf_cnpj-error');
         const cpfCnpjPattern = /^[0-9]+$/;
@@ -68,7 +62,6 @@ document.addEventListener('DOMContentLoaded', function () {
             cpfCnpjError.textContent = '';
         }
 
-        // Validando o campo cep
         const cepInput = form.querySelector('input[name="zipcode"]');
         const cepError = form.querySelector('#zipcode-error');
         const cepPattern = /^[0-9]+$/;
@@ -136,7 +129,6 @@ document.addEventListener('DOMContentLoaded', function () {
             countryError.textContent = '';
         }
 
-        // Validando o campo de imagem
         const imageInput = form.querySelector('input[name="profile_image"]');
         const imageError = form.querySelector('#profile_image-error');
         if (imageInput && imageInput.files.length > 0) {
@@ -161,7 +153,6 @@ document.addEventListener('DOMContentLoaded', function () {
         return isValid;
     }
 
-    // Adiciona evento de escuta para o formulário de criação de usuário
     const createUserForm = document.getElementById('user-form');
     if (createUserForm) {
         createUserForm.addEventListener('submit', function (event) {
@@ -171,7 +162,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Adiciona evento de escuta para o formulário de edição de usuário
     const editUserForm = document.getElementById('edit-user-form');
     if (editUserForm) {
         editUserForm.addEventListener('submit', function (event) {
