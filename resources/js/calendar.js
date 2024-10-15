@@ -125,6 +125,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     start: info.event.start.toISOString(),
                     end: info.event.end.toISOString()
                 });
+                window.location.reload();
             },
 
             eventClick: async function (info) {
